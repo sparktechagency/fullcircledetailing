@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useGetPriceApiQuery } from "../../../redux/web/pricing/pricingApi";
 
 const Pricing = () => {
+  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectId, setSelectId] = useState('')
@@ -14,15 +16,21 @@ const Pricing = () => {
 
   const { data: getPrice } = useGetPriceApiQuery();
   const priceData = getPrice?.data
-  // console.log(priceData)
+  console.log(getPrice)
 
   // console.log(singlePriceValue)
+  console.log(token,role)
 
 
   const showModal = (item) => {
+    if(token && role === 'USER'){
     setSelectId(item?.id)
     setSinglePriceValue(item)
     setModalOpen(true)
+    }else{
+navigate('/login')
+    }
+
   }
   const handleModalOkPenOk = () => {
 
