@@ -7,6 +7,8 @@ import CustomLoading from '../../components/shared/CustomLoading';
 
 
 const ServiceBook = () => {
+      const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const [selectId, setSelectId] = useState('')
@@ -23,9 +25,14 @@ const ServiceBook = () => {
 
 
     const showModal = (item) => {
-        setSelectId(item?.id)
+           if(token && role === 'USER'){
+   setSelectId(item?.id)
         setSinglePriceValue(item)
         setModalOpen(true)
+    }else{
+navigate('/login')
+    }
+     
     }
     const handleModalOkPenOk = () => {
 

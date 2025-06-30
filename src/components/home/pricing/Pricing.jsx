@@ -16,7 +16,7 @@ const Pricing = () => {
 
   const { data: getPrice } = useGetPriceApiQuery();
   const priceData = getPrice?.data
-  console.log(getPrice)
+  // console.log(getPrice)
 
   // console.log(singlePriceValue)
   console.log(token,role)

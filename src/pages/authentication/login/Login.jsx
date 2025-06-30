@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineArrowOutward } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePostAuthApiMutation } from "../../../redux/authontication/authApi";
 import toast from "react-hot-toast";
@@ -15,11 +15,14 @@ const Login = () => {
   const navigate = useNavigate()
   const [form] = Form.useForm();
   const [isFocused, setIsFocused] = useState(false);
+const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+
+
+
+
 
   const [postAuthApi] = usePostAuthApiMutation()
-
-
-
 
 
   
@@ -38,7 +41,7 @@ const Login = () => {
         toast.success(res?.message)
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-        navigate('/')
+            navigate(from, { replace: true });
       }else{
         toast.error(res?.message)
       }
