@@ -396,7 +396,7 @@ const CreateAccount = () => {
                 Create Account
               </Button>
 
-              <div className="flex flex-col gap-3 mt-6">
+              {/* <div className="flex flex-col gap-3 mt-6">
                 <button
                   type="button"
                   className="flex items-center justify-between h-[60px] rounded-[20px] px-[20px] border border-[#ccc] cursor-pointer"
@@ -406,7 +406,7 @@ const CreateAccount = () => {
                   </span>{" "}
                   <MdOutlineArrowOutward className="text-[24px]" />
                 </button>
-              </div>
+              </div> */}
             </Form>
           </div>
         </div>

@@ -186,7 +186,8 @@ const Login = () => {
               >
                 Login
               </Button>
-              <div className="md:pt-[20px]">
+
+              {/* <div className="md:pt-[20px]">
                 <Divider style={{ borderColor: '#ccc' }}>or</Divider>
               </div>
 
@@ -201,7 +202,7 @@ const Login = () => {
                   <MdOutlineArrowOutward className="text-[24px]" />
                 </button>
 
-              </div>
+              </div> */}
             </Form>
           </div>
         </div>
