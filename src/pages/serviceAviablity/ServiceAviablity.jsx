@@ -18,6 +18,7 @@ const ServiceAviablity = () => {
   const [activeNextButton, setActiveNextButton] = useState(false);
   const [clickable, setClickable] = useState(false) 
   const [selectedDate, setSelectedDate] = useState(null); // send
+  const [selectedDateTow, setSelectedDateTwo] = useState(null); // send
   const [bookingTime, setBookingTime] = useState(null); // send
   const location = useLocation();
   const { id, type, name, price } = location.state || {};
@@ -87,6 +88,7 @@ const ServiceAviablity = () => {
 
 
   const handleDateSelect = (date) => {
+    console.log(date)
     if (date) {
       // Get local date components (avoids timezone issues)
       const year = date.getFullYear();
@@ -95,7 +97,11 @@ const ServiceAviablity = () => {
 
       const formattedDate = `${year}-${month}-${day}`;
       setSelectedDate(formattedDate);
+       const displayOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const displayDate = date.toLocaleDateString('en-US', displayOptions);
+    setSelectedDateTwo(displayDate)
     }
+    
     // When you need to use it as a Date object (outside this function):
     const dateObject = selectedDate ? new Date(selectedDate) : null;
   };
@@ -173,7 +179,7 @@ const ServiceAviablity = () => {
             </div>
             <div className="flex flex-col md:flex-row justify-between gap-3 lg:gap-0 rounded-lg p-4 font-degular mt-6">
               <div>
-                <p className='text-[28px]  font-bold font-degular'>Today is {singleFormattedDate}. </p>
+                <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
                 <p className='text-[20px]  font-degular'>No availability until 27 March</p>
 
               </div>

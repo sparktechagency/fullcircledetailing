@@ -7,7 +7,7 @@ const Footer = () => {
       <CustomContainer>
         <div className="grid gap-8 md:gap-0  md:gap-y-28 lg:gap-y-0 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-[54px] lg:pt-10">
           <div className="relative z-10  ">
-            <img src="/logoWhite.png" alt="" className="w-[300px] p-4 lg:p-0"/>
+            <img src="/logoWhite1.png" alt="" className="w-[300px] p-4 lg:p-0"/>
             <p className="md:w-[340px] text-wrap pt-[11px]">
               Transforming challenges into shining successes.
             </p>

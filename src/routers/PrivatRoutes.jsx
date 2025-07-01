@@ -8,7 +8,7 @@ const PrivatRoutes = ({ children }) => {
     const [token, setToken] = useState(null);
     const [role, setRole] = useState(null);
     const location = useLocation();
-
+console.log(role)
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -25,7 +25,10 @@ const PrivatRoutes = ({ children }) => {
     if (token && (role === 'ADMIN')) {
         return children
     }
-    return <Navigate to="/admin/dashboard/login" state={{ from: location }} replace></Navigate>
+    else if (token && (role === 'USER')) {
+        return children
+    }
+    return <Navigate to="/login" state={{ from: location?.pathname }}  />
 };
 
 export default PrivatRoutes;

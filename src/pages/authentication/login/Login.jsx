@@ -16,9 +16,9 @@ const Login = () => {
   const [form] = Form.useForm();
   const [isFocused, setIsFocused] = useState(false);
 const location = useLocation()
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from || "/";
 
-
+console.log(location)
 
 
 

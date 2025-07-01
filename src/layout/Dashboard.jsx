@@ -436,7 +436,7 @@ const Dashboard = () => {
                     }}
                     trigger={null}
                 >
-                    <img onClick={() => navigate('/')} src="/logoWhite.png" alt="Logo" className="mx-auto py-6 w-[264px] object-cover cursor-pointer" />
+                    <img onClick={() => navigate('/')} src="/logoWhite1.png" alt="Logo" className="mx-auto py-6 w-[264px] object-cover cursor-pointer" />
                     <Menu
                         mode="inline"
                         style={{ background: "#0063E5", }}

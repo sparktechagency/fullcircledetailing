@@ -33,8 +33,12 @@ const Banner = () => {
           <div className="py-8 lg:py-16">
             <div className="flex flex-col lg:flex-row justify-between ">
               <div className="max-w-[705px] text-wrap">
-                <h1 className="font-semibold text-[34px] lg:text-[68px] ">
+                {/* <h1 className="font-semibold text-[34px] lg:text-[68px] ">
                   Keep your car clean always
+                </h1> */}
+
+                   <h1 className="font-semibold text-[30px] lg:text-[58px] ">
+                  Keep your <span className="text-primary">car clean</span> anywhere
                 </h1>
                 <p className="text-[24px] lg:text-[28px]">
                   Mobile car detailing services in Lakewood Ranch.

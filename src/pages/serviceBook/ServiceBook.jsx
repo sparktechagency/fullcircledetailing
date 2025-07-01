@@ -25,14 +25,9 @@ const ServiceBook = () => {
 
 
     const showModal = (item) => {
-           if(token && role === 'USER'){
    setSelectId(item?.id)
         setSinglePriceValue(item)
         setModalOpen(true)
-    }else{
-navigate('/login')
-    }
-     
     }
     const handleModalOkPenOk = () => {
 

@@ -83,11 +83,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/service-aviablity",
-        element: <ServiceAviablity />,
+        element: <PrivatRoutes>
+          <ServiceAviablity />,
+        </PrivatRoutes>
       },
       {
         path: "/checkout",
-        element: <CheckoutPage />,
+        element: <PrivatRoutes>
+          <CheckoutPage />,
+        </PrivatRoutes>
       },
       {
         path: "/user-profile",
@@ -95,7 +99,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-user-profile",
-        element: <EditUserProfile />,
+        element:<PrivatRoutes>
+           <EditUserProfile />
+        </PrivatRoutes>,
       },
       {
         path: "/notification",

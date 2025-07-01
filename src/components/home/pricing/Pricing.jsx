@@ -19,17 +19,15 @@ const Pricing = () => {
   // console.log(getPrice)
 
   // console.log(singlePriceValue)
-  console.log(token,role)
+  // console.log(token,role)
 
 
   const showModal = (item) => {
-    if(token && role === 'USER'){
+
     setSelectId(item?.id)
     setSinglePriceValue(item)
     setModalOpen(true)
-    }else{
-navigate('/login')
-    }
+
 
   }
   const handleModalOkPenOk = () => {
