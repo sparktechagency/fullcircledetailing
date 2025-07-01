@@ -6,6 +6,7 @@ import { useGetNotificationApiQuery } from "../../redux/dashboardFeatures/notifi
 import CustomLoading from "../../components/shared/CustomLoading";
 import { usePostFeedbackMutation } from "../../redux/dashboardFeatures/feedback/dashboardFeedbackApi";
 import toast from "react-hot-toast";
+import moment from "moment/moment";
 
 
 
@@ -20,15 +21,16 @@ const Notification = () => {
 
 
     const { data: getNotification, isLoading, refetch } = useGetNotificationApiQuery()
-    const notificationData = [...(getNotification?.data || [])]?.sort((a, b) => {
-        if (
-            (a.data.type === "Booking successful" && b.data.type === "Booking successful") ||
-            (a.data.type !== "Booking successful" && b.data.type !== "Booking successful")
-        ) {
-            return 0;
-        }
-        return a.data.type === "Booking successful" ? -1 : 1;
-    });
+    const notificationData = getNotification?.data
+    // const notificationData = [...(getNotification?.data || [])]?.sort((a, b) => {
+    //     if (
+    //         (a.data.type === "Booking successful" && b.data.type === "Booking successful") ||
+    //         (a.data.type !== "Booking successful" && b.data.type !== "Booking successful")
+    //     ) {
+    //         return 0;
+    //     }
+    //     return a.data.type === "Booking successful" ? -1 : 1;
+    // });
 
 
 
@@ -138,6 +140,7 @@ const Notification = () => {
                                     hours = hours % 12 || 12;
                                     return `${hours}:${minutes} ${ampm}`;
                                 };
+                                console.log(notificationData)
                                 return (
                                     <div key={index} className="grid grid-cols-12 border border-[#ccc] mb-2 rounded-xl p-4">
                                         <div className="col-span-5">
@@ -146,7 +149,7 @@ const Notification = () => {
                                         </div>
 
                                         <div className="flex flex-col col-span-5">
-                                            <p className="lg:text-[24px]">{formattedDate}</p>
+                                            <p className="lg:text-[24px]">{item?.created_at && moment(item.created_at).format("ll")}</p>
                                             <p className="text-[#888888]">
                                                 {formatTime(item?.created_at)}
                                             </p>

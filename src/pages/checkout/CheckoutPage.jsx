@@ -16,6 +16,7 @@ import {
 } from '@stripe/react-stripe-js';
 import toast from "react-hot-toast";
 import { useBookingSuccessMutation, useCreateIntentMutation } from "../../redux/web/serviceAvility/serviceAvilityApi";
+import moment from "moment";
 
 const stripePromise = loadStripe('pk_test_51QKAtBKOpUtqOuW1x5VdNqH3vG7CZZl1P6V3VuV1qsRUmPLNk26i34AXeu2zCO3QurFJAOZ9zfb0EkWeCVhqBYgH008X41cXr6');
 const CheckoutPage = () => {
@@ -23,6 +24,7 @@ const CheckoutPage = () => {
   const [formTwo] = Form.useForm();
   const navigate = useNavigate();
   const [isFocused, setIsFocused] = useState(false);
+  const [agreement,setAgreement] = useState(false)
   const [modalOpen, setModalOpen] = useState(false);
   const [ImageFileList, setImageFileList] = useState([]);
   const [bookingNode, setBookingNode] = useState('')
@@ -174,7 +176,7 @@ setPaymentInfo(info)
                   name="phone"
                 >
                   <Input
-                    readOnly
+               
                     placeholder="Your phone number"
                     prefix={
                       <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -323,7 +325,12 @@ setPaymentInfo(info)
                   type="button" className="bg-primary text-[#ffff] px-8 py-2 rounded text-xl">+ Add</button>
               </div>
               <div className="pt-4 pb-2 pr-1 font-degular">
-                <Checkbox className=" font-semibold font-degular">
+                <Checkbox onChange={(e)=>{
+                  console.log(e)
+                }} 
+                on
+                
+                className=" font-semibold font-degular">
                   <div className="flex gap-3">
                     <span>I  agree with the </span>
                     <span className="text-primary">Privacy Policy</span>
@@ -427,13 +434,15 @@ export default CheckoutPage
 
 export const PaymentCard = ({paymentInfo}) => {
  const [errorMessage, setErrorMessage] = useState(null);
-  const {  service_type, service_name, price, }  = paymentInfo;
+  const {  service_type, service_name, price, booking_date, booking_time}  = paymentInfo;
+
+  console.log(paymentInfo)
 
   const [createIntent, intentResults] = useCreateIntentMutation()
 
   const [bookingSuccess, bookingResults] = useBookingSuccessMutation()
 
-
+  const navigation = useNavigate()
     const stripe = useStripe();
   const elements = useElements();
 
@@ -481,6 +490,9 @@ export const PaymentCard = ({paymentInfo}) => {
     } else {
       paymentInfo.stripe_payment_intent_id = paymentIntent.id;
 
+      console.log(moment(booking_date).format("YY-DD-MM"))
+      
+paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
 
       console.log(paymentInfo)
 
@@ -490,6 +502,7 @@ export const PaymentCard = ({paymentInfo}) => {
 console.log(res)
       if(res.status){
         toast.success( "Your booking is submit successfully done!")
+       navigation("/") 
       }
       
 
@@ -518,9 +531,9 @@ console.log(res)
               <div className="flex items-center gap-3">
                 <img src="/checkoutLogo.svg" alt="logo" />
                 <div>
-                  <p className='text-[20px]  font-degular'>Thursday, March 27, 2025</p>
+                  <p className='text-[20px]  font-degular'>{booking_date &&  moment(booking_date).format("ll")}</p>
                   {/* <p className='text-[20px] text-gray-300 font-degular'>{bookingTime}</p> */}
-                  <p className='text-[20px] text-gray-300 font-degular'>asdf</p>
+                  <p className='text-[20px] text-gray-300 font-degular'>{booking_time}</p>
                 </div>
               </div>
 

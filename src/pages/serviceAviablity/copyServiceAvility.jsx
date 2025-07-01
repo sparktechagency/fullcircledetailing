@@ -3,7 +3,6 @@ import CustomContainer from "../../components/shared/CustomContainer"
 import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useGetServiceAvilityApiQuery, useGetTimeApiQuery } from "../../redux/web/serviceAvility/serviceAvilityApi";
-import moment from "moment";
 
 
 
@@ -18,7 +17,7 @@ const ServiceAviablity = () => {
   const [activeTimes, setActiveTimes] = useState(false);
   const [activeNextButton, setActiveNextButton] = useState(false);
   const [clickable, setClickable] = useState(false) 
-  const [selectedDate, setSelectedDate] = useState(new Date()); // send
+  const [selectedDate, setSelectedDate] = useState(null); // send
   const [selectedDateTow, setSelectedDateTwo] = useState(null); // send
   const [bookingTime, setBookingTime] = useState(null); // send
   const location = useLocation();
@@ -30,11 +29,10 @@ const ServiceAviablity = () => {
   const blockServiceDate = getBlockService?.data?.data;
 
 
-  const { data: timeData , isLoading , isFetching } = useGetTimeApiQuery({service_id:id,date: moment(selectedDate)?.format("YY-MM-DD")})
- 
+  const { data: getTime } = useGetTimeApiQuery({service_id:id,date:selectedDate})
+  const timeallData = getTime?.data
 
-
-// console.log(moment(selectedDate)?.format("YY-MM-DD"))
+// console.log(id,selectedDate)
 
 
   const today = new Date();
@@ -90,17 +88,22 @@ const ServiceAviablity = () => {
 
 
   const handleDateSelect = (date) => {
-    
+    console.log(date)
     if (date) {
       // Get local date components (avoids timezone issues)
-     
-      setSelectedDate(date);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      const formattedDate = `${year}-${month}-${day}`;
+      setSelectedDate(formattedDate);
        const displayOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const displayDate = date.toLocaleDateString('en-US', displayOptions);
     setSelectedDateTwo(displayDate)
     }
     
-   
+    // When you need to use it as a Date object (outside this function):
+    const dateObject = selectedDate ? new Date(selectedDate) : null;
   };
 
 
@@ -115,6 +118,9 @@ const ServiceAviablity = () => {
   const handleCheckoutPage = () => {
     if (activeTimes.length === 0) return; // Do nothing if nothing is selected
     navigate(`/checkout`, { state: { id, type, name, price,selectedDate,bookingTime } });
+  }
+  const handleData = (dateValue) => {
+    setSelectDate(true)
   }
 
 
@@ -131,11 +137,8 @@ const ServiceAviablity = () => {
     window.scrollTo(0, 0);
   }, []);
 
-
-  console.log(timeData)
-
   return (
-    <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6] transition-all duration-500">
+    <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
       <CustomContainer>
         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-0 pt-10 lg:pt-0 min-h-[200px]">
           <div>
@@ -174,6 +177,26 @@ const ServiceAviablity = () => {
                 }}
               />
             </div>
+            <div className="flex flex-col md:flex-row justify-between gap-3 lg:gap-0 rounded-lg p-4 font-degular mt-6">
+              <div>
+                <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                <p className='text-[20px]  font-degular'>No availability until 27 March</p>
+
+              </div>
+              <div className="">
+                <button onClick={() => handleData(value)} className={`bg-primary text-[#ffff] text-[20px] py-2 md:py-4 px-[40px] md:px-[57px] rounded-full flex items-center gap-2 ${!selectedDate ? 'opacity-20 cursor-not-allowed' : ''
+                  }`}
+                  disabled={!selectedDate}>
+                  Go to next date
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
+                  </svg>
+
+                </button>
+
+              </div>
+
+            </div>
           </div>
 
 
@@ -197,25 +220,24 @@ const ServiceAviablity = () => {
 
 
 
-        { isLoading || isFetching ? <div>loading...</div> :
-            <div className="lg:w-[50%] mt-8">
-       
+        {
+          selectDate && <div className="lg:w-[50%] mt-8">
+            {
+              timeallData?.length > 0 && <h3 className='text-[20px] md:text-[50px] font-medium font-degular'>Wednesday March 27, 2025. </h3>
+            }
             
             {
-              timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
+              timeallData?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
             }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:place-items-baseline gap-y-4">
               {
-                timeData?.data?.length > 0 ? (
-                  timeData?.data.map((singleTime, index) => {
+                timeallData?.length > 0 ? (
+                  timeallData.map((singleTime, index) => {
                     return (
                       <div
                         key={index}
-                        onClick={()=>{
-                          setActiveNextButton(true)
-                          setBookingTime(singleTime)
-                        }}
+                        onClick={()=>handleSelectTime(singleTime)}
                         className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
                           }`}
                       >
@@ -224,25 +246,24 @@ const ServiceAviablity = () => {
                     );
                   })
                 ) : (
-                  <div>
-                <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
-                <p className='text-[20px]  font-degular'>No availability </p>
-
-              </div>
+                  <div className="w-full rounded-lg ">
+                    <p className="lg:text-3xl md:text-1xl text-base font-bold text-gray-200 uppercase text-center">No data found</p>
+                  </div>
                 )
               }
             </div>
 
             {
-            
-                <button disabled={!activeNextButton}  onClick={handleCheckoutPage} className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
+              timeallData?.length > 0 ? <div>
+                <button onClick={handleCheckoutPage} className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
                   Next
                   <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
                   </svg>
                 </button>
-           
-             
+              </div>
+                :
+                ''
             }
 
 

@@ -54,49 +54,7 @@ const HomeService = () => {
 
                        
                     </div>
-                    {/* card three */}
-                    <div className="relative">
-                        <div className="relative">
-                            <img
-                            src="/ourServices/service3.png"
-                            alt=""
-                            className="w-full h-full object-cover rounded-[20px]"
-                        />
-                            {/* Overlay Layer */}
-    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
-                         <div className="absolute inset-0 top-[55%] md:top-[60%] lg:top-[78%] left-[5%] text-[#ffff]">
-                            <h2 className="text-[24px] lg:text-[36px] font-medium font-degular">Wax & Polish</h2>
-                            <p className="lg:text-[20px] font-medium font-degular">Hand-applied wax for a brilliant shine and long lasting protection.</p>
-                        </div>
-
-                        </div>
-                        <p className="absolute top-0 bg-primary w-10 h-10 md:w-16 md:h-16 lg:w-20  lg:h-20 rounded-[10px] flex justify-center items-center text-[#ffff] text-[20px] md:text-[34px] lg:text-[48px] font-semibold font-degular ring-4 md:ring-8 ring-[#f6f6f6]">
-                            03
-                        </p>
-
-                       
-                    </div>
-                    {/* card four */}
-                    <div className="relative">
-                        <div className="relative">
-                            <img
-                            src="/ourServices/service4.png"
-                            alt=""
-                            className="w-full h-full object-cover rounded-[20px]"
-                        />
-                            {/* Overlay Layer */}
-    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
-                         <div className="absolute inset-0 top-[55%] md:top-[60%] lg:top-[78%] left-[5%] text-[#ffff]">
-                            <h2 className="text-[24px] lg:text-[36px] font-medium font-degular">Interior Cleaning</h2>
-                            <p className="lg:text-[20px] font-medium font-degular">Vacuuming, dusting and interior window cleaning for a spotless cabin.</p>
-                        </div>
-
-                        </div>
-                        <p className="absolute top-0 bg-primary w-10 h-10 md:w-16 md:h-16 lg:w-20  lg:h-20 rounded-[10px] flex justify-center items-center text-[#ffff] text-[20px] md:text-[34px] lg:text-[48px] font-semibold font-degular ring-4 md:ring-8 ring-[#f6f6f6]">
-                            04
-                        </p>
-                       
-                    </div>
+             
 
                 </div>
             </CustomContainer>
