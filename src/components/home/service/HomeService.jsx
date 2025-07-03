@@ -14,47 +14,41 @@ const HomeService = () => {
                     <div className="relative">
                         <div className="relative">
                             <img
-                            src="/ourServices/service1.png"
-                            alt=""
-                            className="w-full h-full object-cover rounded-[20px]"
-                        />
+                                src="/ourServices/service1.png"
+                                alt=""
+                                className="w-full h-full object-cover rounded-[20px]"
+                            />
                             {/* Overlay Layer */}
-    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
-                         <div className="absolute inset-0 top-[55%] md:top-[60%] lg:top-[78%] left-[5%] text-[#ffff]">
-                            <h2 className="text-[24px] lg:text-[36px] font-medium font-degular">Basic Wash</h2>
-                            <p className="lg:text-[20px] font-medium font-degular">A quick, efficient wash that leaves your car looking fresh.</p>
-                        </div>
+                            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
+                            <div className="absolute inset-0 top-[82%] md:top-[84%] lg:top-[88%] left-[5%] text-[#ffff]">
+                                <p className="lg:text-[20px] font-medium font-degular">Interior Cleaning</p>
+                            </div>
 
                         </div>
                         <p className="absolute top-0 bg-primary w-10 h-10 md:w-16 md:h-16 lg:w-20  lg:h-20 rounded-[10px] flex justify-center items-center text-[#ffff] text-[20px] md:text-[34px] lg:text-[48px] font-semibold font-degular ring-4 md:ring-8 ring-[#f6f6f6]">
                             01
                         </p>
-
-                       
                     </div>
                     {/* card two */}
-                    <div className="relative">
+                <div className="relative">
                         <div className="relative">
                             <img
-                            src="/ourServices/service2.png"
-                            alt=""
-                            className="w-full h-full object-cover rounded-[20px]"
-                        />
+                                src="/ourServices/service2.png"
+                                alt=""
+                                className="w-full h-full object-cover rounded-[20px]"
+                            />
                             {/* Overlay Layer */}
-    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
-                         <div className="absolute inset-0 top-[55%] md:top-[60%] lg:top-[78%] left-[5%] text-[#ffff]">
-                            <h2 className="text-[24px] lg:text-[36px] font-medium font-degular">Deluxe Wash</h2>
-                            <p className="lg:text-[20px] font-medium font-degular">Include a through exterior wash, plus tire and wheel cleaning.</p>
-                        </div>
+                            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
+                            <div className="absolute inset-0 top-[82%] md:top-[84%] lg:top-[88%] left-[5%] text-[#ffff]">
+                                <p className="lg:text-[20px] font-medium font-degular">Exterior Cleaning</p>
+                            </div>
 
                         </div>
                         <p className="absolute top-0 bg-primary w-10 h-10 md:w-16 md:h-16 lg:w-20  lg:h-20 rounded-[10px] flex justify-center items-center text-[#ffff] text-[20px] md:text-[34px] lg:text-[48px] font-semibold font-degular ring-4 md:ring-8 ring-[#f6f6f6]">
                             02
                         </p>
-
-                       
                     </div>
-             
+
 
                 </div>
             </CustomContainer>

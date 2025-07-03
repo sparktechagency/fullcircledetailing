@@ -39,7 +39,7 @@ const Footer = () => {
                 Home
               </a>
               <a href="/about" className="text-[18px] font-degular">
-                About us
+                About Us
               </a>
               <a href="/service" className="text-[18px] font-degular">
                 Services

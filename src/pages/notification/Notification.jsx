@@ -163,7 +163,7 @@ const Notification = () => {
                                         <div className="md:col-span-2 flex md:justify-center items-center">
                                             {
                                                 item?.data?.sub_title === "Booking successful" ? <div className="flex flex-col text-center">
-                                                    <p className="lg:text-[24px]">{item.data?.service_name}</p>
+                                                    <p className="lg:text-[24px] font-semibold">{item.data?.service_name}</p>
                                                     <p className="lg:text-[24px]">{item.data?.service_type}</p>
                                                 </div>
                                                     :

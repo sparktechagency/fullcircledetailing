@@ -33,7 +33,7 @@ const Banner = () => {
           <div className="py-8 lg:py-16">
             <div className="flex flex-col lg:flex-row justify-between ">
               <div className="max-w-[705px] text-wrap md:mt-[40px] lg:mt-[100px]">
-                   <h1 className="font-semibold text-[30px] lg:text-[58px] ">
+                <h1 className="font-semibold text-[30px] lg:text-[58px] ">
                   Keep your <span className="text-primary">car clean</span> anywhere
                 </h1>
                 <p className="text-[24px] lg:text-[28px]">
@@ -116,81 +116,60 @@ const Banner = () => {
                         {latestComment?.name}
                       </h4>
                       {typeof rating === "number" && (
-                        // <Rate
-                        //   character={(props) => {
-                        //     return (
-                        //       <svg
-                        //         xmlns="http://www.w3.org/2000/svg"
-                        //         width="15"
-                        //         height="15"
-                        //         viewBox="0 0 511.987 511"
-                        //       >
-                        //         <path
-                        //           fill={
-                        //             props.index < rating ? "#ffc107" : "#E0E0E0" // fallback color
-                        //           }
-                        //           d="M510.652 185.902a27.158 27.158 0 0 0-23.425-18.71l-147.774-13.419-58.433-136.77C276.71 6.98 266.898.494 255.996.494s-20.715 6.487-25.023 16.534l-58.434 136.746-147.797 13.418A27.208 27.208 0 0 0 1.34 185.902c-3.371 10.368-.258 21.739 7.957 28.907l111.7 97.96-32.938 145.09c-2.41 10.668 1.73 21.696 10.582 28.094 4.757 3.438 10.324 5.188 15.937 5.188 4.84 0 9.64-1.305 13.95-3.883l127.468-76.184 127.422 76.184c9.324 5.61 21.078 5.097 29.91-1.305a27.223 27.223 0 0 0 10.582-28.094l-32.937-145.09 111.699-97.94a27.224 27.224 0 0 0 7.98-28.927zm0 0"
-                        //         />
-                        //       </svg>
-                        //     );
-                        //   }}
-                        //   defaultValue={rating}
-                        //   disabled
-                        // />
                         <Rate
-  allowHalf
-  defaultValue={rating}
-  disabled
-  character={(props) => {
-    const index = props.index + 1;
-    const value = props.value;
+                          allowHalf
+                          defaultValue={rating}
+                          disabled
+                          character={(props) => {
+                            const index = props.index + 1;
+                            const value = props.value;
 
-    let fillColor = "oklch(92.8% 0.006 264.531)";
+                            let fillColor = "oklch(92.8% 0.006 264.531)";
 
-    if (index <= value) {
-      fillColor = "#ffc107"; // full star
-    } else if (index - 0.5 === value) {
-      // half star: use linear gradient
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"
-          viewBox="0 0 511.987 511"
-        >
-          <defs>
-            <linearGradient id={`halfGradient-${index}`}>
-              <stop offset="50%" stopColor="#ffc107" />
-              <stop offset="50%" stopColor="oklch(92.8% 0.006 264.531)" />
-            </linearGradient>
-          </defs>
-          <g>
-            <path
-              fill={`url(#halfGradient-${index})`}
-              d="M510.652 185.902a27.158 27.158 0 0 0-23.425-18.71l-147.774-13.419-58.433-136.77C276.71 6.98 266.898.494 255.996.494s-20.715 6.487-25.023 16.534l-58.434 136.746-147.797 13.418A27.208 27.208 0 0 0 1.34 185.902c-3.371 10.368-.258 21.739 7.957 28.907l111.7 97.96-32.938 145.09c-2.41 10.668 1.73 21.696 10.582 28.094 4.757 3.438 10.324 5.188 15.937 5.188 4.84 0 9.64-1.305 13.95-3.883l127.468-76.184 127.422 76.184c9.324 5.61 21.078 5.097 29.91-1.305a27.223 27.223 0 0 0 10.582-28.094l-32.937-145.09 111.699-97.94a27.224 27.224 0 0 0 7.98-28.927z"
-            />
-          </g>
-        </svg>
-      );
-    }
+                            if (index <= value) {
+                              fillColor = "#ffc107"; // full star
+                            } else if (index - 0.5 === value) {
+                              // half star: use linear gradient
+                              return (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="15"
+                                  height="15"
+                                  viewBox="0 0 511.987 511"
+                                >
+                                  <defs>
+                                    <linearGradient id={`halfGradient-${index}`}>
+                                      <stop offset="50%" stopColor="#ffc107" />
+                                      <stop offset="50%" stopColor="oklch(92.8% 0.006 264.531)" />
+                                    </linearGradient>
+                                  </defs>
+                                  <g>
+                                    <path
+                                      fill={`url(#halfGradient-${index})`}
+                                      d="M510.652 185.902a27.158 27.158 0 0 0-23.425-18.71l-147.774-13.419-58.433-136.77C276.71 6.98 266.898.494 255.996.494s-20.715 6.487-25.023 16.534l-58.434 136.746-147.797 13.418A27.208 27.208 0 0 0 1.34 185.902c-3.371 10.368-.258 21.739 7.957 28.907l111.7 97.96-32.938 145.09c-2.41 10.668 1.73 21.696 10.582 28.094 4.757 3.438 10.324 5.188 15.937 5.188 4.84 0 9.64-1.305 13.95-3.883l127.468-76.184 127.422 76.184c9.324 5.61 21.078 5.097 29.91-1.305a27.223 27.223 0 0 0 10.582-28.094l-32.937-145.09 111.699-97.94a27.224 27.224 0 0 0 7.98-28.927z"
+                                    />
+                                  </g>
+                                </svg>
+                              );
+                            }
 
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="15"
-        height="15"
-        viewBox="0 0 511.987 511"
-      >
-        <g>
-          <path
-            fill={fillColor}
-            d="M510.652 185.902a27.158 27.158 0 0 0-23.425-18.71l-147.774-13.419-58.433-136.77C276.71 6.98 266.898.494 255.996.494s-20.715 6.487-25.023 16.534l-58.434 136.746-147.797 13.418A27.208 27.208 0 0 0 1.34 185.902c-3.371 10.368-.258 21.739 7.957 28.907l111.7 97.96-32.938 145.09c-2.41 10.668 1.73 21.696 10.582 28.094 4.757 3.438 10.324 5.188 15.937 5.188 4.84 0 9.64-1.305 13.95-3.883l127.468-76.184 127.422 76.184c9.324 5.61 21.078 5.097 29.91-1.305a27.223 27.223 0 0 0 10.582-28.094l-32.937-145.09 111.699-97.94a27.224 27.224 0 0 0 7.98-28.927z"
-          />
-        </g>
-      </svg>
-    );
-  }}
-/>
+                            return (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                viewBox="0 0 511.987 511"
+                              >
+                                <g>
+                                  <path
+                                    fill={fillColor}
+                                    d="M510.652 185.902a27.158 27.158 0 0 0-23.425-18.71l-147.774-13.419-58.433-136.77C276.71 6.98 266.898.494 255.996.494s-20.715 6.487-25.023 16.534l-58.434 136.746-147.797 13.418A27.208 27.208 0 0 0 1.34 185.902c-3.371 10.368-.258 21.739 7.957 28.907l111.7 97.96-32.938 145.09c-2.41 10.668 1.73 21.696 10.582 28.094 4.757 3.438 10.324 5.188 15.937 5.188 4.84 0 9.64-1.305 13.95-3.883l127.468-76.184 127.422 76.184c9.324 5.61 21.078 5.097 29.91-1.305a27.223 27.223 0 0 0 10.582-28.094l-32.937-145.09 111.699-97.94a27.224 27.224 0 0 0 7.98-28.927z"
+                                  />
+                                </g>
+                              </svg>
+                            );
+                          }}
+                        />
 
                       )}
                     </div>
@@ -225,9 +204,7 @@ const Banner = () => {
               Advanced Equipment
             </h3>
             <p className="text-[16px] font-montserrat text-[#000000] text-center">
-              Professional car washing ensures thorough cleaning, detailing, and
-              protection using advanced techniques, eco-friendly products, and
-              expert care for vehicle maintenance.
+              High-end car washing equipment includes advanced pressure washers, foam cannons, steam cleaners for superior cleaning and protection.
             </p>
           </div>
           <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
@@ -236,9 +213,7 @@ const Banner = () => {
               Affordable Pricing
             </h3>
             <p className="text-[16px] font-montserrat text-[#000000] text-center">
-              Professional car washing ensures thorough cleaning, detailing, and
-              protection using advanced techniques, eco-friendly products, and
-              expert care for vehicle maintenance.
+              Offering the best pricing in mobile car washing with affordable rates, premium service, customized packages, and great value for top-quality vehicle care.
             </p>
           </div>
         </div>
