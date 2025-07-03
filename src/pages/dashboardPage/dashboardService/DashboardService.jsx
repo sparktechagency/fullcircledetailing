@@ -28,6 +28,9 @@ const DashboardService = () => {
     period: "PM"
   });
 
+  console.log(currentTime);
+  
+
   const [initialTime, setInitialTime] = useState(currentTime);
   const [selectedTime, setSelectTime] = useState(null)
 
@@ -324,21 +327,23 @@ const DashboardService = () => {
 
   const formatTimeString = () => {
     const { hour, minute, period } = initialTime;
-    return `${formatNumber(hour)}:${formatNumber(minute)}: ${period}`;
+    return `${formatNumber(hour)}:${formatNumber(minute)} ${period}`;
   };
 
 
 
 
 
+
   const handleOkTime = async () => {
-    setSelectTime(formatTimeString)
-    setIsModalOpen(false)
+     const newTime = formatTimeString(); // Get the current formatted time
+  setSelectTime(newTime); // Update state
+  setIsModalOpen(false);
 
 
     const formData = new FormData();
-    formData.append("service_id", slotTimeId);
-    formData.append("time", selectedTime);
+     formData.append("service_id", slotTimeId);
+  formData.append("time", newTime);
 
     try {
       const res = await addTime(formData).unwrap()
@@ -354,7 +359,8 @@ const DashboardService = () => {
 
   }
   const handleCancelTime = () => {
-    setIsModalOpen(false)
+     setIsModalOpen(false);
+  setInitialTime(currentTime);
   }
 
 
@@ -915,8 +921,6 @@ const DashboardService = () => {
                   </div>
                   <span className="text-xs text-gray-500 mt-1">Hour</span>
                 </div>
-
-                <div className="text-2xl font-light text-gray-400 mx-1">:</div>
 
                 {/* Minute Section */}
                 <div className="flex flex-col items-center mx-1">

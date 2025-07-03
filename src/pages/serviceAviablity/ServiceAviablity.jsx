@@ -168,9 +168,11 @@ const ServiceAviablity = () => {
                   { before: disabledBefore }, // Disable past dates
                   ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
                 ]}
+                modifiers={{ today: new Date() }}
                 modifiersClassNames={{
                   disabled: "cursor-not-allowed opacity-50",
-                  selected: "bg-primary text-white"
+                  selected: "bg-primary text-white",
+                  today: "text-primary "
                 }}
               />
             </div>
