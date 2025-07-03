@@ -140,15 +140,19 @@ const Notification = () => {
                                     hours = hours % 12 || 12;
                                     return `${hours}:${minutes} ${ampm}`;
                                 };
-                                console.log(notificationData)
+
                                 return (
-                                    <div key={index} className="grid grid-cols-12 border border-[#ccc] mb-2 rounded-xl p-4">
-                                        <div className="col-span-5">
-                                            <p className="lg:text-[30px] font-semibold text-[##000000]">{item?.data?.title}</p>
-                                            <h1 className={`${item?.data?.sub_title === "Booking successful" ? "text-primary lg:text-[30px]" : "text-[#319F43] lg:text-[30px]"}`}>{item?.data?.sub_title}</h1>
+                                    <div key={index} className="grid grid-cols-1 md:grid-cols-12 border border-[#ccc] mb-2 rounded-xl p-4 space-y-4 md:space-y-0">
+                                         
+                                        <div className="md:col-span-5">
+                                            <p className="lg:text-[30px] font-semibold text-[##000000] text-wrap">{item?.data?.title}</p>
+
+                                            <h1 className={`${item?.data?.sub_title === "Booking successful" ? "text-primary lg:text-[30px] text-wrap" : "text-[#319F43] lg:text-[30px] text-wrap"}`}>{item?.data?.sub_title}</h1>
+                                            
                                         </div>
 
-                                        <div className="flex flex-col col-span-5">
+
+                                        <div className="flex flex-col col-span-5 md:ml-20">
                                             <p className="lg:text-[24px]">{item?.created_at && moment(item.created_at).format("ll")}</p>
                                             <p className="text-[#888888]">
                                                 {formatTime(item?.created_at)}
@@ -156,7 +160,7 @@ const Notification = () => {
                                         </div>
 
 
-                                        <div className="col-span-2 flex justify-center items-center">
+                                        <div className="md:col-span-2 flex md:justify-center items-center">
                                             {
                                                 item?.data?.sub_title === "Booking successful" ? <div className="flex flex-col text-center">
                                                     <p className="lg:text-[24px]">{item.data?.service_name}</p>
@@ -165,7 +169,7 @@ const Notification = () => {
                                                     :
                                                     <div
                                                         onClick={() => showmodalOne(item?.data?.service_id)}
-                                                        className="bg-[#F27712]  w-fit cursor-pointer py-4 px-6 rounded-[14px] lg:text-xl flex items-center gap-4">
+                                                        className="bg-[#F27712]  w-fit cursor-pointer py-2 lg:py-4 px-3 lg:px-6 rounded-[14px] lg:text-xl flex items-center gap-2 lg:gap-4 md:mr-4 lg:mr-0">
                                                         <span className="cursor-pointer flex items-center">
                                                             <svg width="30" height="28" viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M15 0.5L18.3677 10.8647H29.2658L20.4491 17.2705L23.8168 27.6353L15 21.2295L6.18322 27.6353L9.55093 17.2705L0.734152 10.8647H11.6323L15 0.5Z" fill="white" />

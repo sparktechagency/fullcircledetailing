@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGetPriceApiQuery } from "../../redux/web/pricing/pricingApi";
 import { Modal } from "antd";
 import CustomLoading from "../../components/shared/CustomLoading";
+import { CloudCog } from "lucide-react";
 
 
 const Pricing = () => {
@@ -69,25 +70,26 @@ const Pricing = () => {
     return <CustomLoading />
   }
 
-
+  
   return (
-    <section className="bg-[#f6f6f6] py-10 pt-28 lg:pt-[140px]">
-      <CustomContainer>
+    // <section className="bg-[#f6f6f6] py-10 pt-28 lg:pt-[140px]">
+    <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-28 lg:pt-[140px]">
+       <CustomContainer>
         <div>
           <CommonTitle text={"Pricing"} />
           <div className="overflow-x-auto whitespace-nowrap">
-            <div className="min-w-[1000px] min-h-[500px]">
+            <div className="min-w-[1000px]">
               {priceData?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex justify-between items-center border rounded-xl mb-4 p-2 lg:p-4 font-degular"
+                    className="grid grid-cols-12 border rounded-xl mb-4 p-2 lg:p-4 font-degular"
                   >
-                    <div className="lg:w-[300px]">
+                    <div className="col-start-1 col-end-4 ">
                       <h1 className="text-[28px] lg:text-[30px]">{item?.car_type}</h1>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="col-start-4 col-end-10  flex items-center gap-4">
                       <div className=" lg:w-[300px]">
                         <p className="text-[20px] lg:text-[24px]">Interior</p>
                         <p className="text-[28px] lg:text-[48px] font-semibold text-primary">
@@ -108,8 +110,8 @@ const Pricing = () => {
                       </div>
                     </div>
 
-                    <div className="lg:w-[200px] flex justify-end ">
-                      <button onClick={() => showModal(item)} className="bg-primary text-[#ffffff] px-[74px] py-2 lg:py-[14px] text-[24px] rounded-full my-2">
+                    <div className="col-start-10 col-end-13  flex justify-end items-center ">
+                      <button onClick={() => showModal(item)} className="bg-primary h-[60px] flex justify-center items-center text-[#ffffff] px-[74px] py-2 lg:py-[14px] text-[24px] rounded-full m-2">
                         Select
                       </button>
                     </div>
@@ -119,7 +121,6 @@ const Pricing = () => {
             </div>
           </div>
         </div>
-
 
         {/* modal component  */}
         <Modal
@@ -147,10 +148,7 @@ const Pricing = () => {
                   <p className='text-[24px] font-degular'>Interior</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.interior}</p>
                 </div>
-
-                <span
-                  onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
-                  className="cursor-pointer">
+                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))} className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,7 +156,6 @@ const Pricing = () => {
                     <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
                   </svg>
                 </span>
-
               </div>
             </div>
 
@@ -169,9 +166,7 @@ const Pricing = () => {
                   <p className='text-[24px] font-degular'>Exterior</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.exterior}</p>
                 </div>
-                <span
-                  onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
-                  className="cursor-pointer">
+                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))} className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,9 +184,7 @@ const Pricing = () => {
                   <p className='text-[24px] font-degular'>Both</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.both}</p>
                 </div>
-                <span
-                  onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
-                  className="cursor-pointer">
+                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))} className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
