@@ -7,8 +7,8 @@ import CustomLoading from '../../components/shared/CustomLoading';
 
 
 const ServiceBook = () => {
-      const token = localStorage.getItem("token")
-  const role = localStorage.getItem("role")
+    const token = localStorage.getItem("token")
+    const role = localStorage.getItem("role")
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const [selectId, setSelectId] = useState('')
@@ -25,7 +25,7 @@ const ServiceBook = () => {
 
 
     const showModal = (item) => {
-   setSelectId(item?.id)
+        setSelectId(item?.id)
         setSinglePriceValue(item)
         setModalOpen(true)
     }
@@ -38,8 +38,8 @@ const ServiceBook = () => {
 
 
 
-    const handlePrice = (id, type ,name, price) => {
-        navigate(`/service-aviablity`, { state: { id, type ,name, price } })
+    const handlePrice = (id, type, name, price) => {
+        navigate(`/service-aviablity`, { state: { id, type, name, price } })
     }
 
 
@@ -142,7 +142,7 @@ const ServiceBook = () => {
                     centered
                     title={
                         <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
-                            Compact
+                            {singlePriceValue?.car_type}
                         </div>
                     }
                     open={modalOpen}
@@ -151,19 +151,21 @@ const ServiceBook = () => {
                     footer={null}
                     width={600}
                     className='custom-service-modal'
-                    maskStyle={{ backgroundColor: 'rgba(134, 134, 134, 0.4)' }}
+
                 >
                     <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to book ?</p>
 
                     {/* interior card */}
                     <div className="pb-4">
                         <div className='px-4'>
-                            <div className='flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                            <div
+                            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+                            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                                 <div>
                                     <p className='text-[24px] font-degular'>Interior</p>
                                     <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.interior}</p>
                                 </div>
-                                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))} className="cursor-pointer">
+                                <span  className="cursor-pointer">
                                     <svg
                                         className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                                         viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,12 +178,14 @@ const ServiceBook = () => {
 
                         {/* exterior card */}
                         <div className='px-4'>
-                            <div className='flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                            <div 
+                            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+                            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                                 <div>
                                     <p className='text-[24px] font-degular'>Exterior</p>
                                     <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.exterior}</p>
                                 </div>
-                                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))} className="cursor-pointer">
+                                <span onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))} className="cursor-pointer">
                                     <svg
                                         className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                                         viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,12 +198,14 @@ const ServiceBook = () => {
 
                         {/* Both card*/}
                         <div className='px-4'>
-                            <div className='flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                            <div 
+                            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+                            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                                 <div>
                                     <p className='text-[24px] font-degular'>Both</p>
                                     <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.both}</p>
                                 </div>
-                                <span onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))} className="cursor-pointer">
+                                <span onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))} className="cursor-pointer">
                                     <svg
                                         className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                                         viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
