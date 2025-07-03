@@ -22,13 +22,13 @@ const Navbar = () => {
 
 
   const token = localStorage.getItem('token')
-  const { data: userProfileData, isLoading, } = useGetProfileApiQuery({},{
-    refetchOnFocus:true,
-    skip:!token
+  const { data: userProfileData, isLoading, } = useGetProfileApiQuery({}, {
+    refetchOnFocus: true,
+    skip: !token
   })
-  
 
-  
+
+
 
 
 
@@ -87,7 +87,7 @@ const Navbar = () => {
             {/* large devie */}
             <div className={`lg:flex items-center transition-all duration-500 ease-in-out ${!shouldHideNavbarButton ? "justify-between" : "justify-start gap-10 "}`}>
               <div onClick={handleNavigate} className="cursor-pointer ">
-                <img src="/logo1.png" alt="" className="w-[200px] h-[100px] object-contain"/>
+                <img src="/logo1.png" alt="" className="w-[200px] h-[100px] object-contain" />
               </div>
               <div
                 className={`flex transition-colors duration-500 ease-in-out ${shouldHideNavbarButton ? "justify-start items-center " : "justify-end items-center"} rounded-full space-x-20 font-medium text-[20px] pl-6 ${navbar ? "bg-[#ffff] " : "bg-[#ffffff] "
@@ -221,6 +221,9 @@ const Navbar = () => {
           </CustomContainer>
         </div>
 
+
+
+
         {/* =============== small and medium device start ==========*/}
         <div className="fixed w-full shadow-md z-40 lg:hidden">
           <div className="bg-[#f6f6f6] py-4 md:py-2  text-center w-full flex items-center justify-between px-4">
@@ -238,7 +241,6 @@ const Navbar = () => {
                 alt=""
                 className="w-[200px] h-[80px] object-contain hidden md:block"
               />
-              {/* dfsofks;kfspkf */}
             </div>
             <div>
               <button
@@ -254,6 +256,9 @@ const Navbar = () => {
             </div>
           </div>
 
+
+
+
           {/* Sidebar (Mobile Menu) */}
           <div
             className={`fixed top-0 right-0 h-full w-2/3 p-4 bg-[#f6f6f6] shadow-lg z-[200] transition-transform overflow-y-auto ${menuOpen ? "translate-x-0" : "translate-x-full"
@@ -268,6 +273,7 @@ const Navbar = () => {
             <div className="flex flex-col space-y-4 mt-8">
               <NavLink
                 to="/"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -280,6 +286,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/service"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -292,6 +299,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/pricing"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -304,6 +312,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/photo-gallery"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -325,7 +334,12 @@ const Navbar = () => {
                 <div >
                   {
                     !shouldHideNavbarButton && <div className="flex flex-col space-y-4">
-                      <span onClick={handleNotification} className="border border-primary rounded px-2 py-2 cursor-pointer flex items-center gap-1 text-[20px] font-semibold text-primary">
+                      <span
+                        onClick={() => {
+                          handleNotification();
+                          setMenuOpen(false);
+                        }}
+                        className="border border-primary rounded px-2 py-2 cursor-pointer flex items-center gap-1 text-[20px] font-semibold text-primary">
                         <svg
                           width="22"
                           height="22"
@@ -347,14 +361,19 @@ const Navbar = () => {
                           }`}
                       >
                         {isCreateAccountRoute ? (
-                          <p className=" flex flex-col md:flex-row md:gap-2 text-start border border-primary rounded px-2 py-2 cursor-pointer text-[20px] font-semibold text-primary">
+                          <p
+                            onClick={() => setMenuOpen(false)}
+                            className=" flex flex-col md:flex-row md:gap-2 text-start border border-primary rounded px-2 py-2 cursor-pointer text-[20px] font-semibold text-primary">
                             Have an Account?
                             <Link to="/login">Login</Link>
                           </p>
                         ) : (
                           <>
                             <span
-                              onClick={() => handleCreateAccount()}
+                              onClick={() => {
+                                handleCreateAccount();
+                                setMenuOpen(false);
+                              }}
                               className="flex items-center gap-1 md:text-[20px] md:font-semibold bg-primary rounded-full "
                             >
                               <svg

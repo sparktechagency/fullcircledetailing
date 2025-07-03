@@ -58,7 +58,7 @@ const Pricing = () => {
   }, [modalOpen]);
   return (
     <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-20 lg:pt-32">
-      <CustomContainer>
+       <CustomContainer>
         <div>
           <CommonTitle text={"Pricing"} />
           <div className="overflow-x-auto whitespace-nowrap">

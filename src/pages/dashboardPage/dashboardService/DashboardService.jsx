@@ -22,11 +22,12 @@ const DashboardService = () => {
   const [detailsId, setDetailsId] = useState('')
   const [deleteId, setDeleteId] = useState('')
   const [slotData, setSlotData] = useState([])
-   const [currentTime, setCurrentTime] = useState({
-    hour: new Date().getHours() % 12 || 12, // 12-hour format
-    minute: new Date().getMinutes(),
-    period: new Date().getHours() >= 12 ? "PM" : "AM"
+  const [currentTime, setCurrentTime] = useState({
+    hour: 12,
+    minute: 0,
+    period: "PM"
   });
+
   const [initialTime, setInitialTime] = useState(currentTime);
   const [selectedTime, setSelectTime] = useState(null)
 
