@@ -34,6 +34,7 @@ const CheckoutPage = () => {
   const { id, type, name, price, selectedDate, bookingTime } = location.state || {};
 
 
+  
 
 
 
@@ -460,7 +461,6 @@ export const PaymentCard = ({ paymentInfo }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
 
-  console.log(paymentInfo)
 
   const [createIntent, intentResults] = useCreateIntentMutation()
 
@@ -514,11 +514,12 @@ export const PaymentCard = ({ paymentInfo }) => {
     } else {
       paymentInfo.stripe_payment_intent_id = paymentIntent.id;
 
-      console.log(moment(booking_date).format("YY-DD-MM"))
 
-      paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
 
-      console.log(paymentInfo)
+      paymentInfo.booking_date = moment(booking_date).format("YYYY-MM-DD")
+      // paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
+
+
 
       const res = await bookingSuccess(
         paymentInfo
@@ -544,6 +545,7 @@ export const PaymentCard = ({ paymentInfo }) => {
     navigation('/service-aviablity')
   }
 
+  
   return <>
 
     {/* right  */}
@@ -663,8 +665,9 @@ export const PaymentCard = ({ paymentInfo }) => {
                 </Button>
               </div>
             </div> */}
-      <div className="mt-4">
 
+
+      <div className="mt-4">
         <PaymentElement />
       </div>
       <div className="mt-4">

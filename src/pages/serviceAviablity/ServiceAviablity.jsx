@@ -132,7 +132,6 @@ const ServiceAviablity = () => {
   }, []);
 
 
-  console.log(price,'price')
 
   return (
     <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6] transition-all duration-500">
