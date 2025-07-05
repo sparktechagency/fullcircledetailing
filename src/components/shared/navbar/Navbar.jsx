@@ -169,15 +169,17 @@ const Navbar = () => {
                   }
                   <button
                     className={`${isCreateAccountRoute
-                      ? "border border-gray-600 py-4 px-8 rounded-full"
-                      : "flex items-center rounded-full gap-2 p-4 bg-primary"
+                      ? ""
+                      : "flex items-center rounded-full gap-2 p-4 "
                       }`}
                   >
                     {isCreateAccountRoute ? (
-                      <p className="text-[20px] font-semibold tracking-wider flex items-center gap-2">
+                      <Link to="/login">
+                      <p className="text-[20px] font-semibold tracking-wider flex items-center gap-2 border  py-4 px-8 rounded-full ">
                         Have an Account?
-                        <Link to="/login">Login</Link>
+                        Login
                       </p>
+                      </Link>
                     ) : (
                       <>
                         {
@@ -193,7 +195,7 @@ const Navbar = () => {
                             :
                             <span
                               onClick={() => handleCreateAccount()}
-                              className="flex items-center bg-primary rounded-full gap-2"
+                              className="flex items-center gap-2 text-[20px] font-semibold tracking-wider  border  py-4 px-8 rounded-full bg-primary text-[#ffffff]"
                             >
                               <svg
                                 width="17"
@@ -207,9 +209,12 @@ const Navbar = () => {
                                   fill="white"
                                 />
                               </svg>
-                              <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
+                              <p className="">
                                 Create Your Account
                               </p>
+                              {/* <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
+                                Create Your Account
+                              </p> */}
                             </span>
                         }
                       </>

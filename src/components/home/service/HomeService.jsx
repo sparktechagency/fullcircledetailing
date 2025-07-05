@@ -19,7 +19,12 @@ const HomeService = () => {
                                 className="w-full h-full object-cover rounded-[20px]"
                             />
                             {/* Overlay Layer */}
-                            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
+                           <div
+                                className="absolute inset-0 rounded-[20px]"
+                                style={{
+                                    background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%)'
+                                }}
+                            ></div>
                             <div className="absolute inset-0 top-[82%] md:top-[84%] lg:top-[88%] left-[5%] text-[#ffff]">
                                 <p className="lg:text-[20px] font-medium font-degular">Interior Cleaning</p>
                             </div>
@@ -30,7 +35,7 @@ const HomeService = () => {
                         </p>
                     </div>
                     {/* card two */}
-                <div className="relative">
+                    <div className="relative">
                         <div className="relative">
                             <img
                                 src="/ourServices/service2.png"
@@ -38,7 +43,14 @@ const HomeService = () => {
                                 className="w-full h-full object-cover rounded-[20px]"
                             />
                             {/* Overlay Layer */}
-                            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-[20px]"></div>
+                            <div
+                                className="absolute inset-0 rounded-[20px]"
+                                style={{
+                                    background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%)'
+                                }}
+                            ></div>
+
+
                             <div className="absolute inset-0 top-[82%] md:top-[84%] lg:top-[88%] left-[5%] text-[#ffff]">
                                 <p className="lg:text-[20px] font-medium font-degular">Exterior Cleaning</p>
                             </div>
