@@ -7,7 +7,7 @@ import { useForm } from "antd/es/form/Form";
 import { UploadCloud } from "lucide-react";
 import { useGetAuthProfileApiQuery } from "../../redux/dashboardFeatures/setting/dashboardSettingApi";
 
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import {
   PaymentElement,
   Elements,
@@ -24,15 +24,15 @@ const CheckoutPage = () => {
   const [formTwo] = Form.useForm();
   const navigate = useNavigate();
   const [isFocused, setIsFocused] = useState(false);
-  const [agreement,setAgreement] = useState(false)
+  const [agreement, setAgreement] = useState(false)
   const [modalOpen, setModalOpen] = useState(false);
   const [ImageFileList, setImageFileList] = useState([]);
   const [bookingNode, setBookingNode] = useState('')
   const location = useLocation();
-  const [paymentInfo , setPaymentInfo] = useState(null)
+  const [paymentInfo, setPaymentInfo] = useState(null)
   // const paymentInfo = location.state || {};
   const { id, type, name, price, selectedDate, bookingTime } = location.state || {};
-  
+
 
 
 
@@ -110,18 +110,18 @@ const CheckoutPage = () => {
   const onFinishOne = (values) => {
 
     const info = {
-'service_id' : id,
-'service_name' : name,
-'service_type' : type,
-'booking_date' : selectedDate,
-'booking_time' : bookingTime,
-'price' : price,
-'booking_note' : bookingNode,
-'car_brand' : values?.car_brand,
-'car_model' : values?.car_model,
-}
+      'service_id': id,
+      'service_name': name,
+      'service_type': type,
+      'booking_date': selectedDate,
+      'booking_time': bookingTime,
+      'price': price,
+      'booking_note': bookingNode,
+      'car_brand': values?.car_brand,
+      'car_model': values?.car_model,
+    }
 
-setPaymentInfo(info)
+    setPaymentInfo(info)
 
 
   }
@@ -174,9 +174,22 @@ setPaymentInfo(info)
               <div>
                 <Form.Item
                   name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your phone number",
+                    },
+                  ]}
                 >
                   <Input
-               
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={15}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
                     placeholder="Your phone number"
                     prefix={
                       <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -267,9 +280,9 @@ setPaymentInfo(info)
                 <div className="w-full md:w-[50%]">
                   <p className="text-[20px] font-degular">Brand Name</p>
                   <Form.Item name="car_brand"
-                     rules={[
-    { required: true, message: 'Please enter your Brand name ' },
-                  ]}
+                    rules={[
+                      { required: true, message: 'Please enter your brand name ' },
+                    ]}
                   >
                     <Input
                       placeholder="Brand name"
@@ -294,9 +307,9 @@ setPaymentInfo(info)
                 <div className="w-full md:w-[50%]">
                   <p className="text-[20px] font-degular">Car Model</p>
                   <Form.Item name="car_model"
-                  rules={[
-    { required: true, message: 'Please enter your Car Model ' },
-                  ]}
+                    rules={[
+                      { required: true, message: 'Please enter your car model ' },
+                    ]}
                   >
                     <Input
                       placeholder="Car Model"
@@ -325,19 +338,30 @@ setPaymentInfo(info)
                   type="button" className="bg-primary text-[#ffff] px-8 py-2 rounded text-xl">+ Add</button>
               </div>
               <div className="pt-4 pb-2 pr-1 font-degular">
-                <Checkbox onChange={(e)=>{
-                  console.log(e)
-                }} 
-                on
-                
-                className=" font-semibold font-degular">
-                  <div className="flex gap-3">
-                    <span>I  agree with the </span>
-                    <span className="text-primary">Privacy Policy</span>
-                    And
-                    <span className="text-primary">Terms & Conditions</span>
-                  </div>
-                </Checkbox>
+                <Form.Item
+                  name="agree"
+                  valuePropName="checked"
+                  rules={[
+                    {
+                      validator: (_, value) =>
+                        value
+                          ? Promise.resolve()
+                          : Promise.reject(new Error("You must agree to the terms")),
+                    },
+                  ]}
+                >
+                  <Checkbox onChange={(e) => {
+                    console.log(e)
+                  }}
+                    className=" font-semibold font-degular">
+                    <div className="flex gap-3">
+                      <span>I  agree with the </span>
+                      <span className="text-primary">Privacy Policy</span>
+                      And
+                      <span className="text-primary">Terms & Conditions</span>
+                    </div>
+                  </Checkbox>
+                </Form.Item>
               </div>
 
               {
@@ -408,19 +432,19 @@ setPaymentInfo(info)
             </Modal>
           </div>
           {
-            paymentInfo?.price && <Elements stripe={stripePromise} 
-        options={{
-            mode : "payment",
-            amount: parseInt(paymentInfo?.price) * 100,
-            currency: 'usd',
-  
-        }}
-        >
+            paymentInfo?.price && <Elements stripe={stripePromise}
+              options={{
+                mode: "payment",
+                amount: parseInt(paymentInfo?.price) * 100,
+                currency: 'usd',
 
-         <PaymentCard paymentInfo={paymentInfo} />
-       </Elements>
+              }}
+            >
+
+              <PaymentCard paymentInfo={paymentInfo} />
+            </Elements>
           }
-        
+
         </div>
       </CustomContainer>
     </section>
@@ -432,9 +456,9 @@ export default CheckoutPage
 
 
 
-export const PaymentCard = ({paymentInfo}) => {
- const [errorMessage, setErrorMessage] = useState(null);
-  const {  service_type, service_name, price, booking_date, booking_time}  = paymentInfo;
+export const PaymentCard = ({ paymentInfo }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
 
   console.log(paymentInfo)
 
@@ -443,7 +467,7 @@ export const PaymentCard = ({paymentInfo}) => {
   const [bookingSuccess, bookingResults] = useBookingSuccessMutation()
 
   const navigation = useNavigate()
-    const stripe = useStripe();
+  const stripe = useStripe();
   const elements = useElements();
 
 
@@ -454,7 +478,7 @@ export const PaymentCard = ({paymentInfo}) => {
     }
 
     // Trigger form validation and wallet collection
-    const {error: submitError} = await elements.submit();
+    const { error: submitError } = await elements.submit();
     if (submitError) {
       // Show error to your customer
       setErrorMessage(submitError.message);
@@ -463,22 +487,22 @@ export const PaymentCard = ({paymentInfo}) => {
 
     // Create the PaymentIntent and obtain clientSecret from your server endpoint
     const res = await createIntent({
-             payment_method:"pm_card_visa",
-            amount:price,
-            service_name:service_name
+      payment_method: "pm_card_visa",
+      amount: price,
+      service_name: service_name
     }).unwrap()
 
     const clientSecret = res?.data?.client_secret
 
 
-    const {error,paymentIntent} = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       clientSecret,
       confirmParams: {
         return_url: 'https://example.com/order/123/complete',
       },
-       redirect: 'if_required', // <- THIS AVOIDS REDIRECT
+      redirect: 'if_required', // <- THIS AVOIDS REDIRECT
     });
 
     if (error) {
@@ -491,20 +515,20 @@ export const PaymentCard = ({paymentInfo}) => {
       paymentInfo.stripe_payment_intent_id = paymentIntent.id;
 
       console.log(moment(booking_date).format("YY-DD-MM"))
-      
-paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
+
+      paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
 
       console.log(paymentInfo)
 
-     const res = await  bookingSuccess(
+      const res = await bookingSuccess(
         paymentInfo
       ).unwrap()
-console.log(res)
-      if(res.status){
-        toast.success( "Your booking is submit successfully done!")
-       navigation("/") 
+      console.log(res)
+      if (res.status) {
+        toast.success("Your booking is submit successfully done!")
+        navigation("/")
       }
-      
+
 
 
       // Your customer will be redirected to your `return_url`. For some payment
@@ -513,56 +537,56 @@ console.log(res)
     }
   };
 
-    const handleNavigateOne = () => {
+  const handleNavigateOne = () => {
     navigation('/service-book')
   }
-    const handleNavigateTwo = () => {
+  const handleNavigateTwo = () => {
     navigation('/service-aviablity')
   }
 
   return <>
-  
-   {/* right  */}
-          <div className=" w-full lg:w-[40%]">
 
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-              <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
-              <button onClick={handleNavigateOne} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
-              </svg>
-                Change</button>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
+    {/* right  */}
+    <div className=" w-full lg:w-[40%]">
 
-
-              <div className="flex items-center gap-3">
-                <img src="/checkoutLogo.svg" alt="logo" />
-                <div>
-                  <p className='text-[20px]  font-degular'>{booking_date &&  moment(booking_date).format("ll")}</p>
-                  {/* <p className='text-[20px] text-gray-300 font-degular'>{bookingTime}</p> */}
-                  <p className='text-[20px] text-gray-300 font-degular'>{booking_time}</p>
-                </div>
-              </div>
-
-              <button onClick={handleNavigateTwo} className="border border-primary px-6 py-4 rounded-lg ">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17.7071 4.04125C18.0971 3.65125 18.0971 3.00125 17.7071 2.63125L15.3671 0.291249C14.9971 -0.0987512 14.3471 -0.0987512 13.9571 0.291249L12.1171 2.12125L15.8671 5.87125M-0.00292969 14.2512V18.0012H3.74707L14.8071 6.93125L11.0571 3.18125L-0.00292969 14.2512Z" fill="#0063E6" />
-                </svg>
-
-              </button>
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
-              <p className='text-[28px]  font-degular text-primary'>{service_type}</p>
-              <div>
-                <p className='text-[20px]  font-degular'>{name}</p>
-                <p className='text-[28px]  font-bold text-primary font-degular'>${price}</p>
-              </div>
-            </div>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+        <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
+        <button onClick={handleNavigateOne} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
+        </svg>
+          Change</button>
+      </div>
+      <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
 
 
-            {/* paypal account component */}
-            {/* <div className=" rounded-lg p-8 bg-[#ffff] space-y-4 mt-8">
+        <div className="flex items-center gap-3">
+          <img src="/checkoutLogo.svg" alt="logo" />
+          <div>
+            <p className='text-[20px]  font-degular'>{booking_date && moment(booking_date).format("ll")}</p>
+            {/* <p className='text-[20px] text-gray-300 font-degular'>{bookingTime}</p> */}
+            <p className='text-[20px] text-gray-300 font-degular'>{booking_time}</p>
+          </div>
+        </div>
+
+        <button onClick={handleNavigateTwo} className="border border-primary px-6 py-4 rounded-lg ">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.7071 4.04125C18.0971 3.65125 18.0971 3.00125 17.7071 2.63125L15.3671 0.291249C14.9971 -0.0987512 14.3471 -0.0987512 13.9571 0.291249L12.1171 2.12125L15.8671 5.87125M-0.00292969 14.2512V18.0012H3.74707L14.8071 6.93125L11.0571 3.18125L-0.00292969 14.2512Z" fill="#0063E6" />
+          </svg>
+
+        </button>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
+        <p className='text-[28px]  font-degular text-primary'>{service_type}</p>
+        <div>
+          <p className='text-[20px]  font-degular'>{name}</p>
+          <p className='text-[28px]  font-bold text-primary font-degular'>${price}</p>
+        </div>
+      </div>
+
+
+      {/* paypal account component */}
+      {/* <div className=" rounded-lg p-8 bg-[#ffff] space-y-4 mt-8">
               <div className="flex justify-between items-center">
                 <p className='text-[20px]  font-degular'>Pay with </p>
                 <img src="/paypal.svg" alt="" />
@@ -639,37 +663,37 @@ console.log(res)
                 </Button>
               </div>
             </div> */}
-            <div className="mt-4">
+      <div className="mt-4">
 
-            <PaymentElement  />
-            </div>
-              <div className="mt-4">
-                <Button
-                loading={intentResults.isLoading || bookingResults?.isLoading}
-                onClick={()=>{
-                  handleSubmit()
-                }}
-                disabled={!stripe || !elements}
-                  htmlType="submit"
-                  block
-                  style={{
-                    backgroundColor: "#0063E5",
-                    color: "#ffffff",
-                    fontSize: "20px",
-                    fontWeight: "600",
-                    height: "60px",
-                    borderRadius: "20px",
-                    paddingInline: "20px",
-                  }}
-                >
-                  Book Appointment <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.293032 6L11.879 6L7.37903 1.5L8.79303 0.0859985L15.707 7L8.79303 13.914L7.37903 12.5L11.879 8L0.293032 8V6Z" fill="white" />
-                  </svg>
+        <PaymentElement />
+      </div>
+      <div className="mt-4">
+        <Button
+          loading={intentResults.isLoading || bookingResults?.isLoading}
+          onClick={() => {
+            handleSubmit()
+          }}
+          disabled={!stripe || !elements}
+          htmlType="submit"
+          block
+          style={{
+            backgroundColor: "#0063E5",
+            color: "#ffffff",
+            fontSize: "20px",
+            fontWeight: "600",
+            height: "60px",
+            borderRadius: "20px",
+            paddingInline: "20px",
+          }}
+        >
+          Book Appointment <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.293032 6L11.879 6L7.37903 1.5L8.79303 0.0859985L15.707 7L8.79303 13.914L7.37903 12.5L11.879 8L0.293032 8V6Z" fill="white" />
+          </svg>
 
-                </Button>
-              </div>
-                  {/* Show error message to your customers */}
+        </Button>
+      </div>
+      {/* Show error message to your customers */}
       {errorMessage && <div className="text-red-700 text-base font-medium">{errorMessage}</div>}
-          </div>
+    </div>
   </>
 }

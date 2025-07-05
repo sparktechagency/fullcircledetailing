@@ -73,7 +73,7 @@ console.log(singlePriceValue);
                     key={index}
                     className="grid grid-cols-12 border rounded-xl mb-4 p-2 lg:p-4 font-degular"
                   >
-                    <div className="col-start-1 col-end-4 ">
+                    <div className="col-start-1 col-end-4 flex items-center">
                       <h1 className="text-[28px] lg:text-[30px]">{item?.car_type}</h1>
                     </div>
 
