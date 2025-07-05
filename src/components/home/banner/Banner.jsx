@@ -29,10 +29,10 @@ const Banner = () => {
   return (
     <section className="bg-[#f6f6f6] font-degular pt-20 lg:pt-[80px]">
       <CustomContainer>
-        <div className="pb-[200px]">
-          <div className="py-8 lg:py-16">
+        <div className="lg:pb-[200px]">
+          <div className="pt-8 lg:py-16">
             <div className="flex flex-col lg:flex-row justify-between ">
-              <div className="max-w-[705px] text-wrap md:mt-[40px] lg:mt-[100px]">
+              <div className="max-w-[705px] text-wrap md:mt-[0px] lg:mt-[100px] ">
                 <h1 className="font-semibold text-[30px] lg:text-[58px] ">
                   Keep your <span className="text-primary">car clean</span> anywhere
                 </h1>
@@ -60,22 +60,14 @@ const Banner = () => {
                 </div>
 
                 {/* group avater component */}
-                <div className="h-[220px]  md:mb-2">
+                <div className="h-[50px] lg:h-[220px]  md:mb-2">
                 </div>
               </div>
 
 
-
-
-
-
-
-
-
-
               {/* right side image */}
               <div className="relative">
-           
+
 
                 {/* medium and large device  */}
                 <div className="hidden md:block">
@@ -85,14 +77,14 @@ const Banner = () => {
 
 
                 {/* small device  */}
-                <div className="absolute top-[25px] z-10 md:hidden">
+                <div className="absolute top-[0px] z-10 md:hidden">
                   <img src="/bannerCar1.png" alt="car" className=" w-[300px]" />
                 </div>
 
 
                 {/* css.glass morpizom component */}
-                <div className="absolute z-10 -bottom-[90px]  md:-bottom-[0px] md:top-[200px] lg:bottom-[260px] md:left-[10px] lg:-left-[180px]">
-                  <div className="flex gap-2 md:w-[240px] lg:w-[296px]  rounded-xl p-2 lg:p-4" style={{
+                <div className="absolute z-10 -bottom-[130px]  md:-bottom-[0px] md:top-[200px] lg:bottom-[260px] md:left-[10px] lg:-left-[180px]">
+                  <div className="flex gap-2 w-[200px] md:w-[240px] lg:w-[296px]  rounded-xl p-2 lg:p-4" style={{
                     background: 'rgba(255, 255, 255, 0.06)',
                     borderRadius: '16px',
                     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
@@ -100,7 +92,7 @@ const Banner = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     border: '1px solid #ffffff'
                   }}>
-                    <img src={latestComment?.photo} alt="photo" className="w-[60px] h-[60px] rounded-full" />
+                    <img src={latestComment?.photo} alt="photo" className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-full" />
                     <div>
                       <h4 className="font-medium lg:text-[20px] text-[#000000]">
                         {latestComment?.name}
@@ -211,7 +203,7 @@ const Banner = () => {
 
 
       {/* small / medium device for */}
-      <div className="w-full mx-auto -bottom-[180px] lg:hidden px-4 pt-20 pb-10  md:pt-[400px] md:pb-[40px]">
+      <div className="w-full mx-auto  lg:hidden px-4 pb-6 pt-[240px] md:pt-16 lg:pt-[400px] lg:pb-[40px]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col  bg-[#FFFFFF] rounded-[37px] py-6 px-3">
 

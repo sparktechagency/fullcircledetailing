@@ -185,7 +185,7 @@ const Navbar = () => {
                         {
                           userProfileData?.data?.role === 'USER' ? <span
                             onClick={handlNavigateUserProfile}
-                            className="flex items-center bg-primary rounded-full gap-2"
+                            className="flex items-center bg-primary rounded-full gap-2  py-4 px-8"
                           >
                             <img src={userProfileData?.data?.photo} alt="" className="w-[30px] h-[30px] rounded-full object-cover" />
                             <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
