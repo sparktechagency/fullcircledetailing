@@ -159,7 +159,7 @@ const ServiceAviablity = () => {
           <div className="w-full lg:w-[40%]">
             {/* date picker conponent */}
             <p className='text-[20px]  font-medium font-degular'>Select Date</p>
-            <div className="bg-gray-100 shadow-md p-4 h-[340px]">
+            <div className="bg-gray-100 shadow-md p-4 h-[360px]">
               <DayPicker
                 mode="single"
                 selected={selectedDate}

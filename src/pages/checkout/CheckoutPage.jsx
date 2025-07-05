@@ -513,6 +513,13 @@ console.log(res)
     }
   };
 
+    const handleNavigateOne = () => {
+    navigation('/service-book')
+  }
+    const handleNavigateTwo = () => {
+    navigation('/service-aviablity')
+  }
+
   return <>
   
    {/* right  */}
@@ -520,7 +527,7 @@ console.log(res)
 
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
-              <button onClick={() => navigate(-1)} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <button onClick={handleNavigateOne} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
               </svg>
                 Change</button>
@@ -537,7 +544,7 @@ console.log(res)
                 </div>
               </div>
 
-              <button onClick={() => navigate(-1)} className="border border-primary px-6 py-4 rounded-lg ">
+              <button onClick={handleNavigateTwo} className="border border-primary px-6 py-4 rounded-lg ">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17.7071 4.04125C18.0971 3.65125 18.0971 3.00125 17.7071 2.63125L15.3671 0.291249C14.9971 -0.0987512 14.3471 -0.0987512 13.9571 0.291249L12.1171 2.12125L15.8671 5.87125M-0.00292969 14.2512V18.0012H3.74707L14.8071 6.93125L11.0571 3.18125L-0.00292969 14.2512Z" fill="#0063E6" />
                 </svg>

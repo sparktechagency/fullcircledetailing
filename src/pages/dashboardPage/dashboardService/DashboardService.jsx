@@ -30,6 +30,7 @@ const DashboardService = () => {
 
 
 
+
   const [initialTime, setInitialTime] = useState(currentTime);
   const [selectedTime, setSelectTime] = useState(null)
 
@@ -62,7 +63,6 @@ const DashboardService = () => {
   const [addTime] = useAddTimeMutation();
   const [updateTime] = useUpdateTimeMutation()
   const [deleteTime] = useDeleteTimeMutation();
-
 
 
   // CURRENT TIME
@@ -338,7 +338,6 @@ const DashboardService = () => {
   const handleOkTime = async () => {
 
 
-    
     if (text === 'Add') {
       const newTime = formatTimeString(); 
       setSelectTime(newTime); 
@@ -355,6 +354,7 @@ const DashboardService = () => {
         
         if (res?.status === true) {
           toast.success(res?.message)
+          setIsModalOpen(false)
           refetch()
         } else {
           toast.error(res?.message)
@@ -370,14 +370,19 @@ const DashboardService = () => {
       setSelectTime(newTime); 
 
       const formData = new FormData();
+       formData.append("service_id", slotTimeId);
       formData.append("time", newTime);
        formData.append("_method", "PUT"); 
 
- 
+
       try {
-        const res = await updateTime({ updateTimeId:deleteId, updateTimeinfo:formData }).unwrap()
+        const res = await updateTime({ 
+          id:slotTimeId,
+           updateTimeInfo:formData
+           }).unwrap()
         if (res?.status === true) {
           toast.success(res?.message)
+           setIsModalOpen(false)
           refetch()
         } else {
           toast.error(res?.message)

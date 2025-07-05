@@ -1,5 +1,5 @@
 import { Button, Card, Form, Modal, Pagination, Upload } from "antd";
-import { UploadCloud } from "lucide-react";
+import { CloudCog, UploadCloud } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useAddPhotoMutation, useDeletePhotoMutation, useGetPhotoApiQuery, useUpdatePhotoMutation } from "../../../redux/dashboardFeatures/manageImages/dashboardManageImagesApi";
@@ -27,7 +27,6 @@ const ManageImages = () => {
   const allPhoto = getPhoto?.data?.data
   const totalPagination = getPhoto?.data?.total
   const selectedImage = allPhoto?.find(item => item.id === imageID);
-
 
 
   // defaut image show
@@ -325,7 +324,7 @@ const ManageImages = () => {
         />
       </div>
 
-
+ 
 
 
 

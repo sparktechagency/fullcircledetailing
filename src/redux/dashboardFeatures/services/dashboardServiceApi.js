@@ -55,7 +55,7 @@ const dashboardServiceApi = baseApi.injectEndpoints({
             invalidatesTags: ['service'],
         }),
         updateTime: builder.mutation({
-            query: ({id,updateTimeInfo}) => ({
+            query: ({updateTimeInfo,id}) => ({
                 url: `/admin/service_times/${id}`,
                 method: "POST",
                 body: updateTimeInfo,

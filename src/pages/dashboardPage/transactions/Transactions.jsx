@@ -112,7 +112,7 @@ const Transactions = () => {
             </div>
 
             {
-              open && <div className='absolute text-center py-2 space-y-2 bg-[#FFFFFF] w-[116px] hover:border transition-all duration-300'>
+              open && <div className='absolute h-[170px] overflow-y-auto text-center py-2 space-y-2 bg-[#FFFFFF] w-[116px] hover:border transition-all duration-300'>
                 {
                   allFilterBookingData?.map((item, index) => {
                     return (
