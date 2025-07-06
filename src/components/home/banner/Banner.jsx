@@ -67,8 +67,6 @@ const Banner = () => {
 
               {/* right side image */}
               <div className="relative">
-
-
                 {/* medium and large device  */}
                 <div className="hidden lg:mt-16 md:block">
                   <img src="/bannerCar1.png" alt="car" />
@@ -203,7 +201,7 @@ const Banner = () => {
 
 
       {/* small / medium device for */}
-      <div className="w-full mx-auto  lg:hidden px-4 pb-6 pt-[240px] md:pt-16 lg:pt-[400px] lg:pb-[40px]">
+      <div className="w-full mx-auto  lg:hidden px-4 pb-6 pt-[240px] md:pt-16 lg:pt-[400px] lg:pb-[40px] ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col  bg-[#FFFFFF] rounded-[37px] py-6 px-3">
 
