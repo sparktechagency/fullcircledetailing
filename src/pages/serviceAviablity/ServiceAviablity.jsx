@@ -186,13 +186,17 @@ const ServiceAviablity = () => {
               </svg>
                 Change</button>
             </div>
-            <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
+
+         {
+          type && price && name && <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
               <p className='text-[28px]  font-degular text-primary font-medium'>{type}</p>
               <div>
                 <p className='text-[20px]  font-degular'>{name}</p>
                 <p className='text-[28px]  font-bold text-primary font-degular'>${price}</p>
               </div>
             </div>
+         }
+
           </div>
         </div>
 

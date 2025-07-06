@@ -83,7 +83,7 @@ const Banner = () => {
 
 
                 {/* css.glass morpizom component */}
-                <div className="absolute z-10 -bottom-[130px]  md:-bottom-[0px] md:top-[280px] lg:bottom-[260px] md:left-[10px] lg:-left-[180px]">
+                <div className="absolute z-10 -bottom-[130px] md:-bottom-[0px] md:top-[200px] lg:bottom-[260px] md:left-[10px] lg:-left-[180px]">
                   <div className="flex gap-2 w-[200px] md:w-[240px] lg:w-[296px]  rounded-xl p-2 lg:p-4" style={{
                     background: 'rgba(255, 255, 255, 0.06)',
                     borderRadius: '16px',
