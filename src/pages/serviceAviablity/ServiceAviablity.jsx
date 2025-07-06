@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useGetServiceAvilityApiQuery, useGetTimeApiQuery } from "../../redux/web/serviceAvility/serviceAvilityApi";
 import moment from "moment";
+import { Modal } from "antd";
 
 
 
@@ -13,28 +14,41 @@ import moment from "moment";
 
 const ServiceAviablity = () => {
   const navigate = useNavigate();
-  const [value, setValue] = useState(new Date());
-  const [selectDate, setSelectDate] = useState(false)
   const [activeTimes, setActiveTimes] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [activeNextButton, setActiveNextButton] = useState(false);
-  const [clickable, setClickable] = useState(false) 
   const [selectedDate, setSelectedDate] = useState(new Date()); // send
   const [selectedDateTow, setSelectedDateTwo] = useState(null); // send
   const [bookingTime, setBookingTime] = useState(null); // send
   const location = useLocation();
-  const { id, type, name, price } = location.state || {};
-  // console.log(id, type, name, price)
+  const { id, type, name, price, singlePriceValue } = location.state || {};
+  
+  const [serviceData, setServiceData] = useState({
+    id: id || "",
+    type: type || "",
+    name: name || "",
+    price: price || 0,
+
+  });
+
+
+
+
+
+
+
+
 
 
   const { data: getBlockService } = useGetServiceAvilityApiQuery()
   const blockServiceDate = getBlockService?.data?.data;
 
 
-  const { data: timeData , isLoading , isFetching } = useGetTimeApiQuery({service_id:id,date: moment(selectedDate)?.format("YY-MM-DD")})
- 
+  const { data: timeData, isLoading, isFetching } = useGetTimeApiQuery({ service_id: id, date: moment(selectedDate)?.format("YY-MM-DD") })
 
 
-// console.log(moment(selectedDate)?.format("YY-MM-DD"))
+
+  // console.log(moment(selectedDate)?.format("YY-MM-DD"))
 
 
   const today = new Date();
@@ -90,42 +104,70 @@ const ServiceAviablity = () => {
 
 
   const handleDateSelect = (date) => {
-    
+
     if (date) {
       // Get local date components (avoids timezone issues)
-     
+
       setSelectedDate(date);
-       const displayOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const displayDate = date.toLocaleDateString('en-US', displayOptions);
-    setSelectedDateTwo(displayDate)
+      const displayOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      const displayDate = date.toLocaleDateString('en-US', displayOptions);
+      setSelectedDateTwo(displayDate)
     }
-    
-   
+
+
   };
-
-
-
-  // const year = selectedDate?.getFullYear();
-  // const month = String(selectedDate?.getMonth() + 1).padStart(2, '0');
-  // const day = String(selectedDate?.getDate()).padStart(2, '0');
-  // const formattedDate = `${year}-${month}-${day}`;
 
 
 
   const handleCheckoutPage = () => {
     if (activeTimes.length === 0) return; // Do nothing if nothing is selected
-    navigate(`/checkout`, { state: { id, type, name, price,selectedDate,bookingTime } });
+    navigate(`/checkout`, { state: { id, type, name, price, selectedDate, bookingTime,singlePriceValue } });
   }
 
 
 
-  const handleSelectTime = (tmv) =>{
+  const handleSelectTime = (tmv) => {
     setBookingTime(tmv)
     setActiveNextButton(true)
   }
 
 
 
+  // single modal 
+  const showModal = () => {
+    setModalOpen(true)
+  }
+  const handleModalOkPenOk = () => {
+
+  }
+  const handleModalCancel = () => {
+    setModalOpen(false)
+  }
+
+
+  const handlePrice = (id, type, name, price) => {
+    setServiceData({
+      id,
+      type,
+      name,
+      price,
+    });
+
+    setModalOpen(false)
+  }
+
+
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup function
+    };
+  }, [modalOpen]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -181,31 +223,27 @@ const ServiceAviablity = () => {
           <div className="w-full lg:w-[40%] p-4">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <p className='text-[20px]  font-medium font-degular'>Appointment Summery</p>
-              <button onClick={() => navigate(-1)} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <button onClick={() => showModal()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
               </svg>
                 Change</button>
             </div>
-
-         {
-          type && price && name && <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
-              <p className='text-[28px]  font-degular text-primary font-medium'>{type}</p>
+            <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
+              <p className='text-[28px]  font-degular text-primary font-medium'>{serviceData?.type}</p>
               <div>
-                <p className='text-[20px]  font-degular'>{name}</p>
-                <p className='text-[28px]  font-bold text-primary font-degular'>${price}</p>
+                <p className='text-[20px]  font-degular'>{serviceData?.name}</p>
+                <p className='text-[28px]  font-bold text-primary font-degular'>${serviceData?.price}</p>
               </div>
             </div>
-         }
-
           </div>
         </div>
 
 
 
-        { isLoading || isFetching ? <div>loading...</div> :
-            <div className="lg:w-[50%] mt-8">
-       
-            
+        {isLoading || isFetching ? <div>loading...</div> :
+          <div className="lg:w-[50%] mt-8">
+
+
             {
               timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
             }
@@ -217,7 +255,7 @@ const ServiceAviablity = () => {
                     return (
                       <div
                         key={index}
-                        onClick={()=>{
+                        onClick={() => {
                           setActiveNextButton(true)
                           setBookingTime(singleTime)
                         }}
@@ -230,30 +268,111 @@ const ServiceAviablity = () => {
                   })
                 ) : (
                   <div>
-                <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
-                <p className='text-[20px]  font-degular'>No availability </p>
+                    <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                    <p className='text-[20px]  font-degular'>No availability </p>
 
-              </div>
+                  </div>
                 )
               }
             </div>
 
             {
-            
-                <button disabled={!activeNextButton}  onClick={handleCheckoutPage} className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
-                  Next
-                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
-                  </svg>
-                </button>
-           
-             
+
+              <button disabled={!activeNextButton} onClick={handleCheckoutPage} className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
+                Next
+                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
+                </svg>
+              </button>
             }
-
-
           </div>
         }
 
+        {/* modal component  */}
+        <Modal
+          centered
+          title={
+            <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+              {singlePriceValue?.car_type}
+            </div>
+          }
+          open={modalOpen}
+          onOk={handleModalOkPenOk}
+          onCancel={handleModalCancel}
+          footer={null}
+          width={600}
+          className='custom-service-modal'
+
+        >
+          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to update ?</p>
+
+          {/* interior card */}
+          <div className="pb-4">
+            <div className='px-4'>
+              <div
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                <div>
+                  <p className='text-[24px] font-degular'>Interior</p>
+                  <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.interior}</p>
+                </div>
+                <span
+                  className="cursor-pointer">
+                  <svg
+                    className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                    viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="60" height="60" rx="30" fill="#0063E6" />
+                    <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            {/* exterior card */}
+            <div className='px-4'>
+              <div
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                <div>
+                  <p className='text-[24px] font-degular'>Exterior</p>
+                  <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.exterior}</p>
+                </div>
+                <span
+                  className="cursor-pointer">
+                  <svg
+                    className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                    viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="60" height="60" rx="30" fill="#0063E6" />
+                    <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            {/* Both card*/}
+            <div className='px-4'>
+              <div
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                <div>
+                  <p className='text-[24px] font-degular'>Both</p>
+                  <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.both}</p>
+                </div>
+                <span
+                  className="cursor-pointer">
+                  <svg
+                    className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                    viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="60" height="60" rx="30" fill="#0063E6" />
+                    <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+        </Modal>
       </CustomContainer>
     </section>
   )

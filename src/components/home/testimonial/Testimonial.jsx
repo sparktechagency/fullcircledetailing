@@ -11,7 +11,7 @@ const Testimonial = () => {
 
   return (
     <>
-      <section className="bg-[#f6f6f6] font-degular pb-10 pt-20 lg:pt-32">
+      <section className="bg-[#f6f6f6] font-degular pb-10 pt-2">
         {
           allTestimonial?.length > 0 && <CustomContainer>
             <div className="">

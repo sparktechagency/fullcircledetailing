@@ -4,7 +4,7 @@ import Footer from "../components/shared/footer/Footer";
 
 const MainLayout = () => {
   const location = useLocation()
-  const hideNavbarPaths = ["/about","/privacy-policy","/terms-condition","/service-book","/user-profile","/edit-user-profile","/support","/checkout",];
+  const hideNavbarPaths = ["/about", "/privacy-policy", "/terms-condition", "/service-book", "/user-profile", "/edit-user-profile", "/support", "/checkout",];
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
   return (
     <>
@@ -12,7 +12,9 @@ const MainLayout = () => {
         {/* Navbar conditionally show */}
         {!shouldHideNavbar && <Navbar />}
       </div>
-      <Outlet />
+      <div className="">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

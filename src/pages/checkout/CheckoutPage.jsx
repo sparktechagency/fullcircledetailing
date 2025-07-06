@@ -3,8 +3,6 @@ import CustomContainer from "../../components/shared/CustomContainer"
 import { Button, Checkbox, Form, Input, Modal, Select, Upload } from "antd";
 import { useEffect, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
-import { useForm } from "antd/es/form/Form";
-import { UploadCloud } from "lucide-react";
 import { useGetAuthProfileApiQuery } from "../../redux/dashboardFeatures/setting/dashboardSettingApi";
 
 import { loadStripe } from '@stripe/stripe-js';
@@ -26,15 +24,24 @@ const CheckoutPage = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [agreement, setAgreement] = useState(false)
   const [modalOpen, setModalOpen] = useState(false);
+ 
   const [ImageFileList, setImageFileList] = useState([]);
   const [bookingNode, setBookingNode] = useState('')
   const location = useLocation();
+
+
+
   const [paymentInfo, setPaymentInfo] = useState(null)
-  // const paymentInfo = location.state || {};
-  const { id, type, name, price, selectedDate, bookingTime } = location.state || {};
+  const { selectedDate, bookingTime } = location.state || {};
+  const [clickCheckout, setClickCheckout] = useState(false);
 
 
-  
+  const serviceData = localStorage.getItem("serviceData");
+  const serviceDataObj = serviceData ? JSON.parse(serviceData) : {};
+
+  const singleServiceData = localStorage.getItem("singleServiceValue");
+  const singleServiceValueObj = singleServiceData ? JSON.parse(singleServiceData) : {};
+
 
 
 
@@ -42,7 +49,6 @@ const CheckoutPage = () => {
   const userProfile = userProfileData?.data
   const carPhoto = userProfile?.car_photos
 
-  console.log(bookingNode)
 
 
   useEffect(() => {
@@ -76,12 +82,6 @@ const CheckoutPage = () => {
   };
 
 
-
-
-
-
-
-
   const showModal = () => {
     setModalOpen(true)
   }
@@ -91,6 +91,13 @@ const CheckoutPage = () => {
   const handleModalCancel = () => {
     setModalOpen(false)
   }
+
+
+
+
+
+
+
 
   useEffect(() => {
     if (modalOpen) {
@@ -111,12 +118,12 @@ const CheckoutPage = () => {
   const onFinishOne = (values) => {
 
     const info = {
-      'service_id': id,
-      'service_name': name,
-      'service_type': type,
+      'service_id': singleServiceValueObj?.id,
+      'service_name': singleServiceValueObj?.name,
+      'service_type': singleServiceValueObj?.type,
       'booking_date': selectedDate,
       'booking_time': bookingTime,
-      'price': price,
+      'price': singleServiceValueObj?.price,
       'booking_note': bookingNode,
       'car_brand': values?.car_brand,
       'car_model': values?.car_model,
@@ -352,7 +359,7 @@ const CheckoutPage = () => {
                   ]}
                 >
                   <Checkbox onChange={(e) => {
-                    console.log(e)
+                    setClickCheckout(!clickCheckout)
                   }}
                     className=" font-semibold font-degular">
                     <div className="flex gap-3">
@@ -374,6 +381,7 @@ const CheckoutPage = () => {
               <Button
                 htmlType="submit"
                 block
+                disabled={!clickCheckout}
                 style={{
                   backgroundColor: "#0063E5",
                   color: "#ffffff",
@@ -382,7 +390,9 @@ const CheckoutPage = () => {
                   height: "60px",
                   borderRadius: "20px",
                   paddingInline: "20px",
-                  marginTop: "20px"
+                  marginTop: "20px",
+                  opacity: !clickCheckout ? 0.2 : 1, // optional: visually indicate disabled
+                  cursor: !clickCheckout ? "not-allowed" : "pointer",
                 }}
               >
                 Save
@@ -448,6 +458,9 @@ const CheckoutPage = () => {
 
         </div>
       </CustomContainer>
+
+
+
     </section>
   )
 }
@@ -457,10 +470,14 @@ export default CheckoutPage
 
 
 
-export const PaymentCard = ({ paymentInfo }) => {
+export const PaymentCard = ({ paymentInfo,}) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
+ const [modalOpenTwo, setModalOpenTwo] = useState(false);
+ const { singlePriceValue } = location.state || {};
 
+ console.log(singlePriceValue,'singlePriceValue');
+ 
 
   const [createIntent, intentResults] = useCreateIntentMutation()
 
@@ -538,14 +555,31 @@ export const PaymentCard = ({ paymentInfo }) => {
     }
   };
 
+
+
+
+  const showModalTwo = () => {
+    setModalOpenTwo(true)
+  }
+  const handleModalOkTwo = () => {
+
+  }
+  const handleModalCancelTwo = () => {
+    setModalOpenTwo(false)
+  }
+
+
+
   const handleNavigateOne = () => {
-    navigation('/service-book')
+    setModalOpenTwo(true)
+
+    // navigation('/service-book')
   }
   const handleNavigateTwo = () => {
     navigation('/service-aviablity')
   }
 
-  
+
   return <>
 
     {/* right  */}
@@ -553,7 +587,7 @@ export const PaymentCard = ({ paymentInfo }) => {
 
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
-        <button onClick={handleNavigateOne} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button onClick={()=>showModalTwo()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
         </svg>
           Change</button>
@@ -697,6 +731,94 @@ export const PaymentCard = ({ paymentInfo }) => {
       </div>
       {/* Show error message to your customers */}
       {errorMessage && <div className="text-red-700 text-base font-medium">{errorMessage}</div>}
+
     </div>
+
+
+    {/* modal component  */}
+    <Modal
+      centered
+      title={
+        <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+          {singlePriceValue?.car_type}
+        </div>
+      }
+      open={modalOpenTwo}
+      onOk={handleModalOkTwo}
+      onCancel={handleModalCancelTwo}
+      footer={null}
+      width={600}
+      className='custom-service-modal'
+
+    >
+      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to book ?</p>
+
+      {/* interior card */}
+      <div className="pb-4">
+        <div className='px-4'>
+          <div
+            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+            <div>
+              <p className='text-[24px] font-degular'>Interior</p>
+              <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.interior}</p>
+            </div>
+            <span
+              className="cursor-pointer">
+              <svg
+                className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="60" height="60" rx="30" fill="#0063E6" />
+                <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        {/* exterior card */}
+        <div className='px-4'>
+          <div
+            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))}
+            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+            <div>
+              <p className='text-[24px] font-degular'>Exterior</p>
+              <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.exterior}</p>
+            </div>
+            <span
+              className="cursor-pointer">
+              <svg
+                className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="60" height="60" rx="30" fill="#0063E6" />
+                <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        {/* Both card*/}
+        <div className='px-4'>
+          <div
+            onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))}
+            className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+            <div>
+              <p className='text-[24px] font-degular'>Both</p>
+              <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.both}</p>
+            </div>
+            <span
+              className="cursor-pointer">
+              <svg
+                className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="60" height="60" rx="30" fill="#0063E6" />
+                <path d="M23.8433 34.7425L32.0358 26.55L25.6719 26.55L25.6719 24.5503H35.4497L35.4497 34.3282L33.45 34.3282L33.45 27.9642L25.2575 36.1568L23.8433 34.7425Z" fill="white" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+    </Modal>
   </>
 }

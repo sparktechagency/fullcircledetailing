@@ -27,7 +27,7 @@ const Banner = () => {
 
 
   return (
-    <section className="bg-[#f6f6f6] font-degular pt-20 lg:pt-[80px]">
+    <section className="bg-[#f6f6f6] font-degular pt-20 lg:pt-[80px] ">
       <CustomContainer>
         <div className="lg:pb-[200px]">
           <div className="pt-8 lg:py-16">

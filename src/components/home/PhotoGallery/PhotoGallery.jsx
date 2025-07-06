@@ -78,10 +78,10 @@ const PhotoGallery = () => {
 
         {/* === Load More Section (standard grid) === */}
         {showAll && restPhotos.length > 0 && (
-          <div className="hidden md:grid grid-cols-12 grid-rows-12 gap-4 h-auto md:h-[400px] lg:h-[600px] mt-4">
+          <div className="hidden md:grid grid-cols-4 grid-rows-4 gap-4 h-auto mt-4 pb-8">
             {restPhotos.map((item,index) => {
               const gridStyles = [
-                "col-start-1 col-end-4 row-start-1 row-end-4",
+                "col-start-1 col-end-4 row-start-1 row-end-5",
                 "col-start-4 col-end-7 row-start-1 row-end-5",
                 "col-start-7 col-end-13 row-start-1 row-end-5",
                 // "col-start-6 col-end-10 row-start-5 row-end-9",
