@@ -75,7 +75,7 @@ const Banner = () => {
 
 
                 {/* small device  */}
-                <div className="absolute top-[0px] z-10 md:hidden">
+                <div className="absolute top-[0px] left-0 right-0 mx-auto flex justify-center  z-10 md:hidden">
                   <img src="/bannerCar1.png" alt="car" className=" w-[300px]" />
                 </div>
 
