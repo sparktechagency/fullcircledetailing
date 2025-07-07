@@ -29,8 +29,8 @@ const Banner = () => {
   return (
     <section className="bg-[#f6f6f6] font-degular pt-20 lg:pt-[80px] ">
       <CustomContainer>
-        <div className="lg:pb-[200px]">
-          <div className="pt-8 lg:py-16">
+        <div className="lg:pb-[200px] ">
+          <div className="pt-8 lg:py-16 ">
             <div className="flex flex-col lg:flex-row justify-between ">
               <div className="max-w-[705px] text-wrap md:mt-[0px] lg:mt-[100px] ">
                 <h1 className="font-semibold text-[30px] lg:text-[58px] ">
@@ -158,46 +158,49 @@ const Banner = () => {
               </div>
             </div>
           </div>
+
+
+
+          {/* service section */}
+          <div className="absolute left-0 right-0 lg:flex justify-center mt-10 hidden">
+            <div className="flex justify-center items-center gap-4 ">
+              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+                <img src="/service/serviceLogo1.svg" alt="" />
+                <h3 className="font-degular text-primary text-[30px] font-semibold">
+                  Premium Service
+                </h3>
+                <p className="text-[16px] font-montserrat text-[#000000] text-center">
+                  Professional car washing ensures thorough cleaning, detailing, and
+                  protection using advanced techniques, eco-friendly products, and
+                  expert care for vehicle maintenance.
+                </p>
+              </div>
+              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+                <img src="/service/serviceLogo2.svg" alt="" />
+                <h3 className="font-degular text-primary text-[30px] font-semibold">
+                  Advanced Equipment
+                </h3>
+                <p className="text-[16px] font-montserrat text-[#000000] text-center">
+                  High-end car washing equipment includes advanced pressure washers, foam cannons, steam cleaners for superior cleaning and protection.
+                </p>
+              </div>
+              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+                <img src="/service/serviceLogo3.svg" alt="" />
+                <h3 className="font-degular text-primary text-[30px] font-semibold">
+                  Affordable Pricing
+                </h3>
+                <p className="text-[16px] font-montserrat text-[#000000] text-center">
+                  Offering the best pricing in mobile car washing with affordable rates, premium service, customized packages, and great value for top-quality vehicle care.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </CustomContainer>
 
 
 
 
-      {/* service section */}
-      <div className="absolute w-full mx-auto -bottom-[240px] hidden lg:block">
-        <div className="flex  justify-center items-center gap-4">
-          <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
-            <img src="/service/serviceLogo1.svg" alt="" />
-            <h3 className="font-degular text-primary text-[30px] font-semibold">
-              Premium Service
-            </h3>
-            <p className="text-[16px] font-montserrat text-[#000000] text-center">
-              Professional car washing ensures thorough cleaning, detailing, and
-              protection using advanced techniques, eco-friendly products, and
-              expert care for vehicle maintenance.
-            </p>
-          </div>
-          <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
-            <img src="/service/serviceLogo2.svg" alt="" />
-            <h3 className="font-degular text-primary text-[30px] font-semibold">
-              Advanced Equipment
-            </h3>
-            <p className="text-[16px] font-montserrat text-[#000000] text-center">
-              High-end car washing equipment includes advanced pressure washers, foam cannons, steam cleaners for superior cleaning and protection.
-            </p>
-          </div>
-          <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
-            <img src="/service/serviceLogo3.svg" alt="" />
-            <h3 className="font-degular text-primary text-[30px] font-semibold">
-              Affordable Pricing
-            </h3>
-            <p className="text-[16px] font-montserrat text-[#000000] text-center">
-              Offering the best pricing in mobile car washing with affordable rates, premium service, customized packages, and great value for top-quality vehicle care.
-            </p>
-          </div>
-        </div>
-      </div>
 
 
       {/* small / medium device for */}
