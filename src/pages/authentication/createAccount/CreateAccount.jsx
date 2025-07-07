@@ -225,7 +225,7 @@ const CreateAccount = () => {
                   >
                     <Form.Item name="car_brand">
                       <Input
-                        placeholder="Brand name"
+                        placeholder="Car Make"
                         disabled={buttonTextChange}
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
