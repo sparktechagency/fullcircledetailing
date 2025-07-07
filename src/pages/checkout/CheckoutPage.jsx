@@ -13,8 +13,9 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import toast from "react-hot-toast";
-import { useBookingSuccessMutation, useCreateIntentMutation } from "../../redux/web/serviceAvility/serviceAvilityApi";
+import { useBookingSuccessMutation, useCreateIntentMutation, useGetServiceAvilityApiQuery, useGetTimeApiQuery } from "../../redux/web/serviceAvility/serviceAvilityApi";
 import moment from "moment";
+import { DayPicker } from "react-day-picker";
 
 const stripePromise = loadStripe('pk_test_51QKAtBKOpUtqOuW1x5VdNqH3vG7CZZl1P6V3VuV1qsRUmPLNk26i34AXeu2zCO3QurFJAOZ9zfb0EkWeCVhqBYgH008X41cXr6');
 const CheckoutPage = () => {
@@ -29,7 +30,7 @@ const CheckoutPage = () => {
   const location = useLocation();
   const [paymentInfo, setPaymentInfo] = useState(null)
   const [clickCheckout, setClickCheckout] = useState(false);
- const {  serviceData, selectedDate, bookingTime,singlePriceValue }  = location.state || {};
+  const { serviceData, selectedDate, bookingTime, singlePriceValue } = location.state || {};
 
 
   const { data: userProfileData, isLoading, refetch } = useGetAuthProfileApiQuery();
@@ -439,10 +440,12 @@ const CheckoutPage = () => {
               }}
             >
 
-              <PaymentCard 
-              paymentInfo={paymentInfo} 
-              singlePriceValue = {singlePriceValue}
-              serviceData = {serviceData}
+              <PaymentCard
+                paymentInfo={paymentInfo}
+                singlePriceValue={singlePriceValue}
+                serviceData={serviceData}
+                selectedDate={selectedDate}
+
               />
             </Elements>
           }
@@ -457,13 +460,13 @@ export default CheckoutPage
 
 
 
-export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
-  
-  
+export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
+
+
   const [errorMessage, setErrorMessage] = useState(null);
   const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
   const [modalOpenTwo, setModalOpenTwo] = useState(false);
-
+  const [modalOpenThree, setModalOpenThree] = useState(false);
 
   const [updateData, setUpdateData] = useState({
     id: serviceData?.id || "",
@@ -474,7 +477,6 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
 
 
 
-
   const [createIntent, intentResults] = useCreateIntentMutation()
 
   const [bookingSuccess, bookingResults] = useBookingSuccessMutation()
@@ -482,6 +484,62 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
   const navigation = useNavigate()
   const stripe = useStripe();
   const elements = useElements();
+
+
+
+  const navigate = useNavigate();
+  const [activeNextButton, setActiveNextButton] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date(booking_date)); // send
+  const [selectedDateTow, setSelectedDateTwo] = useState(null); // send
+  const [bookingTime, setBookingTime] = useState(booking_time); // send
+  const { data: getBlockService } = useGetServiceAvilityApiQuery()
+  const blockServiceDate = getBlockService?.data?.data;
+
+
+  const { data: timeData, isLoading, isFetching } = useGetTimeApiQuery({ service_id: updateData?.id, date: moment(selectedDate)?.format("YY-MM-DD") })
+
+
+
+
+  const today = new Date();
+  const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  // Get array of already blocked dates
+  const blockedDates = blockServiceDate?.map(item => new Date(item.date)) || [];
+
+  // ==================== date formate and ui show start ==========================
+  const date = new Date('Sun Jun 29 2025 00:00:00 GMT+0600');
+
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const monthName = months[date.getMonth()]; // "June"
+  const singleDay = date.getDate(); // 29
+  const singleYear = date.getFullYear(); // 2025
+
+  const singleFormattedDate = `${monthName} ${singleDay}, ${singleYear}`;
+
+
+  const handleDateSelect = (date) => {
+
+    if (date) {
+      // Get local date components (avoids timezone issues)
+
+      setSelectedDate(date);
+      const displayOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      const displayDate = date.toLocaleDateString('en-US', displayOptions);
+      setSelectedDateTwo(displayDate)
+    }
+
+
+  };
+
+
+
+
+
 
 
   const handleSubmit = async () => {
@@ -502,7 +560,7 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
     const res = await createIntent({
       payment_method: "pm_card_visa",
       amount: price,
-      service_name: service_name
+      service_name: service_name,
     }).unwrap()
 
     const clientSecret = res?.data?.client_secret
@@ -526,13 +584,9 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
       setErrorMessage(error.message);
     } else {
       paymentInfo.stripe_payment_intent_id = paymentIntent.id;
-
-
-
-      paymentInfo.booking_date = moment(booking_date).format("YYYY-MM-DD")
-      // paymentInfo.booking_date = moment(booking_date).format("YY-DD-MM")
-
-
+      paymentInfo.booking_date = moment(selectedDate).format("YYYY-MM-DD");
+      paymentInfo.booking_time = bookingTime;
+      paymentInfo.price = updateData?.price;
 
       const res = await bookingSuccess(
         paymentInfo
@@ -566,18 +620,25 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
 
 
 
-  const handleNavigateOne = () => {
-    setModalOpenTwo(true)
 
-    // navigation('/service-book')
+  const showModalThree = () => {
+    setModalOpenThree(true)
   }
-  const handleNavigateTwo = () => {
-    navigation('/service-aviablity')
+  const handleModalOkThree = () => {
+
+  }
+  const handleModalCancelThree = () => {
+    setModalOpenThree(false)
   }
 
 
-    const handlePrice = (id, type, name, price) => {
-      
+  const handleNextButton = () => {
+    setModalOpenThree(false)
+
+  }
+
+  const handlePrice = (id, type, name, price) => {
+
     setUpdateData({
       id,
       type,
@@ -589,17 +650,17 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
   }
 
 
-    useEffect(() => {
-      if (modalOpenTwo) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-  
-      return () => {
-        document.body.style.overflow = "auto"; // Cleanup function
-      };
-    }, [modalOpenTwo]);
+  useEffect(() => {
+    if (modalOpenTwo || modalOpenThree) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup function
+    };
+  }, [modalOpenTwo, modalOpenThree]);
 
 
   return <>
@@ -620,13 +681,13 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
         <div className="flex items-center gap-3">
           <img src="/checkoutLogo.svg" alt="logo" />
           <div>
-            <p className='text-[20px]  font-degular'>{booking_date && moment(booking_date).format("ll")}</p>
+            <p className='text-[20px]  font-degular'>{selectedDate && moment(selectedDate).format("ll")}</p>
             {/* <p className='text-[20px] text-gray-300 font-degular'>{bookingTime}</p> */}
-            <p className='text-[20px] text-gray-300 font-degular'>{booking_time}</p>
+            <p className='text-[20px] text-gray-300 font-degular'>{bookingTime}</p>
           </div>
         </div>
 
-        <button onClick={handleNavigateTwo} className="border border-primary px-6 py-4 rounded-lg ">
+        <button onClick={() => showModalThree()} className="border border-primary px-6 py-4 rounded-lg ">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.7071 4.04125C18.0971 3.65125 18.0971 3.00125 17.7071 2.63125L15.3671 0.291249C14.9971 -0.0987512 14.3471 -0.0987512 13.9571 0.291249L12.1171 2.12125L15.8671 5.87125M-0.00292969 14.2512V18.0012H3.74707L14.8071 6.93125L11.0571 3.18125L-0.00292969 14.2512Z" fill="#0063E6" />
           </svg>
@@ -773,7 +834,7 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
       className='custom-service-modal'
 
     >
-      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to book ?</p>
+      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to update ?</p>
 
       {/* interior card */}
       <div className="pb-4">
@@ -841,6 +902,104 @@ export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
       </div>
 
 
+    </Modal>
+
+    {/* DATE SHOW */}
+    <Modal
+      centered
+      title={
+        <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+          {singlePriceValue?.car_type}
+        </div>
+      }
+      open={modalOpenThree}
+      onOk={handleModalOkThree}
+      onCancel={handleModalCancelThree}
+      footer={null}
+      width={800}
+      className='custom-service-modal'
+
+    >
+      <p className='text-[24px] font-degular font-medium text-center py-8'>Which date you wants to update ?</p>
+
+      {/* interior card */}
+      <div className="p-4">
+
+
+        <div className="flex flex-col lg:flex-row justify-between  pt-10 lg:pt-0">
+          <div className="w-full">
+            {/* date picker conponent */}
+            <p className='text-[20px]  font-medium font-degular'>Select Date</p>
+            <div className="bg-gray-100 shadow-md p-4  flex justify-center items-center rounded-lg m-4">
+              <DayPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDateSelect}
+                disabled={[
+                  { before: disabledBefore }, // Disable past dates
+                  ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
+                ]}
+                modifiers={{ today: new Date() }}
+                modifiersClassNames={{
+                  disabled: "cursor-not-allowed opacity-50",
+                  selected: "bg-primary text-white",
+                  today: "text-primary "
+                }}
+              />
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div className=" mt-3">
+          {
+            timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular pb-8'>Select Time</p>
+          }
+
+          <div className="flex justify-center items-center gap-4">
+            {
+              timeData?.data?.length > 0 ? (
+                timeData?.data.map((singleTime, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        setActiveNextButton(true)
+                        setBookingTime(singleTime)
+                      }}
+                      className={`w-fit px-8 py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff] border"
+                        }`}
+                    >
+                      {singleTime}
+                    </div>
+                  );
+                })
+              ) : (
+                <div>
+                  <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                  <p className='text-[20px]  font-degular'>No availability </p>
+
+                </div>
+              )
+            }
+          </div>
+
+          {
+
+            <button
+              disabled={!activeNextButton}
+              onClick={handleNextButton}
+              className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
+              Next
+              <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
+              </svg>
+            </button>
+          }
+        </div>
+      </div>
     </Modal>
   </>
 }
