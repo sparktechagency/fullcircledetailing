@@ -29,8 +29,7 @@ const CheckoutPage = () => {
   const location = useLocation();
   const [paymentInfo, setPaymentInfo] = useState(null)
   const [clickCheckout, setClickCheckout] = useState(false);
-  const { id, type, name, price, selectedDate, bookingTime, singlePriceValue } = location.state || {};
-
+ const {  serviceData, selectedDate, bookingTime,singlePriceValue }  = location.state || {};
 
 
   const { data: userProfileData, isLoading, refetch } = useGetAuthProfileApiQuery();
@@ -106,12 +105,12 @@ const CheckoutPage = () => {
   const onFinishOne = (values) => {
 
     const info = {
-      'service_id': id,
-      'service_name': name,
-      'service_type': type,
+      'service_id': serviceData?.id,
+      'service_name': serviceData?.name,
+      'service_type': serviceData?.type,
       'booking_date': selectedDate,
       'booking_time': bookingTime,
-      'price': price,
+      'price': serviceData?.price,
       'booking_note': bookingNode,
       'car_brand': values?.car_brand,
       'car_model': values?.car_model,
@@ -440,15 +439,15 @@ const CheckoutPage = () => {
               }}
             >
 
-              <PaymentCard paymentInfo={paymentInfo} />
+              <PaymentCard 
+              paymentInfo={paymentInfo} 
+              singlePriceValue = {singlePriceValue}
+              serviceData = {serviceData}
+              />
             </Elements>
           }
-
         </div>
       </CustomContainer>
-
-
-
     </section>
   )
 }
@@ -458,13 +457,21 @@ export default CheckoutPage
 
 
 
-export const PaymentCard = ({ paymentInfo,}) => {
-  console.log( 'singlePriceValue');
+export const PaymentCard = ({ paymentInfo,singlePriceValue,serviceData}) => {
+  
   
   const [errorMessage, setErrorMessage] = useState(null);
   const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
   const [modalOpenTwo, setModalOpenTwo] = useState(false);
-  const { singlePriceValue } = location.state || {};
+
+
+  const [updateData, setUpdateData] = useState({
+    id: serviceData?.id || "",
+    type: serviceData?.type || "",
+    name: serviceData?.name || "",
+    price: serviceData?.price || 0,
+  });
+
 
 
 
@@ -569,6 +576,32 @@ export const PaymentCard = ({ paymentInfo,}) => {
   }
 
 
+    const handlePrice = (id, type, name, price) => {
+      
+    setUpdateData({
+      id,
+      type,
+      name,
+      price,
+    });
+
+    setModalOpenTwo(false)
+  }
+
+
+    useEffect(() => {
+      if (modalOpenTwo) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Cleanup function
+      };
+    }, [modalOpenTwo]);
+
+
   return <>
 
     {/* right  */}
@@ -602,10 +635,10 @@ export const PaymentCard = ({ paymentInfo,}) => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
-        <p className='text-[28px]  font-degular text-primary'>{service_type}</p>
+        <p className='text-[28px]  font-degular text-primary'>{updateData?.type}</p>
         <div>
-          <p className='text-[20px]  font-degular'>{name}</p>
-          <p className='text-[28px]  font-bold text-primary font-degular'>${price}</p>
+          <p className='text-[20px]  font-degular'>{updateData?.name}</p>
+          <p className='text-[28px]  font-bold text-primary font-degular'>${updateData?.price}</p>
         </div>
       </div>
 

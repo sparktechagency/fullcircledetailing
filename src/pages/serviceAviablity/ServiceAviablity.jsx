@@ -23,16 +23,17 @@ const ServiceAviablity = () => {
   const location = useLocation();
   const { id, type, name, price, singlePriceValue } = location.state || {};
   
+
   const [serviceData, setServiceData] = useState({
     id: id || "",
     type: type || "",
     name: name || "",
     price: price || 0,
-
   });
 
 
 
+  
 
 
 
@@ -121,7 +122,7 @@ const ServiceAviablity = () => {
 
   const handleCheckoutPage = () => {
     if (activeTimes.length === 0) return; // Do nothing if nothing is selected
-    navigate(`/checkout`, { state: { id, type, name, price, selectedDate, bookingTime,singlePriceValue } });
+    navigate(`/checkout`, { state: { serviceData, selectedDate, bookingTime,singlePriceValue } });
   }
 
 
