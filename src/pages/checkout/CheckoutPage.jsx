@@ -24,24 +24,12 @@ const CheckoutPage = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [agreement, setAgreement] = useState(false)
   const [modalOpen, setModalOpen] = useState(false);
- 
-  const [ImageFileList, setImageFileList] = useState([]);
+
   const [bookingNode, setBookingNode] = useState('')
   const location = useLocation();
-
-
-
   const [paymentInfo, setPaymentInfo] = useState(null)
-  const { selectedDate, bookingTime } = location.state || {};
   const [clickCheckout, setClickCheckout] = useState(false);
-
-
-  const serviceData = localStorage.getItem("serviceData");
-  const serviceDataObj = serviceData ? JSON.parse(serviceData) : {};
-
-  const singleServiceData = localStorage.getItem("singleServiceValue");
-  const singleServiceValueObj = singleServiceData ? JSON.parse(singleServiceData) : {};
-
+  const { id, type, name, price, selectedDate, bookingTime, singlePriceValue } = location.state || {};
 
 
 
@@ -118,12 +106,12 @@ const CheckoutPage = () => {
   const onFinishOne = (values) => {
 
     const info = {
-      'service_id': singleServiceValueObj?.id,
-      'service_name': singleServiceValueObj?.name,
-      'service_type': singleServiceValueObj?.type,
+      'service_id': id,
+      'service_name': name,
+      'service_type': type,
       'booking_date': selectedDate,
       'booking_time': bookingTime,
-      'price': singleServiceValueObj?.price,
+      'price': price,
       'booking_note': bookingNode,
       'car_brand': values?.car_brand,
       'car_model': values?.car_model,
@@ -471,13 +459,14 @@ export default CheckoutPage
 
 
 export const PaymentCard = ({ paymentInfo,}) => {
+  console.log( 'singlePriceValue');
+  
   const [errorMessage, setErrorMessage] = useState(null);
   const { service_type, service_name, price, booking_date, booking_time } = paymentInfo;
- const [modalOpenTwo, setModalOpenTwo] = useState(false);
- const { singlePriceValue } = location.state || {};
+  const [modalOpenTwo, setModalOpenTwo] = useState(false);
+  const { singlePriceValue } = location.state || {};
 
- console.log(singlePriceValue,'singlePriceValue');
- 
+
 
   const [createIntent, intentResults] = useCreateIntentMutation()
 
@@ -587,7 +576,7 @@ export const PaymentCard = ({ paymentInfo,}) => {
 
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
-        <button onClick={()=>showModalTwo()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button onClick={() => showModalTwo()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
         </svg>
           Change</button>
