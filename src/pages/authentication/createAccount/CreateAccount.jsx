@@ -288,7 +288,7 @@ const CreateAccount = () => {
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter Your Password"
+                    placeholder="Password"
                     prefix={
                       <svg
                         width="16"
@@ -341,7 +341,7 @@ const CreateAccount = () => {
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter Your Confirm Password"
+                    placeholder="Confirm Password"
                     prefix={
                       <svg
                         width="16"
