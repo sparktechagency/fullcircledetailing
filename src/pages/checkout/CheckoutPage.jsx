@@ -17,7 +17,7 @@ import { useBookingSuccessMutation, useCreateIntentMutation, useGetServiceAvilit
 import moment from "moment";
 import { DayPicker } from "react-day-picker";
 
-const stripePromise = loadStripe('pk_test_51QKAtBKOpUtqOuW1x5VdNqH3vG7CZZl1P6V3VuV1qsRUmPLNk26i34AXeu2zCO3QurFJAOZ9zfb0EkWeCVhqBYgH008X41cXr6');
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PUBLIC_KEY); // payment api key by server site
 const CheckoutPage = () => {
   const [formOne] = Form.useForm();
   const [formTwo] = Form.useForm();

@@ -43,14 +43,14 @@ console.log(location)
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
             navigate(from, { replace: true,state:location?.state?.data },);
+      } else{
+        toast.error(res?.message)
       }
       if(res.need_verificaiton){
         toast.error(res?.message)
           navigate('/otp-code?verify=create_account')
       }
-      else{
-        toast.error(res?.message)
-      }
+     
 
     } catch (error) {
       console.log(error)
