@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         element: <ServiceBook />,
       },
       {
-        path: "/service-aviablity",
+        path: "/service-avialability",
         element: <PrivatRoutes>
           <ServiceAviablity />,
         </PrivatRoutes>

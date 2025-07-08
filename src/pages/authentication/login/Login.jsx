@@ -41,7 +41,7 @@ console.log(location)
         toast.success(res?.message)
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-            navigate(from, { replace: true });
+            navigate(from, { replace: true,state:location?.state?.data },);
       }else{
         toast.error(res?.message)
       }

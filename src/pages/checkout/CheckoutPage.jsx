@@ -30,7 +30,7 @@ const CheckoutPage = () => {
   const location = useLocation();
   const [paymentInfo, setPaymentInfo] = useState(null)
   const [clickCheckout, setClickCheckout] = useState(false);
-  const { serviceData, selectedDate, bookingTime, singlePriceValue } = location.state || {};
+  const { serviceData,stateAddress, zipCode, selectedDate, bookingTime, singlePriceValue } = location.state || {};
 
 
   const { data: userProfileData, isLoading, refetch } = useGetAuthProfileApiQuery();
@@ -38,19 +38,19 @@ const CheckoutPage = () => {
   const carPhoto = userProfile?.car_photos
 
 
-
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && (stateAddress, zipCode)) {
       formOne.setFieldsValue({
         ...userProfile,
         phone: userProfile?.phone,
         name: userProfile?.name,
         email: userProfile?.email,
+        street_address : stateAddress,
+        zip_code: zipCode,
       })
     }
 
   }, [userProfile]);
-
 
 
 
@@ -115,6 +115,8 @@ const CheckoutPage = () => {
       'booking_note': bookingNode,
       'car_brand': values?.car_brand,
       'car_model': values?.car_model,
+      'street_address': values?.street_address,
+      'zip_code': values?.zip_code,
     }
 
     setPaymentInfo(info)
@@ -270,6 +272,58 @@ const CheckoutPage = () => {
                 </Form.Item>
               </div>
 
+              <div className="flex items-center gap-6">
+                {/* Street address */}
+                <div
+                  className="w-[70%]"
+                >
+                  <Form.Item name="street_address"
+                    rules={[
+                      { required: true, message: "Please enter your street address" },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Street address"
+                      style={{
+                        background: "transparent",
+                        height: "60px",
+                        borderRadius: "20px",
+                        paddingInline: "20px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                  </Form.Item>
+                </div>
+
+                {/* Zip code*/}
+                <div className="w-[30%] ">
+                  <Form.Item name="zip_code"
+                    rules={[
+                      { required: true, message: "Please enter your zip code" },
+                      {
+                        pattern: /^[0-9]{4,6}$/,
+                        message: "Zip code must be 4 to 6 digits",
+                      },
+                    ]}
+                  >
+                    <Input
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9]/g, "")
+                          .slice(0, 6);
+                      }}
+                      placeholder="Zip code"
+                      style={{
+                        background: "transparent",
+                        height: "60px",
+                        borderRadius: "20px",
+                        paddingInline: "20px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                  </Form.Item>
+                </div>
+              </div>
 
               <div className="flex flex-col md:flex-row justify-between md:gap-3">
                 {/* brand name */}

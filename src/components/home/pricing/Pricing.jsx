@@ -39,7 +39,7 @@ const Pricing = () => {
 
 
   const handlePrice = (id, type, name, price) => {
-    navigate(`/service-aviablity`, { state: { id,type,name, price } })
+    navigate(`/service-avialability`, { state: { id,type,name, price } })
   }
 
 

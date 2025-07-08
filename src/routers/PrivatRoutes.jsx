@@ -8,7 +8,8 @@ const PrivatRoutes = ({ children }) => {
     const [token, setToken] = useState(null);
     const [role, setRole] = useState(null);
     const location = useLocation();
-console.log(role)
+
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -19,6 +20,7 @@ console.log(role)
     }, []);
 
     if (loading) {
+        console.log("private route page",location?.state)
         return <CustomLoading />;
     }
 
@@ -28,7 +30,7 @@ console.log(role)
     else if (token && (role === 'USER')) {
         return children
     }
-    return <Navigate to="/login" state={{ from: location?.pathname }}  />
+    return <Navigate to="/login" state={{ from: location?.pathname, data:location?.state}}  />
 };
 
 export default PrivatRoutes;

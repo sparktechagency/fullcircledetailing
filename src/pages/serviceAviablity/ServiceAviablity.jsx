@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useGetServiceAvilityApiQuery, useGetTimeApiQuery } from "../../redux/web/serviceAvility/serviceAvilityApi";
 import moment from "moment";
-import { Modal } from "antd";
+import { Form, Input, Modal } from "antd";
 
 
 
@@ -13,6 +13,7 @@ import { Modal } from "antd";
 
 
 const ServiceAviablity = () => {
+  const [formOne] = Form.useForm();
   const navigate = useNavigate();
   const [activeTimes, setActiveTimes] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,9 +21,12 @@ const ServiceAviablity = () => {
   const [selectedDate, setSelectedDate] = useState(new Date()); // send
   const [selectedDateTow, setSelectedDateTwo] = useState(null); // send
   const [bookingTime, setBookingTime] = useState(null); // send
+  const [stateAddress, setStateAddress] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
   const location = useLocation();
   const { id, type, name, price, singlePriceValue } = location.state || {};
-  
+
 
   const [serviceData, setServiceData] = useState({
     id: id || "",
@@ -34,6 +38,8 @@ const ServiceAviablity = () => {
 
 
   
+
+
 
 
 
@@ -118,11 +124,20 @@ const ServiceAviablity = () => {
 
   };
 
+  const onFinishOne = (values) => {
+    setStateAddress(values.street_address);
+    setZipCode(values.zip_code);
+  }
 
 
   const handleCheckoutPage = () => {
+ const values = formOne.getFieldsValue(); // Get all form values
+
+  const stateAddress = values.street_address;
+  const zipCode = values.zip_code;
+
     if (activeTimes.length === 0) return; // Do nothing if nothing is selected
-    navigate(`/checkout`, { state: { serviceData, selectedDate, bookingTime,singlePriceValue } });
+    navigate(`/checkout`, { state: { serviceData, stateAddress, zipCode, selectedDate, bookingTime, singlePriceValue } });
   }
 
 
@@ -192,102 +207,169 @@ const ServiceAviablity = () => {
           </div>
 
           <div className="flex justify-center w-full">
-            <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Select your preferred time</h2>
+            <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Requested Service Location</h2>
           </div>
         </div>
 
 
-        <div className="flex flex-col lg:flex-row justify-between  pt-10 lg:pt-0">
-          <div className="w-full lg:w-[40%]">
-            {/* date picker conponent */}
-            <p className='text-[20px]  font-medium font-degular'>Select Date</p>
-            <div className="bg-gray-100 shadow-md p-4 h-[360px]">
-              <DayPicker
-                mode="single"
-                selected={selectedDate}
-                onSelect={handleDateSelect}
-                disabled={[
-                  { before: disabledBefore }, // Disable past dates
-                  ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
+        {/* new field add */}
+        <Form form={formOne} onFinish={onFinishOne}>
+          <div className="w-[50%] flex items-center gap-6 pt-6">
+            {/* Street address */}
+            <div
+              className="w-[70%]"
+            >
+              <Form.Item name="street_address"
+                rules={[
+                  { required: true, message: "Please enter your street address" },
                 ]}
-                modifiers={{ today: new Date() }}
-                modifiersClassNames={{
-                  disabled: "cursor-not-allowed opacity-50",
-                  selected: "bg-primary text-white",
-                  today: "text-primary "
-                }}
-              />
+              >
+                <Input
+                  placeholder="Street address"
+                  style={{
+                    background: "transparent",
+                    height: "60px",
+                    borderRadius: "20px",
+                    paddingInline: "20px",
+                    border: "1px solid #ccc",
+                  }}
+                />
+              </Form.Item>
+            </div>
+
+            {/* Zip code*/}
+            <div className="w-[30%] ">
+              <Form.Item name="zip_code"
+                rules={[
+                  { required: true, message: "Please enter your zip code" },
+                  {
+                    pattern: /^[0-9]{4,6}$/,
+                    message: "Zip code must be 4 to 6 digits",
+                  },
+                ]}
+              >
+                <Input
+                  onInput={(e) => {
+                      e.target.value = e.target.value
+                        .replace(/[^0-9]/g, "")
+                        .slice(0, 6);
+                    }}
+                  placeholder="Zip code"
+                  style={{
+                    background: "transparent",
+                    height: "60px",
+                    borderRadius: "20px",
+                    paddingInline: "20px",
+                    border: "1px solid #ccc",
+                  }}
+                />
+              </Form.Item>
             </div>
           </div>
-
-
-          <div className="w-full lg:w-[40%] p-4">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-              <p className='text-[20px]  font-medium font-degular'>Appointment Summery</p>
-              <button onClick={() => showModal()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
-              </svg>
-                Change</button>
+          <div className="flex flex-col lg:flex-row justify-between  pt-10 lg:pt-0">
+            <div className="w-full lg:w-[50%]">
+              {/* date picker conponent */}
+              <p className='text-[20px]  font-medium font-degular'>Select Date</p>
+              <div className="bg-gray-100 shadow-md p-4 h-[360px]">
+                <DayPicker
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  disabled={[
+                    { before: disabledBefore }, // Disable past dates
+                    ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
+                  ]}
+                  modifiers={{ today: new Date() }}
+                  modifiersClassNames={{
+                    disabled: "cursor-not-allowed opacity-50",
+                    selected: "bg-primary text-white",
+                    today: "text-primary "
+                  }}
+                />
+              </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
-              <p className='text-[28px]  font-degular text-primary font-medium'>{serviceData?.type}</p>
-              <div>
-                <p className='text-[20px]  font-degular'>{serviceData?.name}</p>
-                <p className='text-[28px]  font-bold text-primary font-degular'>${serviceData?.price}</p>
+
+
+            <div className="w-full lg:w-[40%] p-4">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
+                <button onClick={() => showModal()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
+                </svg>
+                  Change</button>
+              </div>
+              <div className="flex flex-col md:flex-row justify-between border border-[#ccc] rounded-lg p-4 font-degular mt-6">
+                <p className='text-[28px]  font-degular text-primary font-medium'>{serviceData?.type}</p>
+                <div>
+                  <p className='text-[20px]  font-degular'>{serviceData?.name}</p>
+                  <p className='text-[28px]  font-bold text-primary font-degular'>${serviceData?.price}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
 
 
-        {isLoading || isFetching ? <div>loading...</div> :
-          <div className="lg:w-[50%] mt-8">
+          {isLoading || isFetching ? <div>loading...</div> :
+            <div className="lg:w-[50%] mt-8">
 
 
-            {
-              timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
-            }
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:place-items-baseline gap-y-4">
               {
-                timeData?.data?.length > 0 ? (
-                  timeData?.data.map((singleTime, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => {
-                          setActiveNextButton(true)
-                          setBookingTime(singleTime)
-                        }}
-                        className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
-                          }`}
-                      >
-                        {singleTime}
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div>
-                    <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
-                    <p className='text-[20px]  font-degular'>No availability </p>
+                timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
+              }
 
-                  </div>
-                )
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:place-items-baseline gap-y-4">
+                {
+                  timeData?.data?.length > 0 ? (
+                    timeData?.data.map((singleTime, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => {
+                            setActiveNextButton(true)
+                            setBookingTime(singleTime)
+                          }}
+                          className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
+                            }`}
+                        >
+                          {singleTime}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div>
+                      <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                      <p className='text-[20px]  font-degular'>No availability </p>
+
+                    </div>
+                  )
+                }
+              </div>
+
+              {
+
+                <button type="submit" disabled={!activeNextButton}
+                  onClick={async () => {
+                    try {
+                      await formOne.validateFields(); // Trigger validation manually
+                      handleCheckoutPage(); // If validation passes
+                    } catch (errorInfo) {
+                      // Validation failed — do nothing or show error
+                      console.log("Validation failed:", errorInfo);
+                    }
+                  }}
+                  className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
+                  Next
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
+                  </svg>
+                </button>
               }
             </div>
+          }
+        </Form>
 
-            {
 
-              <button disabled={!activeNextButton} onClick={handleCheckoutPage} className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
-                Next
-                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
-                </svg>
-              </button>
-            }
-          </div>
-        }
 
         {/* modal component  */}
         <Modal
