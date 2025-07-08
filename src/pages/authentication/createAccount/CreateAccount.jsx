@@ -58,6 +58,8 @@ const CreateAccount = () => {
         toast.success(res?.message);
         navigate('/otp-code?verify=create_account')
 
+      }else{
+        toast.error(res?.messages);
       }
     } catch (error) {
       const errorMessage = error?.data?.message;

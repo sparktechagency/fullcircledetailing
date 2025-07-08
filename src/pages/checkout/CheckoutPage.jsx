@@ -143,7 +143,7 @@ const CheckoutPage = () => {
 
 
   return (
-    <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
+    <section className=" pt-4 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
       <CustomContainer>
         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-0 pt-10 lg:pt-0">
           <div>
@@ -272,10 +272,10 @@ const CheckoutPage = () => {
                 </Form.Item>
               </div>
 
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col lg:flex-row items-center lg:gap-6">
                 {/* Street address */}
                 <div
-                  className="w-[70%]"
+                  className="w-full lg:w-[70%]"
                 >
                   <Form.Item name="street_address"
                     rules={[
@@ -285,7 +285,6 @@ const CheckoutPage = () => {
                     <Input
                       placeholder="Street address"
                       style={{
-                        background: "transparent",
                         height: "60px",
                         borderRadius: "20px",
                         paddingInline: "20px",
@@ -296,7 +295,7 @@ const CheckoutPage = () => {
                 </div>
 
                 {/* Zip code*/}
-                <div className="w-[30%] ">
+                <div className="w-full lg:w-[30%] ">
                   <Form.Item name="zip_code"
                     rules={[
                       { required: true, message: "Please enter your zip code" },
@@ -314,7 +313,7 @@ const CheckoutPage = () => {
                       }}
                       placeholder="Zip code"
                       style={{
-                        background: "transparent",
+
                         height: "60px",
                         borderRadius: "20px",
                         paddingInline: "20px",
@@ -722,7 +721,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
     {/* right  */}
     <div className=" w-full lg:w-[40%]">
 
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 pt-8 lg:pt-0">
         <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
         <button onClick={() => showModalTwo()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />

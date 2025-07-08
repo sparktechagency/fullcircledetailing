@@ -37,7 +37,7 @@ const ServiceAviablity = () => {
 
 
 
-  
+
 
 
 
@@ -131,10 +131,10 @@ const ServiceAviablity = () => {
 
 
   const handleCheckoutPage = () => {
- const values = formOne.getFieldsValue(); // Get all form values
+    const values = formOne.getFieldsValue(); // Get all form values
 
-  const stateAddress = values.street_address;
-  const zipCode = values.zip_code;
+    const stateAddress = values.street_address;
+    const zipCode = values.zip_code;
 
     if (activeTimes.length === 0) return; // Do nothing if nothing is selected
     navigate(`/checkout`, { state: { serviceData, stateAddress, zipCode, selectedDate, bookingTime, singlePriceValue } });
@@ -185,112 +185,184 @@ const ServiceAviablity = () => {
     };
   }, [modalOpen]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
+
+ 
 
 
 
   return (
-    <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6] transition-all duration-500">
+    <section className=" pt-10 lg:pt-[120px] pb-[52px] bg-[#f6f6f6] transition-all duration-500 ">
       <CustomContainer>
-        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-0 pt-10 lg:pt-0 min-h-[200px]">
-          <div>
-            <span onClick={() => navigate(-1)} className="cursor-pointer">
-              <svg
-                className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
-                viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="60" height="60" rx="30" fill="#0063E6" />
-                <path d="M37.707 31.0001H26.121L30.621 35.5001L29.207 36.9141L22.293 30.0001L29.207 23.0861L30.621 24.5001L26.121 29.0001H37.707V31.0001Z" fill="white" />
-              </svg>
-            </span>
-          </div>
-
-          <div className="flex justify-center w-full">
-            <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Requested Service Location</h2>
-          </div>
-        </div>
-
-
-        {/* new field add */}
-        <Form form={formOne} onFinish={onFinishOne}>
-          <div className="w-[50%] flex items-center gap-6 pt-6">
-            {/* Street address */}
-            <div
-              className="w-[70%]"
-            >
-              <Form.Item name="street_address"
-                rules={[
-                  { required: true, message: "Please enter your street address" },
-                ]}
-              >
-                <Input
-                  placeholder="Street address"
-                  style={{
-                    background: "transparent",
-                    height: "60px",
-                    borderRadius: "20px",
-                    paddingInline: "20px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </Form.Item>
+        <div className="">
+          <div className="flex items-center">
+            <div>
+              <span onClick={() => navigate(-1)} className="cursor-pointer">
+                <svg
+                  className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                  viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="60" height="60" rx="30" fill="#0063E6" />
+                  <path d="M37.707 31.0001H26.121L30.621 35.5001L29.207 36.9141L22.293 30.0001L29.207 23.0861L30.621 24.5001L26.121 29.0001H37.707V31.0001Z" fill="white" />
+                </svg>
+              </span>
             </div>
 
-            {/* Zip code*/}
-            <div className="w-[30%] ">
-              <Form.Item name="zip_code"
-                rules={[
-                  { required: true, message: "Please enter your zip code" },
-                  {
-                    pattern: /^[0-9]{4,6}$/,
-                    message: "Zip code must be 4 to 6 digits",
-                  },
-                ]}
-              >
-                <Input
-                  onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9]/g, "")
-                        .slice(0, 6);
-                    }}
-                  placeholder="Zip code"
-                  style={{
-                    background: "transparent",
-                    height: "60px",
-                    borderRadius: "20px",
-                    paddingInline: "20px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </Form.Item>
+            <div className="flex justify-center w-full">
+              <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Requested Service Location</h2>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row justify-between  pt-10 lg:pt-0">
-            <div className="w-full lg:w-[50%]">
-              {/* date picker conponent */}
-              <p className='text-[20px]  font-medium font-degular'>Select Date</p>
-              <div className="bg-gray-100 shadow-md p-4 h-[360px]">
-                <DayPicker
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateSelect}
-                  disabled={[
-                    { before: disabledBefore }, // Disable past dates
-                    ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
-                  ]}
-                  modifiers={{ today: new Date() }}
-                  modifiersClassNames={{
-                    disabled: "cursor-not-allowed opacity-50",
-                    selected: "bg-primary text-white",
-                    today: "text-primary "
-                  }}
-                />
-              </div>
+
+
+          <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 pt-0 lg:pt-8 min-h-[200px]">
+            {/* FORM VALIDATION */}
+            <div className="lg:w-[55%] py-4 ">
+              <Form form={formOne} onFinish={onFinishOne}>
+
+                <div className="flex pt-4 lg:pt-0">
+                  <div className="w-full">
+                    <div className=" flex flex-col md:flex-row items-center md:gap-6 pt-0 lg:pt-6">
+                      {/* Street address */}
+                      <div
+                        className="w-full lg:w-[70%]"
+                      >
+                        <Form.Item name="street_address"
+                          rules={[
+                            { required: true, message: "Please enter your street address" },
+                          ]}
+                        >
+                          <Input
+                            placeholder="Street address"
+                            style={{
+                              background: "transparent",
+                              height: "60px",
+                              borderRadius: "20px",
+                              paddingInline: "20px",
+                              border: "1px solid #ccc",
+                            }}
+                          />
+                        </Form.Item>
+                      </div>
+
+                      {/* Zip code*/}
+                      <div className="w-full lg:w-[30%] ">
+                        <Form.Item name="zip_code"
+                          rules={[
+                            { required: true, message: "Please enter your zip code" },
+                            {
+                              pattern: /^[0-9]{4,6}$/,
+                              message: "Zip code must be 4 to 6 digits",
+                            },
+                          ]}
+                        >
+                          <Input
+                            onInput={(e) => {
+                              e.target.value = e.target.value
+                                .replace(/[^0-9]/g, "")
+                                .slice(0, 6);
+                            }}
+                            placeholder="Zip code"
+                            style={{
+                              background: "transparent",
+                              height: "60px",
+                              borderRadius: "20px",
+                              paddingInline: "20px",
+                              border: "1px solid #ccc",
+                            }}
+                          />
+                        </Form.Item>
+                      </div>
+                    </div>
+
+                    {/* date picker conponent */}
+                    <p className='text-[20px]  font-medium font-degular'>Select Date</p>
+
+                    <div className="bg-gray-100 shadow-md p-4 w-full max-w-md mx-auto md:max-w-full  h-auto sm:h-[300px] md:h-[340px] lg:h-[360px] overflow-auto">
+                      <DayPicker
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={handleDateSelect}
+                        disabled={[
+                          { before: disabledBefore }, // Disable past dates
+                          ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
+                        ]}
+                        modifiers={{ today: new Date() }}
+                        modifiersClassNames={{
+                          disabled: "cursor-not-allowed opacity-50",
+                          selected: "bg-primary text-white",
+                          today: "text-primary "
+                        }}
+                      />
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+
+
+                {isLoading || isFetching ? <div>loading...</div> :
+                  <div className=" mt-8">
+
+
+                    {
+                      timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
+                    }
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:place-items-baseline gap-y-4">
+                      {
+                        timeData?.data?.length > 0 ? (
+                          timeData?.data.map((singleTime, index) => {
+                            return (
+                              <div
+                                key={index}
+                                onClick={() => {
+                                  setActiveNextButton(true)
+                                  setBookingTime(singleTime)
+                                }}
+                                className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
+                                  }`}
+                              >
+                                {singleTime}
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div>
+                            <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                            <p className='text-[20px]  font-degular'>No availability </p>
+
+                          </div>
+                        )
+                      }
+                    </div>
+
+                    {
+
+                      <button type="submit" disabled={!activeNextButton}
+                        onClick={async () => {
+                          try {
+                            await formOne.validateFields(); // Trigger validation manually
+                            handleCheckoutPage(); // If validation passes
+                          } catch (errorInfo) {
+                            // Validation failed — do nothing or show error
+                            console.log("Validation failed:", errorInfo);
+                          }
+                        }}
+                        className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
+                        Next
+                        <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
+                        </svg>
+                      </button>
+                    }
+                  </div>
+                }
+              </Form>
+
             </div>
 
-
-            <div className="w-full lg:w-[40%] p-4">
+            <div className="lg:w-[45%] p-4">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <p className='text-[20px]  font-medium font-degular'>Appointment Summary</p>
                 <button onClick={() => showModal()} className="flex items-center gap-2 border border-primary px-4 py-2 rounded text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -306,71 +378,10 @@ const ServiceAviablity = () => {
                 </div>
               </div>
             </div>
+
+
           </div>
-
-
-
-          {isLoading || isFetching ? <div>loading...</div> :
-            <div className="lg:w-[50%] mt-8">
-
-
-              {
-                timeData?.data?.length > 0 && <p className='text-[20px]  font-medium font-degular py-4'>Select Time</p>
-              }
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:place-items-baseline gap-y-4">
-                {
-                  timeData?.data?.length > 0 ? (
-                    timeData?.data.map((singleTime, index) => {
-                      return (
-                        <div
-                          key={index}
-                          onClick={() => {
-                            setActiveNextButton(true)
-                            setBookingTime(singleTime)
-                          }}
-                          className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
-                            }`}
-                        >
-                          {singleTime}
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div>
-                      <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
-                      <p className='text-[20px]  font-degular'>No availability </p>
-
-                    </div>
-                  )
-                }
-              </div>
-
-              {
-
-                <button type="submit" disabled={!activeNextButton}
-                  onClick={async () => {
-                    try {
-                      await formOne.validateFields(); // Trigger validation manually
-                      handleCheckoutPage(); // If validation passes
-                    } catch (errorInfo) {
-                      // Validation failed — do nothing or show error
-                      console.log("Validation failed:", errorInfo);
-                    }
-                  }}
-                  className={`w-full flex justify-center items-center  text-[20px] py-2 md:py-4  rounded-full gap-2 my-8 ${activeNextButton ? "bg-primary text-[#ffff] cursor-pointer" : "bg-gray-300 text-[#ffff] cursor-not-allowed"}`}>
-                  Next
-                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.29425e-05 6L11.5861 6L7.08606 1.5L8.50006 0.0859985L15.4141 7L8.50006 13.914L7.08606 12.5L11.5861 8L6.29425e-05 8V6Z" fill="white" />
-                  </svg>
-                </button>
-              }
-            </div>
-          }
-        </Form>
-
-
-
+        </div>
         {/* modal component  */}
         <Modal
           centered

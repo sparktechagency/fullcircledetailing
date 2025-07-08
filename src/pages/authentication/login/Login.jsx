@@ -36,13 +36,19 @@ console.log(location)
       const res = await postAuthApi(authInfo).unwrap()
       const token = res.data?.access_token;
       const role = res?.data?.user?.role
-
+        console.log(res);
+        
       if (res.status === true) {
         toast.success(res?.message)
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
             navigate(from, { replace: true,state:location?.state?.data },);
-      }else{
+      }
+      if(res.need_verificaiton){
+        toast.error(res?.message)
+          navigate('/otp-code?verify=create_account')
+      }
+      else{
         toast.error(res?.message)
       }
 
