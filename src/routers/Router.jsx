@@ -74,7 +74,7 @@ const router = createBrowserRouter([
         element: <PrivacyPolicy />,
       },
       {
-        path: "/terms-condition",
+        path: "/terms-conditions",
         element: <TermsConditions />,
       },
       {
@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         element: <ServiceBook />,
       },
       {
-        path: "/service-avialability",
+        path: "/service-availability",
         element: <PrivatRoutes>
           <ServiceAviablity />,
         </PrivatRoutes>

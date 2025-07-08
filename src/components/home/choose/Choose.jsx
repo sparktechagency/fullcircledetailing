@@ -14,9 +14,10 @@ const Choose = () => {
         <div className=" mt-[30px]">
           <div className="flex flex-col lg:flex-row justify-between gap-8 pt-[40px] lg:pt-[300px]">
             <div className="order-2 lg:order-1">
-              <CommonTitle text={"Why choose us ?"} />
-              <p className="text-[24px] text-[#000000] text-wrap font-degular pt-3">
-                Our name comes from our mission to transform challenges into shining successes.
+              <CommonTitle text={"Why Choose Us?"} />
+              <p className="text-[24px] text-wrap font-degular pt-3 text-primary">
+                Our name comes from our mission to transform challenges into shining successes. A portion of our profits are donated to community schools. We
+                thank you for your business.
               </p>
               <h3 className="font-semibold font-degular text-[32px] text-[#000000] pt-[25px] pb-[34px]">
                 Our Commitment
@@ -126,10 +127,7 @@ const Choose = () => {
                   </span>
                   Customer Satisfaction – Your car comes FULL CIRCLE every time.
                 </p>
-                <p className="text-[20px] md:text-[24px] font-degular flex gap-2">
-                  Most of our profits are donated to community schools. We thank you for your business.
-                </p>
-          
+
                 <div className="pt-8 lg:pt-[137px] flex items-center gap-2">
                   <button onClick={() => handleServiceBookPage()} className="bg-primary text-[#ffff] text-[20px] py-2 md:py-4 px-[40px] md:px-[57px] rounded-full">
                     Book Now

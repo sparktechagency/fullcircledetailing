@@ -26,7 +26,7 @@ const Footer = () => {
                   />
                 </svg>
               </span>
-              <p className="text-[20px]">bradyborghesi@gmail.com</p>
+              <p className="text-[20px]">fullcircledetailinglwr@gmail.com</p>
             </div>
           </div>
 
@@ -61,7 +61,7 @@ const Footer = () => {
               <a href="/privacy-policy" className="text-[18px] font-degular">
                 Privacy Policy
               </a>
-              <a href="/terms-condition" className="text-[18px] font-degular">
+              <a href="/terms-conditions" className="text-[18px] font-degular">
                 Terms & Conditions
               </a>
               <a href="/support" className="text-[18px] font-degular">

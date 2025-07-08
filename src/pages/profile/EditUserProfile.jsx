@@ -346,7 +346,7 @@ const EditUserProfile = () => {
                     disabled={buttonTextChange}
                     className="w-full md:w-[50%]"
                   >
-                    <p className="text-[16px] font-semibold font-degular">Brand Name</p>
+                    <p className="text-[16px] font-semibold font-degular">Car Make</p>
                     <Form.Item name="car_brand">
                       <Input
                         placeholder="Brand name"

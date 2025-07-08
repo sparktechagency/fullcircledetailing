@@ -106,7 +106,7 @@ const DashboardNavbar = ({ showDrawer, setShowDrawer }) => {
                         </>
                     </h1>
                 );
-            case "/admin/dashboard/terms-condition":
+            case "/admin/dashboard/terms-conditions":
                 return (
                     <h1 className="text-[#333333] font-semibold text-[24px]">
                         <>

@@ -248,10 +248,10 @@ const ServiceAviablity = () => {
                         <Form.Item name="zip_code"
                           rules={[
                             { required: true, message: "Please enter your zip code" },
-                            {
-                              pattern: /^[0-9]{4,6}$/,
-                              message: "Zip code must be 4 to 6 digits",
-                            },
+                            // {
+                            //   pattern: /^[0-9]{4,6}$/,
+                            //   message: "Zip code must be 4 to 6 digits",
+                            // },
                           ]}
                         >
                           <Input
@@ -329,7 +329,7 @@ const ServiceAviablity = () => {
                           })
                         ) : (
                           <div>
-                            <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                            <p className='text-[28px]  font-bold font-degular'>Today is {moment(selectedDate).format("ll")}. </p>
                             <p className='text-[20px]  font-degular'>No availability </p>
 
                           </div>
@@ -398,7 +398,7 @@ const ServiceAviablity = () => {
           className='custom-service-modal'
 
         >
-          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to update ?</p>
+          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
 
           {/* interior card */}
           <div className="pb-4">

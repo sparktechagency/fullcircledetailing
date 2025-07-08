@@ -44,7 +44,7 @@ const Pricing = () => {
 
 
   const handlePrice = (id, type, name, price) => {
-    navigate(`/service-avialability`, { state: { id, type, name, price } })
+    navigate(`/service-availability`, { state: { id, type, name, price } })
   }
 
 
@@ -137,7 +137,7 @@ const Pricing = () => {
           width={600}
           className='custom-service-modal'
         >
-          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to book ?</p>
+          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
 
           {/* interior card */}
           <div className="pb-4">

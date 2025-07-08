@@ -327,14 +327,14 @@ const CheckoutPage = () => {
               <div className="flex flex-col md:flex-row justify-between md:gap-3">
                 {/* brand name */}
                 <div className="w-full md:w-[50%]">
-                  <p className="text-[20px] font-degular">Brand Name</p>
+                  <p className="text-[20px] font-degular">Car Make</p>
                   <Form.Item name="car_brand"
                     rules={[
-                      { required: true, message: 'Please enter your brand name ' },
+                      { required: true, message: 'Please enter your car make ' },
                     ]}
                   >
                     <Input
-                      placeholder="Brand name"
+                      placeholder="Car make"
                       onFocus={() => setIsFocused(true)}
                       onBlur={() => setIsFocused(false)}
                       style={{
@@ -403,10 +403,10 @@ const CheckoutPage = () => {
                     setClickCheckout(!clickCheckout)
                   }}
                     className=" font-semibold font-degular">
-                    <div className="flex gap-3">
-                      <span>I  agree with the </span>
+                    <div className="flex gap-[5px]">
+                      <span>I  agree with the</span>
                       <span className="text-primary">Privacy Policy</span>
-                      And
+                      and
                       <span className="text-primary">Terms & Conditions</span>
                     </div>
                   </Checkbox>
@@ -887,7 +887,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
       className='custom-service-modal'
 
     >
-      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to update ?</p>
+      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
 
       {/* interior card */}
       <div className="pb-4">
@@ -1031,7 +1031,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
                 })
               ) : (
                 <div>
-                  <p className='text-[28px]  font-bold font-degular'>Today is {selectedDateTow || "june 2 2025"}. </p>
+                  <p className='text-[28px]  font-bold font-degular'>Today is {moment(selectedDate).format("ll")}. </p>
                   <p className='text-[20px]  font-degular'>No availability </p>
 
                 </div>

@@ -134,7 +134,7 @@ console.log(location)
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter Your Password"
+                    placeholder="Enter your password"
                     prefix={
                       <svg
                         width="16"

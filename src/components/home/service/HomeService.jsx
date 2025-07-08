@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom"
 import CommonTitle from "../../shared/CommonTitle"
 import CustomContainer from "../../shared/CustomContainer"
 
 
 const HomeService = () => {
+    const navigate = useNavigate()
+    const handleNavigate = () => {
+        navigate('/pricing')
+    }
     return (
         <section className="bg-[#f6f6f6] pt-20 lg:pt-32">
             <CustomContainer>
@@ -11,7 +16,7 @@ const HomeService = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[16px] lg:gap-x-[24px]  gap-y-[16px] lg:gap-y-[24px]">
                     {/* card one */}
-                    <div className="relative">
+                    <div onClick={handleNavigate} className="relative cursor-pointer">
                         <div className="relative">
                             <img
                                 src="/ourServices/service1.png"
@@ -19,7 +24,7 @@ const HomeService = () => {
                                 className="w-full h-full object-cover rounded-[20px]"
                             />
                             {/* Overlay Layer */}
-                           <div
+                            <div
                                 className="absolute inset-0 rounded-[20px]"
                                 style={{
                                     background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%)'
@@ -35,7 +40,7 @@ const HomeService = () => {
                         </p>
                     </div>
                     {/* card two */}
-                    <div className="relative">
+                    <div onClick={handleNavigate} className="relative cursor-pointer">
                         <div className="relative">
                             <img
                                 src="/ourServices/service2.png"
