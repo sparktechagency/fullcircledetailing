@@ -21,13 +21,14 @@ const Support = () => {
   const onFinishOne = async (values) => {
     const formData = new FormData();
 
+    formData.append("email", values?.email);
     formData.append("full_name", values?.full_name);
     formData.append("subject", values?.subject);
     formData.append("message", values?.message);
 
     try {
       const res = await postSupportApi(formData).unwrap();
-      
+
       if (res?.status === true) {
         toast.success(res?.message);
         formOne.resetFields()
@@ -94,6 +95,32 @@ const Support = () => {
             </div>
             <div className="">
               <Form form={formOne} onFinish={onFinishOne}>
+                {/* email */}
+                <div>
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      { required: true, message: "Email is required" },
+                      { type: "email", message: "Enter a valid email" },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Enter your email"
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      style={{
+                        height: "60px",
+                        borderRadius: "20px",
+                        paddingInline: "20px",
+                        border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
+                        cursor: "pointer",
+                        position: "relative", // Ensure correct layering
+                        zIndex: isFocused ? 10 : 1,
+                      }}
+                    />
+                  </Form.Item>
+                </div>
+
                 {/* full name */}
                 <div>
                   <Form.Item
@@ -113,6 +140,7 @@ const Support = () => {
                     />
                   </Form.Item>
                 </div>
+
                 {/* subject */}
                 <div>
                   <Form.Item

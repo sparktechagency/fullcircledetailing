@@ -346,7 +346,7 @@ const DashboardBookings = () => {
                   {/* Car Info */}
                   <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <p className="text-gray-600 text-sm mb-1">Brand Name</p>
+                      <p className="text-gray-600 text-sm mb-1">Car Make</p>
                       <h2 className="text-2xl font-bold text-gray-900">{detailsBooking?.user?.car_brand}</h2>
                     </div>
                     <div>

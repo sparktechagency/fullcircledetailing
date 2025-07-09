@@ -172,7 +172,7 @@ const UserProfile = () => {
                         <div className="bg-[#ffffff] border border-[#ccc]  rounded-lg p-4">
                             <div className="flex items-center gap-14">
                                 <div>
-                                    <p className="text-[20px] font-degular text-[#000000]">Brand Name</p>
+                                    <p className="text-[20px] font-degular text-[#000000]">Car Make</p>
                                     <h3 className="text-[36px] font-semibold font-degular text-[#000000]">{userProfile?.car_brand}</h3>
                                 </div>
                                 <div>

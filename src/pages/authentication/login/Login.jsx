@@ -36,15 +36,21 @@ console.log(location)
       const res = await postAuthApi(authInfo).unwrap()
       const token = res.data?.access_token;
       const role = res?.data?.user?.role
-
+        console.log(res);
+        
       if (res.status === true) {
         toast.success(res?.message)
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
             navigate(from, { replace: true,state:location?.state?.data },);
-      }else{
+      } else{
         toast.error(res?.message)
       }
+      if(res.need_verificaiton){
+        toast.error(res?.message)
+          navigate('/otp-code?verify=create_account')
+      }
+     
 
     } catch (error) {
       console.log(error)
@@ -128,7 +134,7 @@ console.log(location)
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter Your Password"
+                    placeholder="Enter your password"
                     prefix={
                       <svg
                         width="16"

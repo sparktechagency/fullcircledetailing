@@ -263,7 +263,7 @@ const DashboardUsers = () => {
                                 <div className="mb-6">
                                     <div className="grid grid-cols-2 gap-4 mb-6">
                                         <div>
-                                            <h4 className="text-sm font-medium text-gray-600 mb-1">Brand Name</h4>
+                                            <h4 className="text-sm font-medium text-gray-600 mb-1">Car Make</h4>
                                             <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_brand}</p>
                                         </div>
                                         <div>

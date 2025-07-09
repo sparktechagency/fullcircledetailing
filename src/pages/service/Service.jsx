@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import CommonTitle from "../../components/shared/CommonTitle";
 import CustomContainer from "../../components/shared/CustomContainer";
+import { useNavigate } from "react-router-dom";
 
 const Service = () => {
+ const navigate = useNavigate()
+   const handleNavigate = () => {
+        navigate('/pricing')
+    }
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -16,7 +22,7 @@ const Service = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[16px] lg:gap-x-[24px]  gap-y-[16px] lg:gap-y-[24px]">
                     {/* card one */}
-                    <div className="relative">
+                    <div onClick={handleNavigate} className="relative cursor-pointer">
                         <div className="relative">
                             <img
                                 src="/ourServices/service1.png"
@@ -40,7 +46,7 @@ const Service = () => {
                         </p>
                     </div>
                     {/* card two */}
-                    <div className="relative">
+                    <div onClick={handleNavigate} className="relative cursor-pointer">
                         <div className="relative">
                             <img
                                 src="/ourServices/service2.png"

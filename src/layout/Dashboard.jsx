@@ -214,7 +214,7 @@ const Dashboard = () => {
                     ),
                 },
                 {
-                    path: '/admin/dashboard/terms-condition',
+                    path: '/admin/dashboard/terms-conditions',
                     title: "Terms And Conditions",
                     icon: (
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -383,7 +383,7 @@ const Dashboard = () => {
                         </>
                     </h1>
                 );
-            case "/admin/dashboard/terms-condition":
+            case "/admin/dashboard/terms-conditions":
                 return (
                     <h1 className="text-[#333333] font-semibold text-[24px]">
                         <>

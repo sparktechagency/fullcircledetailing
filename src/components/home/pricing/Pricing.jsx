@@ -39,7 +39,7 @@ const Pricing = () => {
 
 
   const handlePrice = (id, type, name, price) => {
-    navigate(`/service-avialability`, { state: { id,type,name, price } })
+    navigate(`/service-availability`, { state: { id,type,name, price } })
   }
 
 
@@ -58,12 +58,13 @@ const Pricing = () => {
   }, [modalOpen]);
 
 
-console.log(singlePriceValue);
+
 
   return (
     <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-20 lg:pt-32">
        <CustomContainer>
-        <div>
+        {
+          priceData?.length > 0 ? <div>
           <CommonTitle text={"Pricing"} />
           <div className="overflow-x-auto whitespace-nowrap">
             <div className="min-w-[1000px]">
@@ -109,6 +110,9 @@ console.log(singlePriceValue);
             </div>
           </div>
         </div>
+        :
+        ''
+        }
 
         {/* modal component  */}
         <Modal
@@ -125,7 +129,7 @@ console.log(singlePriceValue);
           width={600}
           className='custom-service-modal'
         >
-          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service you wants to book ?</p>
+          <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
 
           {/* interior card */}
           <div className="pb-4">
