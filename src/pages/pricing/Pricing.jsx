@@ -9,7 +9,7 @@ import { CloudCog } from "lucide-react";
 
 
 const Pricing = () => {
-    const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,12 +28,12 @@ const Pricing = () => {
 
   const showModal = (item) => {
 
-  setSelectId(item?.id)
+    setSelectId(item?.id)
     setSinglePriceValue(item)
     setModalOpen(true)
 
 
-  
+
   }
   const handleModalOkPenOk = () => {
 
@@ -70,64 +70,70 @@ const Pricing = () => {
     return <CustomLoading />
   }
 
-  
+
   return (
     // <section className="bg-[#f6f6f6] py-10 pt-28 lg:pt-[140px]">
     <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-28 lg:pt-[140px]">
-       <CustomContainer>
-        <div>
-          <CommonTitle text={"Pricing"} />
-          <div className="overflow-x-auto whitespace-nowrap">
-            <div className="min-w-[1000px]">
-              {priceData?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="grid grid-cols-12 border rounded-xl mb-4 p-2 lg:p-4 font-degular"
-                  >
-                    <div className="col-start-1 col-end-4 ">
-                      <h1 className="text-[28px] lg:text-[30px]">{item?.car_type}</h1>
-                    </div>
+      <CustomContainer>
+        {
+          priceData?.length > 0 ? <div>
+            <CommonTitle text={"Pricing"} />
+            <div className="overflow-x-auto whitespace-nowrap">
+              <div className="min-w-[1000px]">
+                {priceData?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="grid grid-cols-12 border rounded-xl mb-4 p-2 lg:p-4 font-degular"
+                    >
+                      <div className="col-start-1 col-end-4 ">
+                        <h1 className="text-[28px] lg:text-[30px]">{item?.car_type}</h1>
+                      </div>
 
-                    <div className="col-start-4 col-end-10  flex items-center gap-4">
-                      <div className=" lg:w-[300px]">
-                        <p className="text-[20px] lg:text-[24px]">Interior</p>
-                        <p className="text-[28px] lg:text-[48px] font-semibold text-primary">
-                          ${item?.interior}
-                        </p>
+                      <div className="col-start-4 col-end-10  flex items-center gap-4">
+                        <div className=" lg:w-[300px]">
+                          <p className="text-[20px] lg:text-[24px]">Interior</p>
+                          <p className="text-[28px] lg:text-[48px] font-semibold text-primary">
+                            ${item?.interior}
+                          </p>
+                        </div>
+                        <div className=" lg:w-[300px]">
+                          <p className="lg:text-[24px] ">Exterior</p>
+                          <p className="text-[28px] lg:text-[48px] font-semibold text-primary ">
+                            ${item?.exterior}
+                          </p>
+                        </div>
+                        <div className=" lg:w-[300px]">
+                          <p className="lg:text-[24px]">Both</p>
+                          <p className="text-[28px] lg:text-[48px] font-semibold text-primary">
+                            ${item.both}
+                          </p>
+                        </div>
                       </div>
-                      <div className=" lg:w-[300px]">
-                        <p className="lg:text-[24px] ">Exterior</p>
-                        <p className="text-[28px] lg:text-[48px] font-semibold text-primary ">
-                          ${item?.exterior}
-                        </p>
-                      </div>
-                      <div className=" lg:w-[300px]">
-                        <p className="lg:text-[24px]">Both</p>
-                        <p className="text-[28px] lg:text-[48px] font-semibold text-primary">
-                          ${item.both}
-                        </p>
-                      </div>
-                    </div>
 
-                    <div className="col-start-10 col-end-13  flex justify-end items-center ">
-                      <button onClick={() => showModal(item)} className="bg-primary h-[60px] flex justify-center items-center text-[#ffffff] px-[74px] py-2 lg:py-[14px] text-[24px] rounded-full m-2">
-                        Select
-                      </button>
+                      <div className="col-start-10 col-end-13  flex justify-end items-center ">
+                        <button onClick={() => showModal(item)} className="bg-primary h-[60px] flex justify-center items-center text-[#ffffff] px-[74px] py-2 lg:py-[14px] text-[24px] rounded-full m-2">
+                          Select
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
+            :
+            <div className="min-h-[200px] md:min-h-[300px] lg:min-h-[600px] rounded-lg flex justify-center items-center">
+              <p className="lg:text-6xl md:text-1xl text-base font-bold text-gray-200 uppercase text-center">No data found</p>
+            </div>
+        }
 
         {/* modal component  */}
         <Modal
           centered
           title={
             <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
-           {singlePriceValue?.car_type}
+              {singlePriceValue?.car_type}
             </div>
           }
           open={modalOpen}
@@ -143,13 +149,13 @@ const Pricing = () => {
           <div className="pb-4">
             <div className='px-4'>
               <div
-              onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
-              className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Interior"), (singlePriceValue?.interior))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                 <div>
                   <p className='text-[24px] font-degular'>Interior</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.interior}</p>
                 </div>
-                <span  className="cursor-pointer">
+                <span className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,14 +168,14 @@ const Pricing = () => {
 
             {/* exterior card */}
             <div className='px-4'>
-              <div 
-              onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))}
-              className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+              <div
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Exterior"), (singlePriceValue?.exterior))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                 <div>
                   <p className='text-[24px] font-degular'>Exterior</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.exterior}</p>
                 </div>
-                <span  className="cursor-pointer">
+                <span className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,14 +188,14 @@ const Pricing = () => {
 
             {/* Both card*/}
             <div className='px-4'>
-              <div 
-              onClick={() => handlePrice((singlePriceValue?.id),(singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))}
-              className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
+              <div
+                onClick={() => handlePrice((singlePriceValue?.id), (singlePriceValue?.car_type), ("Both"), (singlePriceValue?.both))}
+                className='cursor-pointer flex justify-between items-center border border-[#ccc] rounded-xl p-4 mb-4 hover:bg-primary hover:bg-opacity-15'>
                 <div>
                   <p className='text-[24px] font-degular'>Both</p>
                   <p className='text-[24px] font-degular font-semibold text-primary'>${singlePriceValue?.both}</p>
                 </div>
-                <span  className="cursor-pointer">
+                <span className="cursor-pointer">
                   <svg
                     className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
                     viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">

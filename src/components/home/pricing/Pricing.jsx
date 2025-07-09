@@ -58,12 +58,13 @@ const Pricing = () => {
   }, [modalOpen]);
 
 
-console.log(singlePriceValue);
+
 
   return (
     <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-20 lg:pt-32">
        <CustomContainer>
-        <div>
+        {
+          priceData?.length > 0 ? <div>
           <CommonTitle text={"Pricing"} />
           <div className="overflow-x-auto whitespace-nowrap">
             <div className="min-w-[1000px]">
@@ -109,6 +110,9 @@ console.log(singlePriceValue);
             </div>
           </div>
         </div>
+        :
+        ''
+        }
 
         {/* modal component  */}
         <Modal

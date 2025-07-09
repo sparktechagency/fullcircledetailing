@@ -13,7 +13,7 @@ const Testimonial = () => {
     <>
       <section className="bg-[#f6f6f6] font-degular pb-10 pt-2">
         {
-          allTestimonial?.length > 0 && <CustomContainer>
+          allTestimonial?.length > 0 ? <CustomContainer>
             <div className="">
               <div className="mt-6 md:flex md:items-center md:justify-between">
                 <div>
@@ -53,6 +53,8 @@ const Testimonial = () => {
               </section>
             </div>
           </CustomContainer>
+          :
+          ''
         }
       </section>
     </>
