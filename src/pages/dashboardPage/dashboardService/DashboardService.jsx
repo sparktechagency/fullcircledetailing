@@ -50,7 +50,6 @@ const DashboardService = () => {
   const singleServiceDetails = detaislData?.data
   const timeSlots = singleServiceDetails?.service_times
 
-  // console.log(singleServiceDetails)
 
 
 
@@ -148,7 +147,7 @@ const DashboardService = () => {
 
       if (res?.status === true) {
         toast.success(res?.message)
-        refetch()
+        await refetch()
         setLoading(false)
         setImageFileList([])
         formOne.resetFields()
@@ -206,7 +205,7 @@ const DashboardService = () => {
       if (res?.status === true) {
         toast.success(res?.message)
         setLoading(false)
-        refetch()
+        await refetch()
         setModalTwo(false)
       } else {
         toast.error(res?.message)
@@ -253,7 +252,7 @@ const DashboardService = () => {
 
       if (res?.status === true) {
         toast.success(res?.message)
-        refetch()
+        await refetch()
         setLoading(false)
         setModalThree(false)
       }
@@ -441,6 +440,7 @@ const DashboardService = () => {
 
 
 
+console.log(currentTime);
 
 
 

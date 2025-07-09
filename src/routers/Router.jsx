@@ -212,7 +212,7 @@ const router = createBrowserRouter([
         </PrivatRoutes>
       },
       {
-        path: "terms-condition",
+        path: "terms-conditions",
         element: <PrivatRoutes>
           <TermsAndConditions />
         </PrivatRoutes>
