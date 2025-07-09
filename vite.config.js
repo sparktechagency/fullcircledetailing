@@ -8,5 +8,10 @@ export default defineConfig({
     host : "10.10.10.68",
     port : 5000,
     strictPort:true,
-  }
+  },
+  root: ".",
+    build: {
+        outDir: "../bros_backend/public",
+        emptyOutDir: false,
+    },
 })
