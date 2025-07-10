@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/service",
+        path: "/services",
         element: <Service />,
       },
       {
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
         element: <CreateAccount />,
       },
       {
-        path: "/forget-password",
+        path: "/forgot-password",
         element: <ForgetPassword />,
       },
       {
@@ -233,7 +233,7 @@ const router = createBrowserRouter([
     element: <DashboardLogin />
   },
   {
-    path: "/admin/dashboard/forget-password",
+    path: "/admin/dashboard/forgot-password",
     element: <DashboardForgetPassword />
   },
   {

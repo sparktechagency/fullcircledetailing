@@ -5,61 +5,71 @@ import { useEffect, useRef, useState } from "react";
 
 import toast from "react-hot-toast";
 import { useGetSettingApiQuery, usePostSettingApiMutation } from "../../../../redux/dashboardFeatures/setting/dashboardSettingApi";
+import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 const AboutUs = () => {
+  const location = useLocation();
   const [content, setContent] = useState('');
   const editor = useRef(null);
 
-const [postSettingApi] = usePostSettingApiMutation()
-const { data: privacyData } = useGetSettingApiQuery({ type: "About Us" });
-const privaciAndPolicyData = privacyData?.data;
-const aboutContent = privacyData?.data?.[0]?.text;
+  const [postSettingApi] = usePostSettingApiMutation()
+  const { data: privacyData } = useGetSettingApiQuery({ type: "About Us" });
+  const privaciAndPolicyData = privacyData?.data;
+  const aboutContent = privacyData?.data?.[0]?.text;
 
 
-console.log(content)
+  console.log(content)
 
-useEffect(()=>{
-if(aboutContent){
-  setContent(aboutContent)
-}
-},[aboutContent])
-
-
-
-const handleUpdate = async () => {
-  const formData = new FormData();
-  formData.append("type", "About Us");
-  formData.append("text", content);
+  useEffect(() => {
+    if (aboutContent) {
+      setContent(aboutContent)
+    }
+  }, [aboutContent])
 
 
-//  formData.forEach((value, key) => {
-//   console.log(key, value);
-// });
+
+  const handleUpdate = async () => {
+    const formData = new FormData();
+    formData.append("type", "About Us");
+    formData.append("text", content);
 
 
-  try {
-    const res = await postSettingApi(formData).unwrap();
-   if(res?.status === true){
-    toast.success(res?.message)
-   }
-  } catch (error) {
-    console.log(error);
-  }
-};
+    //  formData.forEach((value, key) => {
+    //   console.log(key, value);
+    // });
 
 
+    try {
+      const res = await postSettingApi(formData).unwrap();
+      if (res?.status === true) {
+        toast.success(res?.message)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    document.title = "FULL CIRCLE~Dashboard About Us";
+  }, [location.pathname]);
 
   return (
     <>
+      <Helmet>
+        <title>FULL CIRCLE~Dashboard About Us</title>
+      </Helmet>
+
       <div className="w-full mt-6">
         <JoditEditor
-            ref={editor}
-            value={content}
-            onChange={(newContent) => {
-              setContent(newContent);
-            }}
-          />
+          ref={editor}
+          value={content}
+          onChange={(newContent) => {
+            setContent(newContent);
+          }}
+        />
       </div>
 
       <div className="flex justify-end ">

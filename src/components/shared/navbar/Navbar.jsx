@@ -13,7 +13,7 @@ const Navbar = () => {
 
   // =============== conditionali loaction set=========
   const location = useLocation()
-  const hideNavbarButton = ["/forget-password", "/otp-code", "/create-new-password", "/password-successfull",];
+  const hideNavbarButton = ["/forgot-password", "/otp-code", "/create-new-password", "/password-successfull",];
   const shouldHideNavbarButton = hideNavbarButton.includes(location.pathname);
 
   const isCreateAccountRoute = location.pathname === "/create-account";
@@ -106,7 +106,7 @@ const Navbar = () => {
                   Home
                 </NavLink>
                 <NavLink
-                  to="/service"
+                  to="/services"
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "pending"
@@ -290,7 +290,7 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink
-                to="/service"
+                to="/services"
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive, isPending }) =>
                   isPending
@@ -357,7 +357,7 @@ const Navbar = () => {
                             fill="#0063E5"
                           />
                         </svg>
-                        Notification
+                        Notifications
                       </span>
                       <button
                         className={`${isCreateAccountRoute

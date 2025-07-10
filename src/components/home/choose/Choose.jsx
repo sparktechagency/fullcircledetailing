@@ -63,7 +63,7 @@ const Choose = () => {
                       />
                     </svg>
                   </span>
-                  Advanced Equipment – High-end tools for superior results
+                  Advanced Equipment – High-end tools for superior results.
                 </p>
 
                 <p className="text-[20px] md:text-[24px] font-degular flex gap-2">

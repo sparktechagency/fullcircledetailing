@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { useBookingSuccessMutation, useCreateIntentMutation, useGetServiceAvilityApiQuery, useGetTimeApiQuery } from "../../redux/web/serviceAvility/serviceAvilityApi";
 import moment from "moment";
 import { DayPicker } from "react-day-picker";
+import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PUBLIC_KEY); // payment api key by server site
 const CheckoutPage = () => {
@@ -30,7 +31,7 @@ const CheckoutPage = () => {
   const location = useLocation();
   const [paymentInfo, setPaymentInfo] = useState(null)
   const [clickCheckout, setClickCheckout] = useState(false);
-  const { serviceData,stateAddress, zipCode, selectedDate, bookingTime, singlePriceValue } = location.state || {};
+  const { serviceData, stateAddress, zipCode, selectedDate, bookingTime, singlePriceValue } = location.state || {};
 
 
   const { data: userProfileData, isLoading, refetch } = useGetAuthProfileApiQuery();
@@ -45,7 +46,7 @@ const CheckoutPage = () => {
         phone: userProfile?.phone,
         name: userProfile?.name,
         email: userProfile?.email,
-        street_address : stateAddress,
+        street_address: stateAddress,
         zip_code: zipCode,
       })
     }
@@ -141,209 +142,137 @@ const CheckoutPage = () => {
   }, []);
 
 
+  useEffect(() => {
+    document.title = "FULL CIRCLE~Checkout";
+  }, [location.pathname]);
 
   return (
-    <section className=" pt-4 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
-      <CustomContainer>
-        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-0 pt-10 lg:pt-0">
-          <div>
-            <span onClick={() => navigate(-1)} className="cursor-pointer">
-              <svg
-                className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
-                viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="60" height="60" rx="30" fill="#0063E6" />
-                <path d="M37.707 31.0001H26.121L30.621 35.5001L29.207 36.9141L22.293 30.0001L29.207 23.0861L30.621 24.5001L26.121 29.0001H37.707V31.0001Z" fill="white" />
-              </svg>
-            </span>
+    <>
+      <Helmet>
+        <title>FULL CIRCLE~Checkout</title>
+      </Helmet>
+      <section className=" pt-4 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
+        <CustomContainer>
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-0 pt-10 lg:pt-0">
+            <div>
+              <span onClick={() => navigate(-1)} className="cursor-pointer">
+                <svg
+                  className="w-[30px] md:w-[40px] lg:w-[60px] h-auto"
+                  viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="60" height="60" rx="30" fill="#0063E6" />
+                  <path d="M37.707 31.0001H26.121L30.621 35.5001L29.207 36.9141L22.293 30.0001L29.207 23.0861L30.621 24.5001L26.121 29.0001H37.707V31.0001Z" fill="white" />
+                </svg>
+              </span>
+            </div>
+
+            <div className="flex justify-center w-full">
+              <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Checkout</h2>
+            </div>
           </div>
 
-          <div className="flex justify-center w-full">
-            <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Checkout</h2>
-          </div>
-        </div>
-
-        <div className={`transition-all duration-300  flex flex-col lg:flex-row ${paymentInfo?.price ? "justify-between" : "justify-center"} `}>
-          {/* left  */}
-          <div className="w-full lg:w-[50%]">
-            <Form form={formOne} onFinish={onFinishOne}>
+          <div className={`transition-all duration-300  flex flex-col lg:flex-row ${paymentInfo?.price ? "justify-between" : "justify-center"} `}>
+            {/* left  */}
+            <div className="w-full lg:w-[50%]">
+              <Form form={formOne} onFinish={onFinishOne}>
 
 
-              {/* phone number */}
-              <div>
-                <Form.Item
-                  name="phone"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your phone number",
-                    },
-                  ]}
-                >
-                  <Input
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    maxLength={15}
-                    onKeyPress={(e) => {
-                      if (!/[0-9]/.test(e.key)) {
-                        e.preventDefault();
-                      }
-                    }}
-                    placeholder="Your phone number"
-                    prefix={
-                      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.02222 9.15556C5.62222 12.3 8.2 14.8667 11.3444 16.4778L13.7889 14.0333C14.0889 13.7333 14.5333 13.6333 14.9222 13.7667C16.1667 14.1778 17.5111 14.4 18.8889 14.4C19.5 14.4 20 14.9 20 15.5111V19.3889C20 20 19.5 20.5 18.8889 20.5C8.45556 20.5 0 12.0444 0 1.61111C0 1 0.5 0.5 1.11111 0.5H5C5.61111 0.5 6.11111 1 6.11111 1.61111C6.11111 3 6.33333 4.33333 6.74444 5.57778C6.86667 5.96667 6.77778 6.4 6.46667 6.71111L4.02222 9.15556Z" fill="#888888" />
-                      </svg>
-
-                    }
-                    style={{
-                      height: "60px",
-                      borderRadius: "20px",
-                      paddingInline: "20px",
-                      border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
-                    }}
-                  />
-                </Form.Item>
-              </div>
-              {/* full name */}
-              <div>
-                <Form.Item
-                  name="name"
-                >
-                  <Input
-                    placeholder="Your full name"
-                    prefix={
-                      <svg
-                        width="20"
-                        height="21"
-                        viewBox="0 0 20 21"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0.5C11.3261 0.5 12.5979 1.02678 13.5355 1.96447C14.4732 2.90215 15 4.17392 15 5.5C15 6.82608 14.4732 8.09785 13.5355 9.03553C12.5979 9.97322 11.3261 10.5 10 10.5C8.67392 10.5 7.60215 9.97322 6.46447 9.03553C5.52678 8.09785 5 6.82608 5 5.5C5 4.17392 5.52678 2.90215 6.46447 1.96447C7.40215 1.02678 8.67392 0.5 10 0.5ZM10 13C15.525 13 20 15.2375 20 18V20.5H0V18C0 15.2375 4.475 13 10 13Z"
-                          fill="#888888"
-                        />
-                      </svg>
-                    }
-                    style={{
-                      height: "60px",
-                      borderRadius: "20px",
-                      paddingInline: "20px",
-                      border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
-                    }}
-                  />
-                </Form.Item>
-              </div>
-
-              {/* email */}
-              <div>
-                <Form.Item
-                  name="email"
-                >
-                  <Input
-                    readOnly
-                    placeholder="Enter your email"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    prefix={
-                      <svg
-                        width="25"
-                        height="21"
-                        viewBox="0 0 25 21"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M22.5 0.5H2.5C1.125 0.5 0.0125 1.625 0.0125 3L0 18C0 19.375 1.125 20.5 2.5 20.5H22.5C23.875 20.5 25 19.375 25 18V3C25 1.625 23.875 0.5 22.5 0.5ZM22.5 5.5L12.5 11.75L2.5 5.5V3L12.5 9.25L22.5 3V5.5Z"
-                          fill="#888888"
-                        />
-                      </svg>
-                    }
-                    style={{
-                      height: "60px",
-                      borderRadius: "20px",
-                      paddingInline: "20px",
-                      border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
-                      cursor: "pointer",
-                      position: "relative", // Ensure correct layering
-                      zIndex: isFocused ? 10 : 1,
-                    }}
-                  />
-                </Form.Item>
-              </div>
-
-              <div className="flex flex-col lg:flex-row items-center lg:gap-6">
-                {/* Street address */}
-                <div
-                  className="w-full lg:w-[70%]"
-                >
-                  <Form.Item name="street_address"
+                {/* phone number */}
+                <div>
+                  <Form.Item
+                    name="phone"
                     rules={[
-                      { required: true, message: "Please enter your street address" },
-                    ]}
-                  >
-                    <Input
-                      placeholder="Street address"
-                      style={{
-                        height: "60px",
-                        borderRadius: "20px",
-                        paddingInline: "20px",
-                        border: "1px solid #ccc",
-                      }}
-                    />
-                  </Form.Item>
-                </div>
-
-                {/* Zip code*/}
-                <div className="w-full lg:w-[30%] ">
-                  <Form.Item name="zip_code"
-                    rules={[
-                      { required: true, message: "Please enter your zip code" },
                       {
-                        pattern: /^[0-9]{4,6}$/,
-                        message: "Zip code must be 4 to 6 digits",
+                        required: true,
+                        message: "Please enter your phone number",
                       },
                     ]}
                   >
                     <Input
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9]/g, "")
-                          .slice(0, 6);
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={15}
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
                       }}
-                      placeholder="Zip code"
-                      style={{
+                      placeholder="Your phone number"
+                      prefix={
+                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4.02222 9.15556C5.62222 12.3 8.2 14.8667 11.3444 16.4778L13.7889 14.0333C14.0889 13.7333 14.5333 13.6333 14.9222 13.7667C16.1667 14.1778 17.5111 14.4 18.8889 14.4C19.5 14.4 20 14.9 20 15.5111V19.3889C20 20 19.5 20.5 18.8889 20.5C8.45556 20.5 0 12.0444 0 1.61111C0 1 0.5 0.5 1.11111 0.5H5C5.61111 0.5 6.11111 1 6.11111 1.61111C6.11111 3 6.33333 4.33333 6.74444 5.57778C6.86667 5.96667 6.77778 6.4 6.46667 6.71111L4.02222 9.15556Z" fill="#888888" />
+                        </svg>
 
+                      }
+                      style={{
                         height: "60px",
                         borderRadius: "20px",
                         paddingInline: "20px",
-                        border: "1px solid #ccc",
+                        border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
                       }}
                     />
                   </Form.Item>
                 </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row justify-between md:gap-3">
-                {/* brand name */}
-                <div className="w-full md:w-[50%]">
-                  <p className="text-[20px] font-degular">Car Make</p>
-                  <Form.Item name="car_brand"
-                    rules={[
-                      { required: true, message: 'Please enter your car make ' },
-                    ]}
+                {/* full name */}
+                <div>
+                  <Form.Item
+                    name="name"
                   >
                     <Input
-                      placeholder="Car make"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
+                      placeholder="Your full name"
+                      prefix={
+                        <svg
+                          width="20"
+                          height="21"
+                          viewBox="0 0 20 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10 0.5C11.3261 0.5 12.5979 1.02678 13.5355 1.96447C14.4732 2.90215 15 4.17392 15 5.5C15 6.82608 14.4732 8.09785 13.5355 9.03553C12.5979 9.97322 11.3261 10.5 10 10.5C8.67392 10.5 7.60215 9.97322 6.46447 9.03553C5.52678 8.09785 5 6.82608 5 5.5C5 4.17392 5.52678 2.90215 6.46447 1.96447C7.40215 1.02678 8.67392 0.5 10 0.5ZM10 13C15.525 13 20 15.2375 20 18V20.5H0V18C0 15.2375 4.475 13 10 13Z"
+                            fill="#888888"
+                          />
+                        </svg>
+                      }
                       style={{
                         height: "60px",
                         borderRadius: "20px",
                         paddingInline: "20px",
-                        border: isFocused
-                          ? "1px solid #ccc"
-                          : "1px solid #ccc",
+                        border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
+                      }}
+                    />
+                  </Form.Item>
+                </div>
+
+                {/* email */}
+                <div>
+                  <Form.Item
+                    name="email"
+                  >
+                    <Input
+                      readOnly
+                      placeholder="Enter your email"
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      prefix={
+                        <svg
+                          width="25"
+                          height="21"
+                          viewBox="0 0 25 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M22.5 0.5H2.5C1.125 0.5 0.0125 1.625 0.0125 3L0 18C0 19.375 1.125 20.5 2.5 20.5H22.5C23.875 20.5 25 19.375 25 18V3C25 1.625 23.875 0.5 22.5 0.5ZM22.5 5.5L12.5 11.75L2.5 5.5V3L12.5 9.25L22.5 3V5.5Z"
+                            fill="#888888"
+                          />
+                        </svg>
+                      }
+                      style={{
+                        height: "60px",
+                        borderRadius: "20px",
+                        paddingInline: "20px",
+                        border: isFocused ? "1px solid #ccc" : "1px solid #ccc",
+                        cursor: "pointer",
                         position: "relative", // Ensure correct layering
                         zIndex: isFocused ? 10 : 1,
                       }}
@@ -351,160 +280,240 @@ const CheckoutPage = () => {
                   </Form.Item>
                 </div>
 
+                <div className="flex flex-col lg:flex-row items-center lg:gap-6">
+                  {/* Street address */}
+                  <div
+                    className="w-full lg:w-[70%]"
+                  >
+                    <Form.Item name="street_address"
+                      rules={[
+                        { required: true, message: "Please enter your street address" },
+                      ]}
+                    >
+                      <Input
+                        placeholder="Street address"
+                        style={{
+                          height: "60px",
+                          borderRadius: "20px",
+                          paddingInline: "20px",
+                          border: "1px solid #ccc",
+                        }}
+                      />
+                    </Form.Item>
+                  </div>
 
-                {/* car modal */}
-                <div className="w-full md:w-[50%]">
-                  <p className="text-[20px] font-degular">Car Model</p>
-                  <Form.Item name="car_model"
+                  {/* Zip code*/}
+                  <div className="w-full lg:w-[30%] ">
+                    <Form.Item name="zip_code"
+                      rules={[
+                        { required: true, message: "Please enter your zip code" },
+                        {
+                          pattern: /^[0-9]{4,6}$/,
+                          message: "Zip code must be 4 to 6 digits",
+                        },
+                      ]}
+                    >
+                      <Input
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/[^0-9]/g, "")
+                            .slice(0, 6);
+                        }}
+                        placeholder="Zip code"
+                        style={{
+
+                          height: "60px",
+                          borderRadius: "20px",
+                          paddingInline: "20px",
+                          border: "1px solid #ccc",
+                        }}
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between md:gap-3">
+                  {/* brand name */}
+                  <div className="w-full md:w-[50%]">
+                    <p className="text-[20px] font-degular">Car Make</p>
+                    <Form.Item name="car_brand"
+                      rules={[
+                        { required: true, message: 'Please enter your car make ' },
+                      ]}
+                    >
+                      <Input
+                        placeholder="Car make"
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        style={{
+                          height: "60px",
+                          borderRadius: "20px",
+                          paddingInline: "20px",
+                          border: isFocused
+                            ? "1px solid #ccc"
+                            : "1px solid #ccc",
+                          position: "relative", // Ensure correct layering
+                          zIndex: isFocused ? 10 : 1,
+                        }}
+                      />
+                    </Form.Item>
+                  </div>
+
+
+                  {/* car modal */}
+                  <div className="w-full md:w-[50%]">
+                    <p className="text-[20px] font-degular">Car Model</p>
+                    <Form.Item name="car_model"
+                      rules={[
+                        { required: true, message: 'Please enter your car model ' },
+                      ]}
+                    >
+                      <Input
+                        placeholder="Car Model"
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        style={{
+                          height: "60px",
+                          borderRadius: "20px",
+                          paddingInline: "20px",
+                          border: isFocused
+                            ? "1px solid #ccc"
+                            : "1px solid #ccc",
+                          position: "relative", // Ensure correct layering
+                          zIndex: isFocused ? 10 : 1,
+                        }}
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+
+
+                <div className="border border-[#ccc] flex flex-col md:flex-row md:justify-between md:items-center gap-10 md:gap-0 p-4 rounded-lg">
+                  <p className="text-[28px] font-degular font-semibold text-[#000000]">Appointment Notes</p>
+                  <button
+                    onClick={showModal}
+                    type="button" className="bg-primary text-[#ffff] px-8 py-2 rounded text-xl">+ Add</button>
+                </div>
+                <div className="pt-4 pb-2 pr-1 font-degular">
+                  <Form.Item
+                    name="agree"
+                    valuePropName="checked"
                     rules={[
-                      { required: true, message: 'Please enter your car model ' },
+                      {
+                        validator: (_, value) =>
+                          value
+                            ? Promise.resolve()
+                            : Promise.reject(new Error("You must agree to the terms")),
+                      },
                     ]}
                   >
-                    <Input
-                      placeholder="Car Model"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
-                      style={{
-                        height: "60px",
-                        borderRadius: "20px",
-                        paddingInline: "20px",
-                        border: isFocused
-                          ? "1px solid #ccc"
-                          : "1px solid #ccc",
-                        position: "relative", // Ensure correct layering
-                        zIndex: isFocused ? 10 : 1,
-                      }}
-                    />
+                    <Checkbox onChange={(e) => {
+                      setClickCheckout(!clickCheckout)
+                    }}
+                      className=" font-semibold font-degular">
+                      <div className="flex gap-[5px]">
+                        <span>I  agree with the</span>
+                        <span className="text-primary">Privacy Policy</span>
+                        and
+                        <span className="text-primary">Terms & Conditions</span>
+                      </div>
+                    </Checkbox>
                   </Form.Item>
                 </div>
-              </div>
 
+                {
+                  bookingNode && <div className="border rounded-xl h-[150px] p-2 bg-gray-200 overflow-y-auto">
+                    {bookingNode}
+                  </div>
+                }
 
-              <div className="border border-[#ccc] flex flex-col md:flex-row md:justify-between md:items-center gap-10 md:gap-0 p-4 rounded-lg">
-                <p className="text-[28px] font-degular font-semibold text-[#000000]">Appointment Notes</p>
-                <button
-                  onClick={showModal}
-                  type="button" className="bg-primary text-[#ffff] px-8 py-2 rounded text-xl">+ Add</button>
-              </div>
-              <div className="pt-4 pb-2 pr-1 font-degular">
-                <Form.Item
-                  name="agree"
-                  valuePropName="checked"
-                  rules={[
-                    {
-                      validator: (_, value) =>
-                        value
-                          ? Promise.resolve()
-                          : Promise.reject(new Error("You must agree to the terms")),
-                    },
-                  ]}
-                >
-                  <Checkbox onChange={(e) => {
-                    setClickCheckout(!clickCheckout)
+                <Button
+                  htmlType="submit"
+                  block
+                  disabled={!clickCheckout}
+                  style={{
+                    backgroundColor: "#0063E5",
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    height: "60px",
+                    borderRadius: "20px",
+                    paddingInline: "20px",
+                    marginTop: "20px",
+                    opacity: !clickCheckout ? 0.2 : 1, // optional: visually indicate disabled
+                    cursor: !clickCheckout ? "not-allowed" : "pointer",
                   }}
-                    className=" font-semibold font-degular">
-                    <div className="flex gap-[5px]">
-                      <span>I  agree with the</span>
-                      <span className="text-primary">Privacy Policy</span>
-                      and
-                      <span className="text-primary">Terms & Conditions</span>
-                    </div>
-                  </Checkbox>
-                </Form.Item>
-              </div>
+                >
+                  Save
+                </Button>
+              </Form>
 
-              {
-                bookingNode && <div className="border rounded-xl h-[150px] p-2 bg-gray-200 overflow-y-auto">
-                  {bookingNode}
+              {/* node modal component */}
+              <Modal
+                centered
+                title={
+                  <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                    Add note
+                  </div>
+                }
+                open={modalOpen}
+                onOk={handleModalOkPenOk}
+                onCancel={handleModalCancel}
+                footer={null}
+                width={600}
+                className='custom-service-modal'
+                maskStyle={{ backgroundColor: 'rgba(134, 134, 134, 0.4)' }}
+              >
+
+                <div className='p-4'>
+                  <Form form={formTwo} onFinish={onFinishTwo}>
+                    <Form.Item name="booking_note">
+                      <TextArea placeholder="Type here" style={{ height: "300px", resize: "none" }} />
+                    </Form.Item>
+
+                    <Button
+                      htmlType="submit"
+                      block
+                      style={{
+                        backgroundColor: "#0063E5",
+                        color: "#ffffff",
+                        fontSize: "20px",
+                        fontWeight: "600",
+                        height: "60px",
+                        borderRadius: "20px",
+                        paddingInline: "20px",
+                        marginTop: "20px"
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </Form>
                 </div>
-              }
+              </Modal>
+            </div>
+            {
+              paymentInfo?.price && <Elements stripe={stripePromise}
+                options={{
+                  mode: "payment",
+                  amount: parseInt(paymentInfo?.price) * 100,
+                  currency: 'usd',
 
-              <Button
-                htmlType="submit"
-                block
-                disabled={!clickCheckout}
-                style={{
-                  backgroundColor: "#0063E5",
-                  color: "#ffffff",
-                  fontSize: "20px",
-                  fontWeight: "600",
-                  height: "60px",
-                  borderRadius: "20px",
-                  paddingInline: "20px",
-                  marginTop: "20px",
-                  opacity: !clickCheckout ? 0.2 : 1, // optional: visually indicate disabled
-                  cursor: !clickCheckout ? "not-allowed" : "pointer",
                 }}
               >
-                Save
-              </Button>
-            </Form>
 
-            {/* node modal component */}
-            <Modal
-              centered
-              title={
-                <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
-                  Add note
-                </div>
-              }
-              open={modalOpen}
-              onOk={handleModalOkPenOk}
-              onCancel={handleModalCancel}
-              footer={null}
-              width={600}
-              className='custom-service-modal'
-              maskStyle={{ backgroundColor: 'rgba(134, 134, 134, 0.4)' }}
-            >
+                <PaymentCard
+                  paymentInfo={paymentInfo}
+                  singlePriceValue={singlePriceValue}
+                  serviceData={serviceData}
+                  selectedDate={selectedDate}
 
-              <div className='p-4'>
-                <Form form={formTwo} onFinish={onFinishTwo}>
-                  <Form.Item name="booking_note">
-                    <TextArea placeholder="Type here" style={{ height: "300px", resize: "none" }} />
-                  </Form.Item>
-
-                  <Button
-                    htmlType="submit"
-                    block
-                    style={{
-                      backgroundColor: "#0063E5",
-                      color: "#ffffff",
-                      fontSize: "20px",
-                      fontWeight: "600",
-                      height: "60px",
-                      borderRadius: "20px",
-                      paddingInline: "20px",
-                      marginTop: "20px"
-                    }}
-                  >
-                    Add
-                  </Button>
-                </Form>
-              </div>
-            </Modal>
+                />
+              </Elements>
+            }
           </div>
-          {
-            paymentInfo?.price && <Elements stripe={stripePromise}
-              options={{
-                mode: "payment",
-                amount: parseInt(paymentInfo?.price) * 100,
-                currency: 'usd',
-
-              }}
-            >
-
-              <PaymentCard
-                paymentInfo={paymentInfo}
-                singlePriceValue={singlePriceValue}
-                serviceData={serviceData}
-                selectedDate={selectedDate}
-
-              />
-            </Elements>
-          }
-        </div>
-      </CustomContainer>
-    </section>
+        </CustomContainer>
+      </section>
+    </>
   )
 }
 

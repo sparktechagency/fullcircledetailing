@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import CustomLoading from '../../../components/shared/CustomLoading';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const DashboardBookings = () => {
   const [formOne] = useForm()
@@ -150,7 +151,6 @@ const DashboardBookings = () => {
   const columns = [
     {
       title: 'User', dataIndex: 'user', key: 'user',
-      dataIndex: 'image',
       render: (_, record) => (
         <div className="flex items-center gap-3">
           <img src={record?.user?.photo} alt="User" className="w-10 h-10 rounded-full" />
@@ -162,7 +162,7 @@ const DashboardBookings = () => {
     {
       title: 'Email', dataIndex: 'email',
       render: (_, record) => (
-          <span>{record?.user?.email}</span>
+        <span>{record?.user?.email}</span>
       )
     },
 
@@ -247,7 +247,9 @@ const DashboardBookings = () => {
     refetch();
   }, [searchText, currentPage, perPage, filterId, refetch]);
 
-
+  useEffect(() => {
+    document.title = "FULL CIRCLE~Dashboard Bookings";
+  }, [location.pathname]);
 
 
   if (isLoading) {
@@ -256,6 +258,9 @@ const DashboardBookings = () => {
 
   return (
     <>
+      <Helmet>
+        <title>FULL CIRCLE~Dashboard Bookings</title>
+      </Helmet>
       <div>
         <div className='flex justify-between items-center mb-2'>
           <div>

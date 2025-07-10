@@ -26,7 +26,8 @@ const Footer = () => {
                   />
                 </svg>
               </span>
-              <p className="text-[20px]">fullcircledetailinglwr@gmail.com</p>
+              <p className="text-[20px]"><a href="mailto:fullcircledetailinglwr@gmail.com">fullcircledetailinglwr@gmail.com</a></p>
+              
             </div>
           </div>
 

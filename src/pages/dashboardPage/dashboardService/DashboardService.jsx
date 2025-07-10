@@ -4,11 +4,14 @@ import { useEffect, useState } from "react"
 import { useAddServiceMutation, useAddTimeMutation, useDeleteServiceMutation, useDeleteTimeMutation, useGetDetailsServiceApiQuery, useGetServiceQuery, useUpdateServiceMutation, useUpdateTimeMutation, } from "../../../redux/dashboardFeatures/services/dashboardServiceApi";
 import toast from "react-hot-toast";
 import CustomLoading from "../../../components/shared/CustomLoading";
+import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 
 
 const DashboardService = () => {
+  const location = useLocation();
   const [formOne] = Form.useForm();
   const [formTwo] = Form.useForm();
   const [formThree] = Form.useForm();
@@ -338,8 +341,8 @@ const DashboardService = () => {
 
 
     if (text === 'Add') {
-      const newTime = formatTimeString(); 
-      setSelectTime(newTime); 
+      const newTime = formatTimeString();
+      setSelectTime(newTime);
       setIsModalOpen(false);
 
 
@@ -350,7 +353,7 @@ const DashboardService = () => {
       try {
         const res = await addTime(formData).unwrap()
         console.log(res);
-        
+
         if (res?.status === true) {
           toast.success(res?.message)
           setIsModalOpen(false)
@@ -363,25 +366,25 @@ const DashboardService = () => {
       }
     }
 
-    else if(text === 'Update') {
- 
-      const newTime = formatTimeString(); 
-      setSelectTime(newTime); 
+    else if (text === 'Update') {
+
+      const newTime = formatTimeString();
+      setSelectTime(newTime);
 
       const formData = new FormData();
-       formData.append("service_id", slotTimeId);
+      formData.append("service_id", slotTimeId);
       formData.append("time", newTime);
-       formData.append("_method", "PUT"); 
+      formData.append("_method", "PUT");
 
 
       try {
-        const res = await updateTime({ 
-          id:slotTimeId,
-           updateTimeInfo:formData
-           }).unwrap()
+        const res = await updateTime({
+          id: slotTimeId,
+          updateTimeInfo: formData
+        }).unwrap()
         if (res?.status === true) {
           toast.success(res?.message)
-           setIsModalOpen(false)
+          setIsModalOpen(false)
           refetch()
         } else {
           toast.error(res?.message)
@@ -394,79 +397,76 @@ const DashboardService = () => {
   }
 
 
-    const handleCancelTime = () => {
-      setIsModalOpen(false);
-      setInitialTime(currentTime);
-    }
+  const handleCancelTime = () => {
+    setIsModalOpen(false);
+    setInitialTime(currentTime);
+  }
 
 
 
-    // ADD SERVICE TIME
-    const handleAdd = async (id,text) => {
-      setSlotTimeId(id)
-      setIsModalOpen(true)
+  // ADD SERVICE TIME
+  const handleAdd = async (id, text) => {
+    setSlotTimeId(id)
+    setIsModalOpen(true)
     setText(text)
 
-    }
+  }
 
 
-    // UPDATE SERVICE TIME
-    const handleUpdate = async (id,text) => {
-      setSlotTimeId(id)
-      setIsModalOpen(true)
-      setText(text)
-    }
+  // UPDATE SERVICE TIME
+  const handleUpdate = async (id, text) => {
+    setSlotTimeId(id)
+    setIsModalOpen(true)
+    setText(text)
+  }
 
 
-    // DELETE SERVICE TIME-- DONE
-    const handleDelete = async (id) => {
-      try {
-        const res = await deleteTime(id).unwrap()
-        // console.log(res)
+  // DELETE SERVICE TIME-- DONE
+  const handleDelete = async (id) => {
+    try {
+      const res = await deleteTime(id).unwrap()
+      // console.log(res)
 
-        if (res?.status === true) {
-          toast.success(res?.message)
-          refetch()
-        } else {
-          toast.error(res?.message)
-        }
-      } catch (errors) {
-        console.log(errors)
-      }
-    }
-
-
-
-
-
-
-console.log(currentTime);
-
-
-
-
-
-
-
-    useEffect(() => {
-      if (mondalOne || mondalTwo || mondalThree) {
-        document.body.style.overflow = "hidden";
+      if (res?.status === true) {
+        toast.success(res?.message)
+        refetch()
       } else {
-        document.body.style.overflow = "auto";
+        toast.error(res?.message)
       }
+    } catch (errors) {
+      console.log(errors)
+    }
+  }
 
-      return () => {
-        document.body.style.overflow = "auto"; // Cleanup function
-      };
-    }, [mondalOne || mondalTwo || mondalThree]);
 
-
-    if (isLoading) {
-      return <CustomLoading />
+  useEffect(() => {
+    if (mondalOne || mondalTwo || mondalThree) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
 
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup function
+    };
+  }, [mondalOne || mondalTwo || mondalThree]);
 
-    return (
+
+  useEffect(() => {
+    document.title = "FULL CIRCLE~Dashboard Services";
+  }, [location.pathname]);
+
+
+  if (isLoading) {
+    return <CustomLoading />
+  }
+
+
+  return (
+    <>
+      <Helmet>
+        <title>FULL CIRCLE~Dashboard Services</title>
+      </Helmet>
       <div>
         <div className="py-4 pb-8">
           <button
@@ -835,7 +835,7 @@ console.log(currentTime);
 
                         <div className="flex items-center gap-3">
 
-                          <button onClick={() => handleUpdate((timeSlots[index]?.id),"Update")} type="button">
+                          <button onClick={() => handleUpdate((timeSlots[index]?.id), "Update")} type="button">
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <rect width="50" height="50" rx="15" fill="#E8F2FF" />
                               <path d="M25 13C18.376 13 13 18.376 13 25C13 31.624 18.376 37 25 37C31.624 37 37 31.624 37 25C37 18.376 31.624 13 25 13ZM25.072 33.4V30.988H25C23.464 30.988 21.928 30.4 20.752 29.236C19.7752 28.2582 19.1655 26.9735 19.0256 25.5986C18.8857 24.2236 19.2242 22.8425 19.984 21.688L21.304 23.008C20.452 24.604 20.668 26.62 22.012 27.964C22.852 28.804 23.956 29.2 25.06 29.176V26.608L28.456 30.004L25.072 33.4ZM30.004 28.312L28.684 26.992C29.536 25.396 29.32 23.38 27.976 22.036C27.5865 21.6431 27.1229 21.3316 26.612 21.1194C26.1011 20.9072 25.5532 20.7986 25 20.8H24.928V23.38L21.532 19.996L24.928 16.6V19.024C26.488 19 28.06 19.564 29.248 20.764C31.288 22.804 31.54 25.984 30.004 28.312Z" fill="#0063E5" />
@@ -1039,7 +1039,8 @@ console.log(currentTime);
           }
         </div>
       </div>
-    )
-  }
+    </>
+  )
+}
 
-  export default DashboardService
+export default DashboardService

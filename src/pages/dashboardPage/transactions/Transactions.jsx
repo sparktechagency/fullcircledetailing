@@ -4,17 +4,20 @@ import React, { useEffect, useState } from 'react';
 import { Input, Pagination, Space, Table } from 'antd';
 const { Search } = Input;
 import { useFilterBookingApiQuery, useGetTransitionApiQuery } from '../../../redux/dashboardFeatures/transition/dashboardTransitionApi';
+import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Transactions = () => {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [filterId, setFilterId] = useState('')
   const [searchText, setSearchText] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(6);
 
-  const { data: transitionData,isLoading, refetch } = useGetTransitionApiQuery({ per_page: perPage, page: currentPage, search: searchText, filter: filterId })
+  const { data: transitionData, isLoading, refetch } = useGetTransitionApiQuery({ per_page: perPage, page: currentPage, search: searchText, filter: filterId })
   const { data: filterBookingData, } = useFilterBookingApiQuery() // filter booking
-   const allTransitionData = transitionData?.data?.data
+  const allTransitionData = transitionData?.data?.data
   const allFilterBookingData = filterBookingData?.data
   const totalPaginationData = transitionData?.data?.total
 
@@ -30,7 +33,6 @@ const Transactions = () => {
   const columns = [
     {
       title: 'User', dataIndex: 'user', key: 'user',
-      dataIndex: 'image',
       render: (_, record) => (
         <div className="flex items-center gap-3">
           <img src={record?.user?.photo} alt="User" className="w-10 h-10 rounded-full" />
@@ -40,14 +42,14 @@ const Transactions = () => {
     },
 
     {
-      title: 'Email', dataIndex: 'email',
+      title: 'Email', dataIndex: 'email', key: 'email',
       render: (_, record) => (
         <span>{record?.user?.email}</span>
       )
     },
 
     {
-      title: 'Service', dataIndex: 'Service',
+      title: 'Service', dataIndex: 'Service', key: 'service',
       render: (_, record) => (
         <div className='flex flex-col'>
           <span className='font-semibold text-[28px] font-degular'>{record?.service_name}</span>
@@ -56,7 +58,7 @@ const Transactions = () => {
       )
     },
     {
-      title: 'Cost', dataIndex: 'Cost',
+      title: 'Cost', dataIndex: 'price', key: 'cost',
       render: (_, record) => (
         <div className='flex flex-col'>
           <span className='font-semibold text-[28px] font-degular text-primary'>${record?.price}</span>
@@ -81,13 +83,19 @@ const Transactions = () => {
     refetch();
   }, [searchText, currentPage, perPage, filterId, refetch]);
 
+  useEffect(() => {
+    document.title = "FULL CIRCLE~Dashboard Transitions";
+  }, [location.pathname]);
 
-  if(isLoading){
+  if (isLoading) {
     return <p>Loading...</p>
   }
 
   return (
     <>
+      <Helmet>
+        <title>FULL CIRCLE~Dashboard Transitions</title>
+      </Helmet>
       <div>
         <div className='flex justify-between items-center mb-2'>
           <div>

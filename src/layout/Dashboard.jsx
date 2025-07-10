@@ -362,7 +362,7 @@ const Dashboard = () => {
                     <h1 className="text-[#333333] font-semibold text-[24px]">
                         <>
                             <h1 className="text-[#333333] font-semibold text-[30px]">
-                                Privacy policy
+                                Privacy Policy
                             </h1>
                             <p className="font-normal text-lg -mt-3 mb-4">
                                 You can change your privacy policy section of your website and app from here.
@@ -436,7 +436,7 @@ const Dashboard = () => {
                     }}
                     trigger={null}
                 >
-                    <img onClick={() => navigate('/')} src="/logoWhite1.png" alt="Logo" className="mx-auto py-6 w-[264px] object-cover cursor-pointer" />
+                    <img onClick={() => navigate('/')} src="/logoWhite1.png" alt="Logo" className="mx-auto py-6 w-[284px] object-cover cursor-pointer" />
                     <Menu
                         mode="inline"
                         style={{ background: "#0063E5", }}

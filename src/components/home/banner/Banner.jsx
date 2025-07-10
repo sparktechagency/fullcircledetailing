@@ -37,7 +37,7 @@ const Banner = () => {
                   Keep your <span className="text-primary">car clean</span> anywhere
                 </h1>
                 <p className="text-[24px] lg:text-[28px]">
-                  Mobile car detailing services in Lakewood Ranch.
+                  Mobile car detailing services in Lakewood Ranch
                 </p>
                 <div className="pt-[60px] flex items-center gap-2">
                   <button onClick={() => handleServiceBookPage()} className="bg-primary text-[#ffff] text-[20px] py-2 md:py-4 px-[40px] md:px-[57px] rounded-full">

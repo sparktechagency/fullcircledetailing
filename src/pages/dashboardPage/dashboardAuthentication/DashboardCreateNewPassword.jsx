@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useResetPasswordApiMutation } from "../../../redux/authontication/authApi";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const DashboardCreateNewPassword = () => {
     const navigate = useNavigate();
@@ -52,86 +54,93 @@ const DashboardCreateNewPassword = () => {
 
 
 
-
+    useEffect(() => {
+        document.title = "FULL CIRCLE~Dashboard Create New Password";
+    }, [location.pathname]);
 
 
     return (
-        <AuthWrapper>
-            <div className="text-center mb-12 font-degular">
-                <div className="flex py-6 justify-center">
-                    <h3 className="font-semibold text-2xl text-[#333333]">
-                        Set a new password
-                    </h3>
-                </div>
-                <p className="text-[16px] font-normal mb-6 text-[#5C5C5C]">
-                    Create a new password. Ensure it differs from <br /> previous ones for security
-                </p>
-            </div>
-
-            <Form layout="vertical" onFinish={onFinish} className="font-degular">
-                {/* New Password Field */}
-                <div>
-                    <p className="text-[24px] font-degular">New password</p>
-                    <Form.Item
-                        name="password"
-                        rules={[{ required: true, message: "Please Input New Password" }]}
-                        colon={false}
-                    >
-                        <Input.Password
-                            placeholder="Write new password"
-                            iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
-                            style={{ height: "50px", width: "481px", cursor: "pointer", }}
-                        />
-                    </Form.Item>
-                </div>
-
-                {/* Confirm Password Field */}
-                <div>
-                    <p className="text-[24px] font-degular">Confirm Password</p>
-                    <Form.Item
-                        name="c_password"
-                        label=""
-                        dependencies={["password"]}
-                        rules={[
-                            { required: true, message: "Please input Confirm new password" },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue("password") === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject(
-                                        new Error(
-                                            "The two passwords that you entered do not match!"
-                                        )
-                                    );
-                                },
-                            }),
-                        ]}
-                        colon={false}
-                    >
-                        <Input.Password
-                            placeholder="Write confirm password"
-                            iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
-                            style={{ height: "50px", width: "481px", cursor: "pointer", }}
-                        />
-                    </Form.Item>
-                </div>
-
-                {/* Submit Button */}
-                <Form.Item>
-                    <div className="flex justify-center">
-  
-                        <Button
-                            className="bg-primary h-12 text-sm text-white font-bold mt-6 px-10"
-                            htmlType="submit"
-                        >
-                            Update Password
-                        </Button>
-
+        <>
+            <Helmet>
+                <title>FULL CIRCLE~Dashboard Create New Password</title>
+            </Helmet>
+            <AuthWrapper>
+                <div className="text-center mb-12 font-degular">
+                    <div className="flex py-6 justify-center">
+                        <h3 className="font-semibold text-2xl text-[#333333]">
+                            Set a new password
+                        </h3>
                     </div>
-                </Form.Item>
-            </Form>
-        </AuthWrapper>
+                    <p className="text-[16px] font-normal mb-6 text-[#5C5C5C]">
+                        Create a new password. Ensure it differs from <br /> previous ones for security
+                    </p>
+                </div>
+
+                <Form layout="vertical" onFinish={onFinish} className="font-degular">
+                    {/* New Password Field */}
+                    <div>
+                        <p className="text-[24px] font-degular">New password</p>
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: "Please Input New Password" }]}
+                            colon={false}
+                        >
+                            <Input.Password
+                                placeholder="Write new password"
+                                iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
+                                style={{ height: "50px", width: "481px", cursor: "pointer", }}
+                            />
+                        </Form.Item>
+                    </div>
+
+                    {/* Confirm Password Field */}
+                    <div>
+                        <p className="text-[24px] font-degular">Confirm Password</p>
+                        <Form.Item
+                            name="c_password"
+                            label=""
+                            dependencies={["password"]}
+                            rules={[
+                                { required: true, message: "Please input Confirm new password" },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue("password") === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(
+                                            new Error(
+                                                "The two passwords that you entered do not match!"
+                                            )
+                                        );
+                                    },
+                                }),
+                            ]}
+                            colon={false}
+                        >
+                            <Input.Password
+                                placeholder="Write confirm password"
+                                iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
+                                style={{ height: "50px", width: "481px", cursor: "pointer", }}
+                            />
+                        </Form.Item>
+                    </div>
+
+                    {/* Submit Button */}
+                    <Form.Item>
+                        <div className="flex justify-center">
+
+                            <Button
+                                className="bg-primary h-12 text-sm text-white font-bold mt-6 px-10"
+                                htmlType="submit"
+                            >
+                                Update Password
+                            </Button>
+
+                        </div>
+                    </Form.Item>
+                </Form>
+            </AuthWrapper>
+        </>
     )
 }
 

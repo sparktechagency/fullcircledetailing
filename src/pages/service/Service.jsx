@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import CommonTitle from "../../components/shared/CommonTitle";
 import CustomContainer from "../../components/shared/CustomContainer";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Service = () => {
- const navigate = useNavigate()
-   const handleNavigate = () => {
+    const navigate = useNavigate()
+     const location = useLocation();
+    const handleNavigate = () => {
         navigate('/pricing')
     }
 
@@ -14,9 +16,16 @@ const Service = () => {
         window.scrollTo(0, 0);
     }, []);
 
+      useEffect(() => {
+    document.title = "FULL CIRCLE~Services";
+  }, [location.pathname]);
+
     return <>
+        <Helmet>
+            <title>FULL CIRCLE~Services</title>
+        </Helmet>
         <section className="bg-[#f6f6f6] py-10 pt-28 lg:pt-[120px]">
-         <CustomContainer>
+            <CustomContainer>
                 <div className="pb-[22px]">
                     <CommonTitle text={"Our Services"} />
                 </div>
@@ -30,7 +39,7 @@ const Service = () => {
                                 className="w-full h-full object-cover rounded-[20px]"
                             />
                             {/* Overlay Layer */}
-                           <div
+                            <div
                                 className="absolute inset-0 rounded-[20px]"
                                 style={{
                                     background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%)'
