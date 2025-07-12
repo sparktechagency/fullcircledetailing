@@ -29,10 +29,12 @@ const About = () => {
     window.scrollTo(0, 0);
   }, []);
 
+
+
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~About</title>
+        <title>Full CIRCLE DETAILING~About</title>
       </Helmet>
 
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
@@ -69,10 +71,10 @@ const About = () => {
             </div>
           </div>
 
-          <div className="px-36">
+          <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
             <div
+              className="prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl max-w-none text-justify"
               dangerouslySetInnerHTML={{ __html: content }}
-              className=""
             />
           </div>
         </CustomContainer>

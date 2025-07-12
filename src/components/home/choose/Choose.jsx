@@ -125,7 +125,7 @@ const Choose = () => {
                       />
                     </svg>
                   </span>
-                  Customer Satisfaction – Your car comes FULL CIRCLE every time.
+                  Customer Satisfaction – Your car comes Full CIRCLE DETAILING every time.
                 </p>
 
                 <div className="pt-8 lg:pt-[137px] flex items-center gap-2">

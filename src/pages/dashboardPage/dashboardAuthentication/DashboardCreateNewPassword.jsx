@@ -55,14 +55,14 @@ const DashboardCreateNewPassword = () => {
 
 
     useEffect(() => {
-        document.title = "FULL CIRCLE~Dashboard Create New Password";
+        document.title = "Full CIRCLE DETAILING~Dashboard Create New Password";
     }, [location.pathname]);
 
 
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE~Dashboard Create New Password</title>
+                <title>Full CIRCLE DETAILING~Dashboard Create New Password</title>
             </Helmet>
             <AuthWrapper>
                 <div className="text-center mb-12 font-degular">

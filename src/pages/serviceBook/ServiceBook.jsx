@@ -68,7 +68,7 @@ const ServiceBook = () => {
 
 
     useEffect(() => {
-        document.title = "FULL CIRCLE~Service Book";
+        document.title = "Full CIRCLE DETAILING~Service Book";
     }, [location.pathname]);
 
     if (isLoading) {
@@ -78,7 +78,7 @@ const ServiceBook = () => {
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE~Service Book</title>
+                <title>Full CIRCLE DETAILING~Service Book</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
                 <CustomContainer>
@@ -169,7 +169,7 @@ const ServiceBook = () => {
                         className='custom-service-modal'
 
                     >
-                        <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
+                        <p className='text-[24px] font-degular font-medium text-center py-8'>Please select a service</p>
 
                         {/* interior card */}
                         <div className="pb-4">

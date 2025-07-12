@@ -143,13 +143,13 @@ const CheckoutPage = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Checkout";
+    document.title = "Full CIRCLE DETAILING~Checkout";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Checkout</title>
+        <title>Full CIRCLE DETAILING~Checkout</title>
       </Helmet>
       <section className=" pt-4 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>
@@ -180,23 +180,16 @@ const CheckoutPage = () => {
                 <div>
                   <Form.Item
                     name="phone"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your phone number",
-                      },
-                    ]}
                   >
                     <Input
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      maxLength={15}
+                      placeholder="Your phone number (9419996666)"
+                      pattern="[0-9]{10}"
+                      maxLength={10}
                       onKeyPress={(e) => {
                         if (!/[0-9]/.test(e.key)) {
                           e.preventDefault();
                         }
                       }}
-                      placeholder="Your phone number"
                       prefix={
                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M4.02222 9.15556C5.62222 12.3 8.2 14.8667 11.3444 16.4778L13.7889 14.0333C14.0889 13.7333 14.5333 13.6333 14.9222 13.7667C16.1667 14.1778 17.5111 14.4 18.8889 14.4C19.5 14.4 20 14.9 20 15.5111V19.3889C20 20 19.5 20.5 18.8889 20.5C8.45556 20.5 0 12.0444 0 1.61111C0 1 0.5 0.5 1.11111 0.5H5C5.61111 0.5 6.11111 1 6.11111 1.61111C6.11111 3 6.33333 4.33333 6.74444 5.57778C6.86667 5.96667 6.77778 6.4 6.46667 6.71111L4.02222 9.15556Z" fill="#888888" />
@@ -896,7 +889,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
       className='custom-service-modal'
 
     >
-      <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
+      <p className='text-[24px] font-degular font-medium text-center py-8'>Please select a service</p>
 
       {/* interior card */}
       <div className="pb-4">

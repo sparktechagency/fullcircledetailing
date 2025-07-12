@@ -84,7 +84,7 @@ const Transactions = () => {
   }, [searchText, currentPage, perPage, filterId, refetch]);
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard Transitions";
+    document.title = "Full CIRCLE DETAILING~Dashboard Transitions";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -94,7 +94,7 @@ const Transactions = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard Transitions</title>
+        <title>Full CIRCLE DETAILING~Dashboard Transitions</title>
       </Helmet>
       <div>
         <div className='flex justify-between items-center mb-2'>

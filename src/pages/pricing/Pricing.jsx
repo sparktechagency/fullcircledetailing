@@ -46,7 +46,7 @@ const Pricing = () => {
 
 
   const handlePrice = (id, type, name, price) => {
-    navigate(`/service-availability`, { state: { id, type, name, price } })
+    navigate(`/service-availability`, { state: { id, type, name, price, singlePriceValue } })
   }
 
 
@@ -68,7 +68,7 @@ const Pricing = () => {
   }, []);
 
     useEffect(() => {
-    document.title = "FULL CIRCLE~Pricing";
+    document.title = "Full CIRCLE DETAILING~Pricing";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -79,7 +79,7 @@ const Pricing = () => {
   return (
     <>
     <Helmet>
-            <title>FULL CIRCLE~Pricing</title>
+            <title>Full CIRCLE DETAILING~Pricing</title>
         </Helmet>
       <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-28 lg:pt-[140px]">
         <CustomContainer>
@@ -151,7 +151,7 @@ const Pricing = () => {
             width={600}
             className='custom-service-modal'
           >
-            <p className='text-[24px] font-degular font-medium text-center py-8'>Which service do you want to update?</p>
+            <p className='text-[24px] font-degular font-medium text-center py-8'>Please select a service</p>
 
             {/* interior card */}
             <div className="pb-4">

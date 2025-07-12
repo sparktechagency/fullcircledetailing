@@ -154,7 +154,7 @@ const DashboardUsers = () => {
     }, [searchText, currentPage, perPage, refetch]);
 
     useEffect(() => {
-        document.title = "FULL CIRCLE~Dashboard Users";
+        document.title = "Full CIRCLE DETAILING~Dashboard Users";
     }, [location.pathname]);
 
     if (isLoading) {
@@ -164,7 +164,7 @@ const DashboardUsers = () => {
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE~Dashboard Users</title>
+                <title>Full CIRCLE DETAILING~Dashboard Users</title>
             </Helmet>
             <div>
                 <Space direction="vertical" style={{ marginBottom: "20px", }}>

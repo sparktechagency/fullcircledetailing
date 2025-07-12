@@ -189,7 +189,7 @@ const ServiceAviablity = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Service Availability";
+    document.title = "Full CIRCLE DETAILING~Service Availability";
   }, [location.pathname]);
 
 
@@ -198,7 +198,7 @@ const ServiceAviablity = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Service Availability</title>
+        <title>Full CIRCLE DETAILING~Service Availability</title>
       </Helmet>
       <section className=" pt-10 lg:pt-[120px] pb-[52px] bg-[#f6f6f6] transition-all duration-500 ">
         <CustomContainer>

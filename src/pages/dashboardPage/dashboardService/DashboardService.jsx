@@ -336,7 +336,6 @@ const DashboardService = () => {
 
 
 
-
   const handleOkTime = async () => {
 
 
@@ -352,7 +351,7 @@ const DashboardService = () => {
 
       try {
         const res = await addTime(formData).unwrap()
-        console.log(res);
+        // console.log(res);
 
         if (res?.status === true) {
           toast.success(res?.message)
@@ -425,7 +424,6 @@ const DashboardService = () => {
   const handleDelete = async (id) => {
     try {
       const res = await deleteTime(id).unwrap()
-      // console.log(res)
 
       if (res?.status === true) {
         toast.success(res?.message)
@@ -453,7 +451,7 @@ const DashboardService = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard Services";
+    document.title = "Full CIRCLE DETAILING~Dashboard Services";
   }, [location.pathname]);
 
 
@@ -465,9 +463,9 @@ const DashboardService = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard Services</title>
+        <title>Full CIRCLE DETAILING~Dashboard Services</title>
       </Helmet>
-      <div>
+      <div className="">
         <div className="py-4 pb-8">
           <button
             onClick={showModalOne}
@@ -921,7 +919,7 @@ const DashboardService = () => {
 
 
         {/* time picker component */}
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className=" bg-gray-50 flex items-center justify-center p-4">
           {
             isModalOpen && <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
               <div className="bg-white rounded-lg p-6 w-full max-w-4xl mx-4 shadow-xl">

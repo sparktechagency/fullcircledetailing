@@ -158,13 +158,13 @@ const Feedbacks = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard Feedbacks";
+    document.title = "Full CIRCLE DETAILING~Dashboard Feedbacks";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard Feedbacks</title>
+        <title>Full CIRCLE DETAILING~Dashboard Feedbacks</title>
       </Helmet>
       <div>
         <div className="space-y-4">

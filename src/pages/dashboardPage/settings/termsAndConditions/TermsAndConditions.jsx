@@ -52,13 +52,13 @@ const TermsAndConditions = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard Terms And Conditions";
+    document.title = "Full CIRCLE DETAILING~Dashboard Terms And Conditions";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard Terms And Conditions</title>
+        <title>Full CIRCLE DETAILING~Dashboard Terms And Conditions</title>
       </Helmet>
       <div className="w-full mt-6">
         <JoditEditor

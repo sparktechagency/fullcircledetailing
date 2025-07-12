@@ -24,7 +24,7 @@ const TermsConditions = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Terms Conditions";
+    document.title = "Full CIRCLE DETAILING~Terms Conditions";
   }, [location.pathname]);
 
 
@@ -40,8 +40,8 @@ const TermsConditions = () => {
 
   return (
     <>
-   <Helmet>
-        <title>FULL CIRCLE~Terms Conditions</title>
+      <Helmet>
+        <title>Full CIRCLE DETAILING~Terms Conditions</title>
       </Helmet>
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>
@@ -79,81 +79,11 @@ const TermsConditions = () => {
             {/* <p className="lg:w-[1051px] text-center text-[20px] text-wrap md:text-[24px] font-degular">Welcome to LWR By using our services, you agree to the following terms and conditions. Please read them carefully.</p> */}
           </div>
 
-          {/* <div className="">
-          <div className=" py-12 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
 
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  1.Service Agreement
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">Our services include exterior washing, interior cleaning, detailing, and additional treatments as per the selected package.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">We strive for quality but are not responsible for pre-existing damages or issues with your vehicle.</li>
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  2.Pricing & Payments
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">All prices are subject to change without prior notice.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Payments must be made before or immediately after service completion.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">We accept cash, credit/debit cards, and digital payments.</li>
-
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  3.Cancellations & Refunds
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">Appointments can be rescheduled or canceled with prior notice.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Refunds are not provided for completed services but may be issued for missed appointments due to company error.</li>
-                </ul>
-              </div>
-
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  4.Liability Disclaimer
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">We take utmost care, but we are not liable for damage due to loose parts, pre-existing conditions, or personal belongings left inside vehicles.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Customers are responsible for removing valuables before service.</li>
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  5.Customer Conduct
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">Any misconduct, abuse, or violation of policies may result in service denial.</li>
-
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  6.Changes to Terms
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">We reserve the right to update these terms at any time.</li>
-
-                </ul>
-              </div>
-
-            </div>
-          </div>
-        </div> */}
-
-          <div className="px-36">
+          <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
             <div
+              className="prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl max-w-none text-justify"
               dangerouslySetInnerHTML={{ __html: content }}
-              className=""
             />
           </div>
         </CustomContainer>

@@ -16,13 +16,13 @@ const CommonDashboard = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard";
+    document.title = "Full CIRCLE DETAILING~Dashboard";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard</title>
+        <title>Full CIRCLE DETAILING~Dashboard</title>
       </Helmet>
       <div>
         <div className="grid grid-cols-12 gap-[20px]">

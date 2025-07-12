@@ -96,13 +96,13 @@ const OtpCode = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "FULL CIRCLE~Otp Code";
+        document.title = "Full CIRCLE DETAILING~Otp Code";
     }, [location.pathname]);
 
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE~Otp Code</title>
+                <title>Full CIRCLE DETAILING~Otp Code</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
                 <CustomContainer>
@@ -160,7 +160,7 @@ const OtpCode = () => {
 
 
                                 <p className="text-center mt-10 text-sm font-normal mb-6 text-[#5C5C5C]">
-                                    You have not received the email?
+                                    You have not received the email.
                                     <Button onClick={() => handleResentOtp()} className="pl-1 text-primary " type="link">
                                         Resend
                                     </Button>

@@ -233,7 +233,7 @@ const ManageImages = () => {
   }, [currentPage, perPage, refetch]);
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Dashboard Manage Images";
+    document.title = "Full CIRCLE DETAILING~Dashboard Manage Images";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -243,7 +243,7 @@ const ManageImages = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Dashboard Manage Images</title>
+        <title>Full CIRCLE DETAILING~Dashboard Manage Images</title>
       </Helmet>
       <div>
         <div className="pb-6">

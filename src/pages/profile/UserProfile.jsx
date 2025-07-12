@@ -62,7 +62,7 @@ const UserProfile = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "FULL CIRCLE~User Profile";
+        document.title = "Full CIRCLE DETAILING~User Profile";
     }, [location.pathname]);
 
     if (isLoading) {
@@ -72,7 +72,7 @@ const UserProfile = () => {
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE~User Profile</title>
+                <title>Full CIRCLE DETAILING~User Profile</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] bg-[#f6f6f6]">
                 <CustomContainer>

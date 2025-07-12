@@ -26,7 +26,7 @@ const PrivacyPolicy = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE~Privacy Policy";
+    document.title = "Full CIRCLE DETAILING~Privacy Policy";
   }, [location.pathname]);
 
 
@@ -43,7 +43,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE~Privacy Policy</title>
+        <title>Full CIRCLE DETAILING~Privacy Policy</title>
       </Helmet>
 
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
@@ -80,74 +80,10 @@ const PrivacyPolicy = () => {
             {/* <p className="lg:w-[1008px] text-center text-[20px] text-wrap md:text-[24px] font-degular">At LWR we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data.</p> */}
           </div>
 
-          {/* <div className="">
-          <div className=" py-12 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  1.Information We Collect
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">Personal details (name, contact number, email) when booking a service.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Payment information for transactions (secured and not stored).</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Vehicle details for service records.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Website usage data for improving user experience.</li>
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  2.How We Use Your Information
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">To provide and improve our services.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">To process payments securely.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">To communicate promotions, offers, or updates.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">To enhance customer experience and website functionality.</li>
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  3.   Data Protection
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">We implement security measures to safeguard your information.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Personal data is never sold, shared, or disclosed to third parties without consent. </li>
-                </ul>
-              </div>
-
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  4.Cookies and Tracking
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">Our website may use cookies to enhance user experience.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Users can manage cookie preferences in browser settings. </li>
-                </ul>
-              </div>
-
-              <div className="lg:w-[527px] border border-transparent">
-                <h1 className="mt-4 text-[18px] md:text-[24px] font-degular font-semibold">
-                  5.Your Rights
-                </h1>
-                <ul className="list-disc ml-6 pl-2 pr-8">
-                  <li className="text-[18px] md:text-[24px] font-degular">You can request access, modification, or deletion of your data.</li>
-                  <li className="text-[18px] md:text-[24px] font-degular">Opt-out of promotional communications at any time.</li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
-        </div> */}
-
-
-          <div className="px-36">
+          <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
             <div
+              className="prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl max-w-none text-justify"
               dangerouslySetInnerHTML={{ __html: content }}
-              className=""
             />
           </div>
         </CustomContainer>
