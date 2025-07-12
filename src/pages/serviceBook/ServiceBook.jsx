@@ -68,7 +68,7 @@ const ServiceBook = () => {
 
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Service Book";
+        document.title = "FULL CIRCLE DETAILING~Service Book";
     }, [location.pathname]);
 
     if (isLoading) {
@@ -78,7 +78,7 @@ const ServiceBook = () => {
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Service Book</title>
+                <title>FULL CIRCLE DETAILING~Service Book</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
                 <CustomContainer>

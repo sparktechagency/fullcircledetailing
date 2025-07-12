@@ -41,14 +41,14 @@ const DashboardLogin = () => {
     };
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Dashboard Login";
+        document.title = "FULL CIRCLE DETAILING~Dashboard Login";
     }, [location.pathname]);
 
 
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Dashboard Login</title>
+                <title>FULL CIRCLE DETAILING~Dashboard Login</title>
             </Helmet>
             <AuthWrapper>
                 <div className="text-center mb-12 font-degular">

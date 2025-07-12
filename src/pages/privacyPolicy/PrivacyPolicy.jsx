@@ -26,7 +26,7 @@ const PrivacyPolicy = () => {
 
 
   useEffect(() => {
-    document.title = "Full CIRCLE DETAILING~Privacy Policy";
+    document.title = "FULL CIRCLE DETAILING~Privacy Policy";
   }, [location.pathname]);
 
 
@@ -43,7 +43,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Helmet>
-        <title>Full CIRCLE DETAILING~Privacy Policy</title>
+        <title>FULL CIRCLE DETAILING~Privacy Policy</title>
       </Helmet>
 
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">

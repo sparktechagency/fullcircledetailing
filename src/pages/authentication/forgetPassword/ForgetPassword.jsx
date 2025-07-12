@@ -65,13 +65,13 @@ const ForgetPassword = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Forgot Password";
+        document.title = "FULL CIRCLE DETAILING~Forgot Password";
     }, [location.pathname]);
 
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Forgot Password</title>
+                <title>FULL CIRCLE DETAILING~Forgot Password</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
                 <CustomContainer>

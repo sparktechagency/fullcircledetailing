@@ -115,7 +115,7 @@ const Notification = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Notification";
+        document.title = "FULL CIRCLE DETAILING~Notification";
     }, [location.pathname]);
 
     if (isLoading) {
@@ -126,7 +126,7 @@ const Notification = () => {
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Notification</title>
+                <title>FULL CIRCLE DETAILING~Notification</title>
             </Helmet>
             <section className=" pb-[52px] bg-[#f6f6f6] pt-28 lg:pt-[120px] min-h-[200px] md:min-h-[300px] lg:min-h-[600px]">
                 <CustomContainer>

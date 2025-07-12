@@ -96,13 +96,13 @@ const OtpCode = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Otp Code";
+        document.title = "FULL CIRCLE DETAILING~Otp Code";
     }, [location.pathname]);
 
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Otp Code</title>
+                <title>FULL CIRCLE DETAILING~Otp Code</title>
             </Helmet>
             <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
                 <CustomContainer>

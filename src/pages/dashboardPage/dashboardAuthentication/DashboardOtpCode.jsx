@@ -92,14 +92,14 @@ const DashboardOtpCode = () => {
 
 
     useEffect(() => {
-        document.title = "Full CIRCLE DETAILING~Dashboard Otp Code";
+        document.title = "FULL CIRCLE DETAILING~Dashboard Otp Code";
     }, [location.pathname]);
 
 
     return (
         <>
             <Helmet>
-                <title>Full CIRCLE DETAILING~Dashboard Otp Code</title>
+                <title>FULL CIRCLE DETAILING~Dashboard Otp Code</title>
             </Helmet>
             <AuthWrapper>
                 <div className="text-center mb-12 font-degular">

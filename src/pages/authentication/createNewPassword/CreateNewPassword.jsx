@@ -61,13 +61,13 @@ const CreateNewPassword = () => {
   }, []);
 
   useEffect(() => {
-    document.title = "Full CIRCLE DETAILING~Create New Password";
+    document.title = "FULL CIRCLE DETAILING~Create New Password";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>Full CIRCLE DETAILING~Create New Password</title>
+        <title>FULL CIRCLE DETAILING~Create New Password</title>
       </Helmet>
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>

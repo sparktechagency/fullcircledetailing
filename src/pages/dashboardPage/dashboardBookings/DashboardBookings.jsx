@@ -248,7 +248,7 @@ const DashboardBookings = () => {
   }, [searchText, currentPage, perPage, filterId, refetch]);
 
   useEffect(() => {
-    document.title = "Full CIRCLE DETAILING~Dashboard Bookings";
+    document.title = "FULL CIRCLE DETAILING~Dashboard Bookings";
   }, [location.pathname]);
 
 
@@ -259,7 +259,7 @@ const DashboardBookings = () => {
   return (
     <>
       <Helmet>
-        <title>Full CIRCLE DETAILING~Dashboard Bookings</title>
+        <title>FULL CIRCLE DETAILING~Dashboard Bookings</title>
       </Helmet>
       <div>
         <div className='flex justify-between items-center mb-2'>

@@ -143,13 +143,13 @@ const CheckoutPage = () => {
 
 
   useEffect(() => {
-    document.title = "Full CIRCLE DETAILING~Checkout";
+    document.title = "FULL CIRCLE DETAILING~Checkout";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>Full CIRCLE DETAILING~Checkout</title>
+        <title>FULL CIRCLE DETAILING~Checkout</title>
       </Helmet>
       <section className=" pt-4 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>

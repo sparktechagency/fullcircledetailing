@@ -287,7 +287,7 @@ const ChangePassword = () => {
 
 
   useEffect(() => {
-    document.title = "Full CIRCLE DETAILING~Dashboard Change Password";
+    document.title = "FULL CIRCLE DETAILING~Dashboard Change Password";
   }, [location.pathname]);
 
 
@@ -299,7 +299,7 @@ const ChangePassword = () => {
   return (
     <>
       <Helmet>
-        <title>Full CIRCLE DETAILING~Dashboard Change Password</title>
+        <title>FULL CIRCLE DETAILING~Dashboard Change Password</title>
       </Helmet>
       <div>
         {/* Profile section */}
