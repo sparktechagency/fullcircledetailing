@@ -171,7 +171,7 @@ const EditUserProfile = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Edit User Profile";
+    document.title = "FULL CIRCLE Detailing~Edit User Profile";
   }, [location.pathname]);
 
 
@@ -182,7 +182,7 @@ const EditUserProfile = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Edit User Profile</title>
+        <title>FULL CIRCLE Detailing~Edit User Profile</title>
       </Helmet>
 
       <section className="pt-20 lg:pt-[120px] bg-[#f6f6f6] pb-8">

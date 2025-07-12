@@ -53,13 +53,13 @@ const AboutUs = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard About Us";
+    document.title = "FULL CIRCLE Detailing~Dashboard About Us";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Dashboard About Us</title>
+        <title>FULL CIRCLE Detailing~Dashboard About Us</title>
       </Helmet>
 
       <div className="w-full mt-6">

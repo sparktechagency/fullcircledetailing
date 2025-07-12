@@ -92,14 +92,14 @@ const DashboardOtpCode = () => {
 
 
     useEffect(() => {
-        document.title = "FULL CIRCLE DETAILING~Dashboard Otp Code";
+        document.title = "FULL CIRCLE Detailing~Dashboard Otp Code";
     }, [location.pathname]);
 
 
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE DETAILING~Dashboard Otp Code</title>
+                <title>FULL CIRCLE Detailing~Dashboard Otp Code</title>
             </Helmet>
             <AuthWrapper>
                 <div className="text-center mb-12 font-degular">
@@ -135,7 +135,7 @@ const DashboardOtpCode = () => {
                 </div>
 
                 <p className="text-center mt-10 text-sm font-normal mb-6 text-[#5C5C5C]">
-                    You have not received the email.
+                    I have not received the email.
                     <Button onClick={() => handleResentOtp()} className="pl-1 text-primary " type="link">
                         Resend
                     </Button>

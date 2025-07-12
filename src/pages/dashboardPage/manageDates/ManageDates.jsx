@@ -102,13 +102,13 @@ const ManageDates = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard Manage Dates";
+    document.title = "FULL CIRCLE Detailing~Dashboard Manage Dates";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Dashboard Manage Dates</title>
+        <title>FULL CIRCLE Detailing~Dashboard Manage Dates</title>
       </Helmet>
       <div>
         <div className='flex justify-evenly gap-10 pt-14'>

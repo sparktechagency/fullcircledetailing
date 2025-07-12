@@ -339,7 +339,8 @@ const Navbar = () => {
                 <div >
                   {
                     !shouldHideNavbarButton && <div className="flex flex-col space-y-4">
-                      <span
+                      {
+                        userProfileData?.data?.role === 'USER' && <span
                         onClick={() => {
                           handleNotification();
                           setMenuOpen(false);
@@ -359,6 +360,8 @@ const Navbar = () => {
                         </svg>
                         Notifications
                       </span>
+                      }
+                      
                       <button
                         className={`${isCreateAccountRoute
                           ? " py-3 rounded"

@@ -25,7 +25,7 @@ const PhotoGallery = () => {
   }, []);
 
     useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Photo Gallery";
+    document.title = "FULL CIRCLE Detailing~Photo Gallery";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -35,7 +35,7 @@ const PhotoGallery = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Photo Gallery</title>
+        <title>FULL CIRCLE Detailing~Photo Gallery</title>
       </Helmet>
       <section className="bg-[#f6f6f6] pt-28 lg:pt-32">
         {

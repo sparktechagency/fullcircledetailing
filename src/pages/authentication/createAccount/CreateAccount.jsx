@@ -97,13 +97,13 @@ const CreateAccount = () => {
   }, []);
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Create Account";
+    document.title = "FULL CIRCLE Detailing~Create Account";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Create Account</title>
+        <title>FULL CIRCLE Detailing~Create Account</title>
       </Helmet>
       <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         {/* <CustomContainer> */}

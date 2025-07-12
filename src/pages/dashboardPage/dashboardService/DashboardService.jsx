@@ -451,7 +451,7 @@ const DashboardService = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard Services";
+    document.title = "FULL CIRCLE Detailing~Dashboard Services";
   }, [location.pathname]);
 
 
@@ -463,7 +463,7 @@ const DashboardService = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Dashboard Services</title>
+        <title>FULL CIRCLE Detailing~Dashboard Services</title>
       </Helmet>
       <div className="">
         <div className="py-4 pb-8">

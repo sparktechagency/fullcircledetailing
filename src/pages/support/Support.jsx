@@ -58,7 +58,7 @@ const Support = () => {
   }
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Suppot";
+    document.title = "FULL CIRCLE Detailing~Suppot";
   }, [location.pathname]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const Support = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Suppot</title>
+        <title>FULL CIRCLE Detailing~Suppot</title>
       </Helmet>
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>

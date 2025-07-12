@@ -34,7 +34,7 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~About</title>
+        <title>FULL CIRCLE Detailing~About</title>
       </Helmet>
 
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">

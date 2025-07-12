@@ -44,14 +44,14 @@ const DashboardForgetPassword = () => {
   };
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard Forgot Password";
+    document.title = "FULL CIRCLE Detailing~Dashboard Forgot Password";
   }, [location.pathname]);
 
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Dashboard Forgot Password</title>
+        <title>FULL CIRCLE Detailing~Dashboard Forgot Password</title>
       </Helmet>
       <AuthWrapper>
         <p className="font-popping font-semibold text-2xl text-[#333333 mb-6 font-degular]">

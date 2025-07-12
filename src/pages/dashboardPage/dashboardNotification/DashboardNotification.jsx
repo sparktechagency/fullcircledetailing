@@ -142,14 +142,14 @@ const DashboardNotification = () => {
 
 
     useEffect(() => {
-        document.title = "FULL CIRCLE DETAILING~Dashboard Notifications";
+        document.title = "FULL CIRCLE Detailing~Dashboard Notifications";
     }, [location.pathname]);
 
 
     return (
         <>
             <Helmet>
-                <title>FULL CIRCLE DETAILING~Dashboard Notifications</title>
+                <title>FULL CIRCLE Detailing~Dashboard Notifications</title>
             </Helmet>
             <div className="space-y-4">
                 <div className="flex justify-end">

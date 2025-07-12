@@ -79,30 +79,17 @@ const ManageImages = () => {
 
     try {
       const res = await addPhoto(formData).unwrap();
-      console.log(res);
-
       if (res?.status === true) {
         toast.success(res?.message);
         setImageFileList([]);
         formOne.resetFields();
         setImageMadel(!imageMadel);
         setModalOne(false);
+      } else {
+        toast.error(res?.message);
       }
     } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-
-        toast.error(errorMessage);
-      }
+      console.log(error)
     }
 
 
@@ -155,22 +142,11 @@ const ManageImages = () => {
         formTwo.resetFields();
         setImageMadel(false);
         setModalTwo(false);
+      } else {
+        toast.error(res?.message);
       }
     } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-
-        toast.error(errorMessage);
-      }
+      console.log(error)
     }
 
 
@@ -205,22 +181,11 @@ const ManageImages = () => {
           const res = await deletePhoto(imageID).unwrap();
           if (res?.status === true) {
             toast.success(res?.message);
+          } else {
+            toast.error(res?.message);
           }
         } catch (error) {
-          const errorMessage =
-            error?.message || error?.data?.message;
-
-          if (typeof errorMessage === "object") {
-            Object.entries(errorMessage).forEach(([field, messages]) => {
-              if (Array.isArray(messages)) {
-                messages.forEach((msg) => toast.error(msg));
-              } else {
-                toast.error(messages);
-              }
-            });
-          } else {
-            toast.error(errorMessage);
-          }
+          console.log(error)
         }
       }
     });
@@ -233,7 +198,7 @@ const ManageImages = () => {
   }, [currentPage, perPage, refetch]);
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard Manage Images";
+    document.title = "FULL CIRCLE Detailing~Dashboard Manage Images";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -243,7 +208,7 @@ const ManageImages = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Dashboard Manage Images</title>
+        <title>FULL CIRCLE Detailing~Dashboard Manage Images</title>
       </Helmet>
       <div>
         <div className="pb-6">

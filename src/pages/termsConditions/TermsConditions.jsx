@@ -24,7 +24,7 @@ const TermsConditions = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Terms Conditions";
+    document.title = "FULL CIRCLE Detailing~Terms Conditions";
   }, [location.pathname]);
 
 
@@ -41,7 +41,7 @@ const TermsConditions = () => {
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Terms Conditions</title>
+        <title>FULL CIRCLE Detailing~Terms Conditions</title>
       </Helmet>
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>

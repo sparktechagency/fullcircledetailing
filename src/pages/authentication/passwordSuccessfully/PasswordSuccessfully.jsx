@@ -14,13 +14,13 @@ const PasswordSuccessfully = () => {
   }, []);
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Password Successfull";
+    document.title = "FULL CIRCLE Detailing~Password Successfull";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Password Successfull</title>
+        <title>FULL CIRCLE Detailing~Password Successfull</title>
       </Helmet>
       <section className="pt-20 lg:pt-[140px] pb-[60px] bg-[#f6f6f6]">
         <CustomContainer>

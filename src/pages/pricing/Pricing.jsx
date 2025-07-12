@@ -68,7 +68,7 @@ const Pricing = () => {
   }, []);
 
     useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Pricing";
+    document.title = "FULL CIRCLE Detailing~Pricing";
   }, [location.pathname]);
 
   if (isLoading) {
@@ -79,7 +79,7 @@ const Pricing = () => {
   return (
     <>
     <Helmet>
-            <title>FULL CIRCLE DETAILING~Pricing</title>
+            <title>FULL CIRCLE Detailing~Pricing</title>
         </Helmet>
       <section className="bg-[#f6f6f6] w-full overflow-x-auto pt-28 lg:pt-[140px]">
         <CustomContainer>

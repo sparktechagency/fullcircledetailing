@@ -17,13 +17,13 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
     useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Home";
+    document.title = "FULL CIRCLE Detailing~Home";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Home</title>
+        <title>FULL CIRCLE Detailing~Home</title>
       </Helmet>
       <div>
         <Banner />

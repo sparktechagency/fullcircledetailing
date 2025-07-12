@@ -64,13 +64,13 @@ const Login = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Login";
+    document.title = "FULL CIRCLE Detailing~Login";
   }, [location.pathname]);
 
   return (
     <>
       <Helmet>
-        <title>FULL CIRCLE DETAILING~Login</title>
+        <title>FULL CIRCLE Detailing~Login</title>
       </Helmet>
       <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         {/* <CustomContainer> */}

@@ -17,12 +17,12 @@ const Service = () => {
     }, []);
 
       useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Services";
+    document.title = "FULL CIRCLE Detailing~Services";
   }, [location.pathname]);
 
     return <>
         <Helmet>
-            <title>FULL CIRCLE DETAILING~Services</title>
+            <title>FULL CIRCLE Detailing~Services</title>
         </Helmet>
         <section className="bg-[#f6f6f6] py-10 pt-28 lg:pt-[120px]">
             <CustomContainer>

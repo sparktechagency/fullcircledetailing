@@ -51,13 +51,13 @@ const PrivacyAndPolicy = () => {
 
 
   useEffect(() => {
-    document.title = "FULL CIRCLE DETAILING~Dashboard Privacy Policy";
+    document.title = "FULL CIRCLE Detailing~Dashboard Privacy Policy";
   }, [location.pathname]);
 
   return (
     <>
         <Helmet>
-                <title>FULL CIRCLE DETAILING~Dashboard Privacy Policy</title>
+                <title>FULL CIRCLE Detailing~Dashboard Privacy Policy</title>
             </Helmet>
       <div className="w-full mt-6">
         <JoditEditor
