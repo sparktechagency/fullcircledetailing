@@ -89,21 +89,11 @@ const Feedbacks = () => {
         toast.success(res?.data?.message);
         refetch()
         setModalOne(false);
+      }else{
+         toast.error(res?.message);
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-        toast.error(errorMessage || "Something went wrong");
-      }
+     console.log(error)
     }
 
   }

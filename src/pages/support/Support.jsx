@@ -34,21 +34,11 @@ const Support = () => {
       if (res?.status === true) {
         toast.success(res?.message);
         formOne.resetFields()
+      }else{
+        toast.error(res?.message);
       }
     } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-        toast.error(errorMessage);
-      }
+      console.log(error)
     }
   }
 

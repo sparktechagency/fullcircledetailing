@@ -113,20 +113,11 @@ const ChangePassword = () => {
         toast.success(res?.message)
         formTwo.resetFields()
       }
-    } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-        toast.error(errorMessage);
+      else{
+        toast.error(res?.message);
       }
+    } catch (error) {
+    console.log(error)
     }
   };
 

@@ -14,7 +14,7 @@ const PhotoGallery = () => {
 
   const { data: gallaryPhoto, isLoading } = useGetPhotoGallaryApiQuery();
   const gallaryPhotData = gallaryPhoto?.data?.data || [];
-  console.log(gallaryPhotData)
+
 
 
   const firstSeven = gallaryPhotData.slice(0, 7);
@@ -37,7 +37,7 @@ const PhotoGallery = () => {
       <Helmet>
         <title>FULL CIRCLE Detailing~Photo Gallery</title>
       </Helmet>
-      <section className="bg-[#f6f6f6] pt-28 lg:pt-32">
+      <section className="bg-[#f6f6f6] pb-6 pt-28 lg:pt-32">
         {
           gallaryPhotData?.length > 0 ? <CustomContainer>
             <div className="pb-[22px]">

@@ -300,10 +300,6 @@ const CheckoutPage = () => {
                     <Form.Item name="zip_code"
                       rules={[
                         { required: true, message: "Please enter your zip code" },
-                        {
-                          pattern: /^[0-9]{4,6}$/,
-                          message: "Zip code must be 4 to 6 digits",
-                        },
                       ]}
                     >
                       <Input
@@ -537,7 +533,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
   const [bookingSuccess, bookingResults] = useBookingSuccessMutation()
 
   const navigation = useNavigate()
-  const stripe = useStripe();
+  // const stripe = useStripe();
   const elements = useElements();
 
 
@@ -598,65 +594,24 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
 
 
   const handleSubmit = async () => {
-
-    if (elements == null) {
-      return toast.error("Something happened wrong")
-    }
-
-    // Trigger form validation and wallet collection
-    const { error: submitError } = await elements.submit();
-    if (submitError) {
-      // Show error to your customer
-      setErrorMessage(submitError.message);
-      return;
-    }
-
-    // Create the PaymentIntent and obtain clientSecret from your server endpoint
-    const res = await createIntent({
-      payment_method: "pm_card_visa",
-      amount: price,
-      service_name: service_name,
-    }).unwrap()
-
-    const clientSecret = res?.data?.client_secret
-
-
-    const { error, paymentIntent } = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements,
-      clientSecret,
-      confirmParams: {
-        return_url: 'https://example.com/order/123/complete',
-      },
-      redirect: 'if_required', // <- THIS AVOIDS REDIRECT
-    });
-
-    if (error) {
-
-      // This point will only be reached if there is an immediate error when
-      // confirming the payment. Show error to your customer (for example, payment
-      // details incomplete)
-      setErrorMessage(error.message);
-    } else {
-      paymentInfo.stripe_payment_intent_id = paymentIntent.id;
+    try {
       paymentInfo.booking_date = moment(selectedDate).format("YYYY-MM-DD");
       paymentInfo.booking_time = bookingTime;
       paymentInfo.price = updateData?.price;
 
-      const res = await bookingSuccess(
-        paymentInfo
-      ).unwrap()
-      console.log(res)
+
+
+      const res = await bookingSuccess(paymentInfo).unwrap();
+      console.log("Response ------->", res);
+
       if (res.status) {
-        toast.success("Your booking is submit successfully done!")
-        navigation("/")
+        toast.success(res?.message);
+        navigation("/");
       }
+    } catch (err) {
+      console.error("Payment error:", err);
+    toast.error("Something went wrong. Please try again.");
 
-
-
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
     }
   };
 
@@ -759,88 +714,9 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
       </div>
 
 
-      {/* paypal account component */}
-      {/* <div className=" rounded-lg p-8 bg-[#ffff] space-y-4 mt-8">
-              <div className="flex justify-between items-center">
-                <p className='text-[20px]  font-degular'>Pay with </p>
-                <img src="/paypal.svg" alt="" />
-              </div>
-
-              <div>
-                <p className="font-degular text-[#30313D]">Card number</p>
-                <div className="flex justify-between items-center border border-[#ccc] rounded-lg px-2 py-3 cursor-pointer">
-                  <p> 1234 1234 1234 1234</p>
-                  <img src="/creditCardBrands.svg" alt="photo" />
-                </div>
-              </div>
-
-              <div className="">
-
-                <div className="flex flex-col md:flex-row justify-between gap-3">
-
-
-
-                  <div className="w-full md:w-[50%] ">
-                    <p className="font-degular text-[#30313D]">Expiration</p>
-                    <div className="flex justify-between border border-[#ccc] rounded-lg px-2 py-3 cursor-pointer">
-                      MM / YY
-                    </div>
-                  </div>
-                  <div className="w-full md:w-[50%] ">
-                    <p className="font-degular text-[#30313D]">CVC</p>
-                    <div className="flex justify-between border border-[#ccc] rounded-lg px-2 py-3 cursor-pointer">
-                      CVC
-                      <svg width="23" height="18" viewBox="0 0 23 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.2" fillRule="evenodd" clipRule="evenodd" d="M14.337 1.5C13.6146 2.00713 13.025 2.68088 12.6182 3.4642C12.2114 4.24753 11.9993 5.11734 12 6C12 7.33 12.472 8.55 13.257 9.5H3C2.73478 9.5 2.48043 9.60536 2.29289 9.79289C2.10536 9.98043 2 10.2348 2 10.5V11.5C2 11.7652 2.10536 12.0196 2.29289 12.2071C2.48043 12.3946 2.73478 12.5 3 12.5H19C19.2652 12.5 19.5196 12.3946 19.7071 12.2071C19.8946 12.0196 20 11.7652 20 11.5V10.9C20.7976 10.4917 21.484 9.89559 22 9.163V15.5C22 16.0304 21.7893 16.5391 21.4142 16.9142C21.0391 17.2893 20.5304 17.5 20 17.5H2C1.46957 17.5 0.960859 17.2893 0.585786 16.9142C0.210714 16.5391 0 16.0304 0 15.5V3.5C0 2.96957 0.210714 2.46086 0.585786 2.08579C0.960859 1.71071 1.46957 1.5 2 1.5H14.337ZM21.044 1.793C21.283 1.995 21.504 2.217 21.706 2.456C21.5406 2.18594 21.3138 1.95877 21.044 1.793Z" fill="#77787D" />
-                        <path opacity="0.4" fillRule="evenodd" clipRule="evenodd" d="M12.6 3.5C12.1267 4.42493 11.9262 5.46542 12.022 6.5H0V3.5H12.6Z" fill="#77787D" />
-                        <path fillRule="evenodd" clipRule="evenodd" d="M17.5 11.5C16.0413 11.5 14.6424 10.9205 13.6109 9.88909C12.5795 8.85764 12 7.45869 12 6C12 4.54131 12.5795 3.14236 13.6109 2.11091C14.6424 1.07946 16.0413 0.5 17.5 0.5C18.9587 0.5 20.3576 1.07946 21.3891 2.11091C22.4205 3.14236 23 4.54131 23 6C23 7.45869 22.4205 8.85764 21.3891 9.88909C20.3576 10.9205 18.9587 11.5 17.5 11.5ZM15.316 3.721H14.695L13.179 4.491V5.277L14.381 4.649V8.279H15.324V3.72H15.316V3.721ZM17.123 4.35C17.571 4.35 17.885 4.601 17.885 4.963C17.885 5.356 17.515 5.631 16.981 5.631H16.746V6.299H17.029C17.594 6.299 17.979 6.581 17.979 6.99C17.979 7.383 17.602 7.65 17.068 7.65C16.675 7.65 16.282 7.524 15.874 7.28V8.066C16.314 8.255 16.754 8.357 17.186 8.357C18.215 8.357 18.922 7.831 18.922 7.069C18.922 6.534 18.592 6.102 18.042 5.929C18.514 5.772 18.82 5.356 18.82 4.884C18.82 4.146 18.168 3.643 17.225 3.643C16.7998 3.64762 16.38 3.73845 15.991 3.91V4.68C16.369 4.468 16.754 4.35 17.123 4.35ZM20.517 6.063C21.091 6.063 21.491 6.401 21.491 6.841C21.491 7.304 21.091 7.626 20.517 7.626C20.171 7.626 19.81 7.516 19.441 7.289V8.098C19.826 8.271 20.219 8.358 20.604 8.358C20.808 8.358 20.996 8.326 21.177 8.278C21.5971 7.59822 21.82 6.8151 21.821 6.016L21.806 5.686C21.5138 5.51277 21.1786 5.42543 20.839 5.434C20.6891 5.43346 20.5393 5.44415 20.391 5.466V4.444H21.523C21.4247 4.19245 21.3035 3.95044 21.161 3.721H19.574V6.196C19.8817 6.11331 20.1984 6.06864 20.517 6.063Z" fill="#77787D" />
-                      </svg>
-
-                    </div>
-                  </div>
-                </div>
-
-
-
-              </div>
-
-
-              <div>
-                <p className="font-degular text-[#30313D]">State</p>
-                <div className="border border-[#ccc] rounded-lg px-2 py-3 cursor-pointer flex justify-between items-center">
-                  <p>Select</p>
-                  <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M10.1933 0.719947C10.3342 0.579117 10.5252 0.5 10.7243 0.5C10.9235 0.5 11.1145 0.579117 11.2553 0.719947C11.3962 0.860777 11.4753 1.05178 11.4753 1.25095C11.4753 1.45011 11.3962 1.64112 11.2553 1.78195L6.53034 6.50595C6.38971 6.6464 6.19909 6.72529 6.00034 6.72529C5.80159 6.72529 5.61096 6.6464 5.47034 6.50595L0.745338 1.78195C0.604508 1.64112 0.525391 1.45011 0.525391 1.25095C0.525391 1.05178 0.604508 0.860777 0.745338 0.719947C0.886168 0.579117 1.07717 0.5 1.27634 0.5C1.4755 0.5 1.66651 0.579117 1.80734 0.719947L6.00034 4.91295L10.1933 0.719947Z" fill="#6D6E78" />
-                  </svg>
-
-                </div>
-              </div>
-
-              <div className="">
-                <Button
-                  htmlType="submit"
-                  block
-                  style={{
-                    backgroundColor: "#0063E5",
-                    color: "#ffffff",
-                    fontSize: "20px",
-                    fontWeight: "600",
-                    height: "60px",
-                    borderRadius: "20px",
-                    paddingInline: "20px",
-                  }}
-                >
-                  Book Appointment <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.293032 6L11.879 6L7.37903 1.5L8.79303 0.0859985L15.707 7L8.79303 13.914L7.37903 12.5L11.879 8L0.293032 8V6Z" fill="white" />
-                  </svg>
-
-                </Button>
-              </div>
-            </div> */}
-
 
       <div className="mt-4">
-        <PaymentElement />
+        {/* <PaymentElement /> */}
       </div>
       <div className="mt-4">
         <Button
@@ -848,7 +724,7 @@ export const PaymentCard = ({ paymentInfo, singlePriceValue, serviceData }) => {
           onClick={() => {
             handleSubmit()
           }}
-          disabled={!stripe || !elements}
+          // disabled={!stripe || !elements}
           htmlType="submit"
           block
           style={{

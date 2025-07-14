@@ -244,6 +244,7 @@ const router = createBrowserRouter([
     path: "/admin/dashboard/create-new-password",
     element: <DashboardCreateNewPassword />
   },
+  
 ]);
 
 export default router;

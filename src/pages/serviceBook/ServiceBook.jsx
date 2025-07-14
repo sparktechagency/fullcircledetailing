@@ -19,11 +19,6 @@ const ServiceBook = () => {
 
     const { data: getPrice, isLoading, refetch } = useGetPriceApiQuery();
     const priceData = getPrice?.data
-    // console.log(priceData)
-
-    // console.log(singlePriceValue)
-
-
 
 
     const showModal = (item) => {

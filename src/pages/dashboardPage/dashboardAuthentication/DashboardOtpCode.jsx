@@ -42,22 +42,12 @@ const DashboardOtpCode = () => {
                 localStorage.setItem("role", role);
                 toast.success(res?.message);
                 navigate(`/admin/dashboard/create-new-password?email=${email}`)
+            }else{
+                toast.error(res?.message);
             }
         } catch (error) {
-            const errorMessage = error?.data?.message;
+            console.log(error)
 
-            if (typeof errorMessage === 'object') {
-                Object.entries(errorMessage).forEach(([field, messages]) => {
-                    if (Array.isArray(messages)) {
-                        messages.forEach(msg => toast.error(msg));
-                    } else {
-                        toast.error(messages);
-                    }
-                });
-            } else {
-
-                toast.error(errorMessage);
-            }
         }
     };
 

@@ -25,18 +25,6 @@ const Notification = () => {
 
     const { data: getNotification, isLoading, refetch } = useGetNotificationApiQuery()
     const notificationData = getNotification?.data
-    // const notificationData = [...(getNotification?.data || [])]?.sort((a, b) => {
-    //     if (
-    //         (a.data.type === "Booking successful" && b.data.type === "Booking successful") ||
-    //         (a.data.type !== "Booking successful" && b.data.type !== "Booking successful")
-    //     ) {
-    //         return 0;
-    //     }
-    //     return a.data.type === "Booking successful" ? -1 : 1;
-    // });
-
-
-
 
 
     const showmodalOne = (id) => {
@@ -65,20 +53,7 @@ const Notification = () => {
                 toast.error(res?.message);
             }
         } catch (error) {
-            const errorMessage = error?.data?.message;
-
-            if (typeof errorMessage === 'object') {
-                Object.entries(errorMessage).forEach(([field, messages]) => {
-                    if (Array.isArray(messages)) {
-                        messages.forEach(msg => toast.error(msg));
-                    } else {
-                        toast.error(messages);
-                    }
-                });
-            } else {
-
-                toast.error(errorMessage);
-            }
+            console.log(error)
         }
 
     }

@@ -65,6 +65,11 @@ const Navbar = () => {
   const handleServiceBookPage = () => {
     navigate("/service-book");
   };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   const handleNotification = () => {
     navigate("/notification");
   };
@@ -174,12 +179,16 @@ const Navbar = () => {
                       }`}
                   >
                     {isCreateAccountRoute ? (
-                      <Link to="/login">
-                      <p className="text-[20px] font-semibold tracking-wider flex items-center gap-2 border  py-4 px-8 rounded-full ">
+                      <p
+                        onClick={() => {
+                          handleLogin();
+                          setMenuOpen(false);
+                        }}
+                        className="text-[20px] font-semibold tracking-wider flex items-center gap-2 border  py-4 px-8 rounded-full ">
                         Have an Account?
                         Login
                       </p>
-                      </Link>
+
                     ) : (
                       <>
                         {
@@ -212,9 +221,6 @@ const Navbar = () => {
                               <p className="">
                                 Create Your Account
                               </p>
-                              {/* <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
-                                Create Your Account
-                              </p> */}
                             </span>
                         }
                       </>
@@ -330,8 +336,8 @@ const Navbar = () => {
               </NavLink>
 
               <div className="flex flex-col space-y-4">
-                <div className="">
-                  <button onClick={() => handleServiceBookPage()} className="cursor-pointer text-[#ffffff] text-[20px] font-semibold bg-primary rounded py-2 px-10">
+                <div className="w-full ">
+                  <button onClick={() => handleServiceBookPage()} className="w-full cursor-pointer text-[#ffffff] text-[20px] font-semibold bg-primary rounded py-2 px-10">
                     Book Now
                   </button>
                 </div>
@@ -341,65 +347,86 @@ const Navbar = () => {
                     !shouldHideNavbarButton && <div className="flex flex-col space-y-4">
                       {
                         userProfileData?.data?.role === 'USER' && <span
-                        onClick={() => {
-                          handleNotification();
-                          setMenuOpen(false);
-                        }}
-                        className="border border-primary rounded px-2 py-2 cursor-pointer flex items-center gap-1 text-[20px] font-semibold text-primary">
-                        <svg
-                          width="22"
-                          height="22"
-                          viewBox="0 0 18 22"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5.645 19.4437C5.86103 20.1824 6.30417 20.8302 6.90858 21.2907C7.513 21.7513 8.24645 22 9 22C9.75355 22 10.487 21.7513 11.0914 21.2907C11.6958 20.8302 12.139 20.1824 12.355 19.4437H5.645ZM0 18.4203H18V15.3503L16 12.2802V7.16345C16 6.22273 15.8189 5.29123 15.4672 4.42212C15.1154 3.55301 14.5998 2.76331 13.9497 2.09813C13.2997 1.43294 12.5281 0.905282 11.6788 0.545285C10.8295 0.185288 9.91925 0 9 0C8.08075 0 7.17049 0.185288 6.32122 0.545285C5.47194 0.905282 4.70026 1.43294 4.05025 2.09813C3.40024 2.76331 2.88463 3.55301 2.53284 4.42212C2.18106 5.29123 2 6.22273 2 7.16345V12.2802L0 15.3503V18.4203Z"
-                            fill="#0063E5"
-                          />
-                        </svg>
-                        Notifications
-                      </span>
+                          onClick={() => {
+                            handleNotification();
+                            setMenuOpen(false);
+                          }}
+                          className="border border-primary rounded px-2 py-2 cursor-pointer flex items-center gap-1 text-[20px] font-semibold text-primary">
+                          <svg
+                            width="22"
+                            height="22"
+                            viewBox="0 0 18 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M5.645 19.4437C5.86103 20.1824 6.30417 20.8302 6.90858 21.2907C7.513 21.7513 8.24645 22 9 22C9.75355 22 10.487 21.7513 11.0914 21.2907C11.6958 20.8302 12.139 20.1824 12.355 19.4437H5.645ZM0 18.4203H18V15.3503L16 12.2802V7.16345C16 6.22273 15.8189 5.29123 15.4672 4.42212C15.1154 3.55301 14.5998 2.76331 13.9497 2.09813C13.2997 1.43294 12.5281 0.905282 11.6788 0.545285C10.8295 0.185288 9.91925 0 9 0C8.08075 0 7.17049 0.185288 6.32122 0.545285C5.47194 0.905282 4.70026 1.43294 4.05025 2.09813C3.40024 2.76331 2.88463 3.55301 2.53284 4.42212C2.18106 5.29123 2 6.22273 2 7.16345V12.2802L0 15.3503V18.4203Z"
+                              fill="#0063E5"
+                            />
+                          </svg>
+                          Notifications
+                        </span>
                       }
-                      
                       <button
                         className={`${isCreateAccountRoute
-                          ? " py-3 rounded"
-                          : "flex items-center rounded bg-primary px-2 py-3"
+                          ? ""
+                          : "flex items-center rounded-full gap-2 "
                           }`}
                       >
                         {isCreateAccountRoute ? (
+
                           <p
-                            onClick={() => setMenuOpen(false)}
-                            className=" flex flex-col md:flex-row md:gap-2 text-start border border-primary rounded px-2 py-2 cursor-pointer text-[20px] font-semibold text-primary">
+                            onClick={() => {
+                              handleLogin();
+                              setMenuOpen(false);
+                            }}
+                            className="md:text-[20px] font-semibold tracking-wider flex items-center gap-2 border py-2 md:py-4 px-[5px] md:px-8 rounded">
                             Have an Account?
-                            <Link to="/login">Login</Link>
+                            Login
                           </p>
+
                         ) : (
                           <>
-                            <span
-                              onClick={() => {
-                                handleCreateAccount();
-                                setMenuOpen(false);
-                              }}
-                              className="flex items-center gap-1 md:text-[20px] md:font-semibold bg-primary rounded-full "
-                            >
-                              <svg
-                                width="17"
-                                height="16"
-                                viewBox="0 0 17 16"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                            {
+                              userProfileData?.data?.role === 'USER' ? <span
+                                onClick={() => {
+                                  handlNavigateUserProfile();
+                                  setMenuOpen(false);
+                                }}
+
+                                className="flex items-center bg-primary rounded gap-2 py-2 px-3 w-full"
                               >
-                                <path
-                                  d="M8.5 0C9.56087 0 10.5783 0.421427 11.3284 1.17157C12.0786 1.92172 12.5 2.93913 12.5 4C12.5 5.06087 12.0786 6.07828 11.3284 6.82843C10.5783 7.57857 9.56087 8 8.5 8C7.43913 8 6.42172 7.57857 5.67157 6.82843C4.92143 6.07828 4.5 5.06087 4.5 4C4.5 2.93913 4.92143 1.92172 5.67157 1.17157C6.42172 0.421427 7.43913 0 8.5 0ZM8.5 10C12.92 10 16.5 11.79 16.5 14V16H0.5V14C0.5 11.79 4.08 10 8.5 10Z"
-                                  fill="white"
-                                />
-                              </svg>
-                              <p className="text-[#ffffff] ">
-                                Create your account
-                              </p>
-                            </span>
+                                <img src={userProfileData?.data?.photo} alt="" className="w-[30px] h-[30px]  object-cover" />
+                                <p className="text-[#ffffff] text-[16px] md:text-[20px] font-semibold tracking-wider">
+                                  {userProfileData?.data?.name}
+                                </p>
+                              </span>
+                                :
+                                <span
+                                  onClick={() => {
+                                    handleCreateAccount();
+                                    setMenuOpen(false);
+                                  }}
+
+                                  className="w-full flex items-center gap-[2px] md:gap-2 text-[16px] md:text-[20px] font-semibold tracking-wider  border py-3 md:py-4 px-2 md:px-8 rounded bg-primary text-[#ffffff]"
+                                >
+                                  <svg
+                                    width="17"
+                                    height="16"
+                                    viewBox="0 0 17 16"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M8.5 0C9.56087 0 10.5783 0.421427 11.3284 1.17157C12.0786 1.92172 12.5 2.93913 12.5 4C12.5 5.06087 12.0786 6.07828 11.3284 6.82843C10.5783 7.57857 9.56087 8 8.5 8C7.43913 8 6.42172 7.57857 5.67157 6.82843C4.92143 6.07828 4.5 5.06087 4.5 4C4.5 2.93913 4.92143 1.92172 5.67157 1.17157C6.42172 0.421427 7.43913 0 8.5 0ZM8.5 10C12.92 10 16.5 11.79 16.5 14V16H0.5V14C0.5 11.79 4.08 10 8.5 10Z"
+                                      fill="white"
+                                    />
+                                  </svg>
+                                  <p className="">
+                                    Create Your Account
+                                  </p>
+                                </span>
+                            }
                           </>
                         )}
                       </button>

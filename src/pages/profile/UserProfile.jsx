@@ -37,22 +37,11 @@ const UserProfile = () => {
                 localStorage.removeItem("token")
                 localStorage.removeItem("role")
                 navigate('/login')
+            } else {
+                toast.error(res?.message);
             }
         } catch (error) {
-            const errorMessage = error?.message;
-
-            if (typeof errorMessage === 'object') {
-                Object.entries(errorMessage).forEach(([field, messages]) => {
-                    if (Array.isArray(messages)) {
-                        messages.forEach(msg => toast.error(msg));
-                    } else {
-                        toast.error(messages);
-                    }
-                });
-            } else {
-
-                toast.error(errorMessage);
-            }
+            console.log(error)
         }
     }
 

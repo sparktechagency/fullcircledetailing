@@ -16,7 +16,7 @@ const Choose = () => {
             <div className="order-2 lg:order-1">
               <CommonTitle text={"Why Choose Us?"} />
               <p className="text-[24px] text-wrap font-degular pt-3 text-primary">
-                Our name comes from our mission to transform challenges into shining successes. A portion of our profits are donated to community schools. We
+                Our name comes from our mission to transform challenges into shining successes. A portion of our profits is donated to community schools. We
                 thank you for your business.
               </p>
               <h3 className="font-semibold font-degular text-[32px] text-[#000000] pt-[25px] pb-[34px]">
@@ -125,7 +125,7 @@ const Choose = () => {
                       />
                     </svg>
                   </span>
-                  Customer Satisfaction – Your car comes FULL CIRCLE Detailing every time.
+                  Customer Satisfaction – Your car comes FULL CIRCLE every time.
                 </p>
 
                 <div className="pt-8 lg:pt-[137px] flex items-center gap-2">

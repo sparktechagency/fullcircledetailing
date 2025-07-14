@@ -35,22 +35,11 @@ const CreateNewPassword = () => {
         toast.success(res?.message);
         navigate('/password-successfull')
 
+      } else {
+        toast.error(res?.message);
       }
     } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-
-        toast.error(errorMessage);
-      }
+      console.log(error)
     }
   };
 
@@ -69,7 +58,7 @@ const CreateNewPassword = () => {
       <Helmet>
         <title>FULL CIRCLE Detailing~Create New Password</title>
       </Helmet>
-      <section className="pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
+      <section className="pt-28 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         <CustomContainer>
           <div className="flex flex-col lg:flex-row justify-between items-end gap-3">
             <div className="w-full p-4">

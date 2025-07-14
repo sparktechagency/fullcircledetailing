@@ -56,9 +56,6 @@ const ServiceAviablity = () => {
 
 
 
-  // console.log(moment(selectedDate)?.format("YY-MM-DD"))
-
-
   const today = new Date();
   const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -256,10 +253,6 @@ const ServiceAviablity = () => {
                           <Form.Item name="zip_code"
                             rules={[
                               { required: true, message: "Please enter your zip code" },
-                              // {
-                              //   pattern: /^[0-9]{4,6}$/,
-                              //   message: "Zip code must be 4 to 6 digits",
-                              // },
                             ]}
                           >
                             <Input

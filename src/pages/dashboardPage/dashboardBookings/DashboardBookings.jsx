@@ -80,7 +80,6 @@ const DashboardBookings = () => {
 
     try {
       const res = await deleteBookingApi(record.id).unwrap()
-      console.log('response--------> ', res)
       if (res?.status === true) {
         toast.success(res?.message)
         refetch()

@@ -48,19 +48,11 @@ const DashboardNotification = () => {
             if (res?.status === true) {
                 toast.success(res?.message)
                 await refetch()
+            }else{
+                toast.error(res?.message);
             }
         } catch (error) {
-            const errorMessage = error?.response?.data?.message;
-
-            if (typeof errorMessage === 'object') {
-                Object.entries(errorMessage).forEach(([field, messages]) => {
-                    if (Array.isArray(messages)) {
-                        messages.forEach(msg => toast.error(msg));
-                    } else {
-                        toast.error(messages);
-                    }
-                });
-            }
+           console.log(error)
         }
     }
 
@@ -72,19 +64,11 @@ const DashboardNotification = () => {
                 if (res?.status === true) {
                     toast.success(res?.message)
                     await refetch()
+                }else{
+                    toast.error(res?.message);
                 }
             } catch (error) {
-                const errorMessage = error?.response?.data?.message;
-
-                if (typeof errorMessage === 'object') {
-                    Object.entries(errorMessage).forEach(([field, messages]) => {
-                        if (Array.isArray(messages)) {
-                            messages.forEach(msg => toast.error(msg));
-                        } else {
-                            toast.error(messages);
-                        }
-                    });
-                }
+               console.log(error)
             }
         }
     }
@@ -98,19 +82,11 @@ const DashboardNotification = () => {
                 if (res?.status === true) {
                     toast.success(res?.message)
                     await refetch()
+                }else{
+                    toast.error(res?.message);
                 }
             } catch (error) {
-                const errorMessage = error?.response?.data?.message;
-
-                if (typeof errorMessage === 'object') {
-                    Object.entries(errorMessage).forEach(([field, messages]) => {
-                        if (Array.isArray(messages)) {
-                            messages.forEach(msg => toast.error(msg));
-                        } else {
-                            toast.error(messages);
-                        }
-                    });
-                }
+                console.log(error)
             } finally {
                 navigate(`/admin/dashboard/bookings?id=${data?.appointment_id}`);
             }
@@ -121,19 +97,11 @@ const DashboardNotification = () => {
                 if (res?.status === true) {
                     toast.success(res?.message)
                     await refetch()
+                }else{
+                    toast.error(res?.message);
                 }
             } catch (error) {
-                const errorMessage = error?.response?.data?.message;
-
-                if (typeof errorMessage === 'object') {
-                    Object.entries(errorMessage).forEach(([field, messages]) => {
-                        if (Array.isArray(messages)) {
-                            messages.forEach(msg => toast.error(msg));
-                        } else {
-                            toast.error(messages);
-                        }
-                    });
-                }
+               console.log(error)
             } finally {
                 navigate(`/admin/dashboard/feedbacks?id=${data?.feedback_id}`);
             }

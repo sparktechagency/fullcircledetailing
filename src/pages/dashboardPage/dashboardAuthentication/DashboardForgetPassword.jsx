@@ -24,22 +24,11 @@ const DashboardForgetPassword = () => {
         toast.success(res?.message)
         navigate(`/admin/dashboard/otp-code?email=${values?.email}`);
       }
-
-    } catch (error) {
-      const errorMessage = error?.data?.message;
-
-      if (typeof errorMessage === 'object') {
-        Object.entries(errorMessage).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            messages.forEach(msg => toast.error(msg));
-          } else {
-            toast.error(messages);
-          }
-        });
-      } else {
-
-        toast.error(errorMessage);
+      else {
+        toast.error(res?.message);
       }
+    } catch (error) {
+      console.log(error)
     }
   };
 
