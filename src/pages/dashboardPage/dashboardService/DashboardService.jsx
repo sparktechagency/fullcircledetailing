@@ -241,7 +241,7 @@ const DashboardService = () => {
   }
 
   const onFinishThree = async () => {
-
+    setLoading(true)
     const formData = new FormData();
     formData.append("time", slotData);
     formData.append("_method", "PUT");
@@ -256,11 +256,13 @@ const DashboardService = () => {
       if (res?.status === true) {
         toast.success(res?.message)
         await refetch()
-        setLoading(false)
         setModalThree(false)
+        setLoading(false)
       }
     } catch (errors) {
       console.log(errors)
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -643,6 +645,7 @@ const DashboardService = () => {
                 <Button
                   htmlType="submit"
                   block
+                  loading={loading}
                   style={{
                     backgroundColor: "#0063E5",
                     color: "#ffffff",
@@ -654,9 +657,7 @@ const DashboardService = () => {
                     marginTop: "20px"
                   }}
                 >
-                  {
-                    loading ? 'Loading' : "Add"
-                  }
+                 Add
                 </Button>
               </div>
             </Form>
@@ -776,6 +777,7 @@ const DashboardService = () => {
                 <Button
                   htmlType="submit"
                   block
+                  loading={loading}
                   style={{
                     backgroundColor: "#0063E5",
                     color: "#ffffff",
@@ -787,9 +789,7 @@ const DashboardService = () => {
                     marginTop: "20px"
                   }}
                 >
-                  {
-                    loading ? 'Loading' : "Save Changes"
-                  }
+                Save Changes
                 </Button>
               </div>
             </Form>

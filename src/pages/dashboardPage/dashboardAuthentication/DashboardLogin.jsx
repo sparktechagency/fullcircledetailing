@@ -15,6 +15,20 @@ const DashboardLogin = () => {
     const [postAuthApi] = usePostAuthApiMutation()
 
 
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
+
+        if (token && role === "ADMIN") {
+            navigate("/admin/dashboard");
+        }
+
+        document.title = "FULL CIRCLE Detailing~Dashboard Login";
+    }, [location.pathname]);
+
+
+
     const onFinish = async (values) => {
         const authInfo = {
             email: values?.email,

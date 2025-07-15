@@ -20,6 +20,7 @@ const ManageImages = () => {
   const [mondalTwo, setModalTwo] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const [loading, setLoading] = useState(false)
 
 
 
@@ -66,7 +67,7 @@ const ManageImages = () => {
   }
 
   const onFinishOne = async (values) => {
-
+    setLoading(true)
     const formData = new FormData();
     if (ImageFileList) {
       formData.append("photo", ImageFileList[0]?.originFileObj);
@@ -79,19 +80,24 @@ const ManageImages = () => {
 
     try {
       const res = await addPhoto(formData).unwrap();
+      console.log(res);
+
       if (res?.status === true) {
         toast.success(res?.message);
         setImageFileList([]);
         formOne.resetFields();
         setImageMadel(!imageMadel);
         setModalOne(false);
+        setLoading(false)
       } else {
         toast.error(res?.message);
       }
     } catch (error) {
       console.log(error)
     }
-
+    finally {
+      setLoading(false)
+    }
 
   }
 
@@ -117,7 +123,7 @@ const ManageImages = () => {
   }
 
   const onFinishTwo = async (values) => {
-
+    setLoading(true)
     const formData = new FormData();
     if (ImageFileList) {
       formData.append("photo", ImageFileList[0]?.originFileObj);
@@ -142,13 +148,16 @@ const ManageImages = () => {
         formTwo.resetFields();
         setImageMadel(false);
         setModalTwo(false);
+        setLoading(false)
       } else {
         toast.error(res?.message);
       }
     } catch (error) {
       console.log(error)
     }
-
+    finally {
+      setLoading(false)
+    }
 
   }
 
@@ -353,6 +362,7 @@ const ManageImages = () => {
                 <Button
                   htmlType="submit"
                   block
+                  loading={loading}
                   style={{
                     backgroundColor: "#0063E5",
                     color: "#ffffff",
@@ -371,7 +381,7 @@ const ManageImages = () => {
           </div>
         </Modal>
 
-        {/* modal one */}
+        {/* modal two */}
         <Modal
           centered
           title={
@@ -419,6 +429,7 @@ const ManageImages = () => {
                 <Button
                   htmlType="submit"
                   block
+                  loading={loading}
                   style={{
                     backgroundColor: "#0063E5",
                     color: "#ffffff",
@@ -430,7 +441,7 @@ const ManageImages = () => {
                     marginTop: "20px"
                   }}
                 >
-                  Save Image
+                Save Image
                 </Button>
               </div>
             </Form>
