@@ -186,7 +186,7 @@ const Navbar = () => {
                         }}
                         className="text-[20px] font-semibold tracking-wider flex items-center gap-2 border  py-4 px-8 rounded-full ">
                         Have an Account?
-                        Login
+                        Log In
                       </p>
 
                     ) : (
@@ -382,7 +382,7 @@ const Navbar = () => {
                             }}
                             className="md:text-[20px] font-semibold tracking-wider flex items-center gap-2 border py-2 md:py-4 px-[5px] md:px-8 rounded">
                             Have an Account?
-                            Login
+                            Log In
                           </p>
 
                         ) : (

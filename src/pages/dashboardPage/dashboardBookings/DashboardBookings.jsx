@@ -164,6 +164,12 @@ const DashboardBookings = () => {
         <span>{record?.user?.email}</span>
       )
     },
+    {
+      title: 'Phone', dataIndex: 'phone',
+      render: (_, record) => (
+        <span>{record?.user?.phone}</span>
+      )
+    },
 
     {
       title: 'Time', dataIndex: 'time', key: 'time',

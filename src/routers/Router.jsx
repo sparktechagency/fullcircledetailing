@@ -188,7 +188,7 @@ const router = createBrowserRouter([
         </PrivatRoutes>
       },
       {
-        path: "feedbacks",
+        path: "feedback",
         element: <PrivatRoutes>
           <Feedbacks />
         </PrivatRoutes>

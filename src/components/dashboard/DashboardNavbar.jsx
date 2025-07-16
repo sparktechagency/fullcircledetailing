@@ -75,10 +75,10 @@ const DashboardNavbar = ({ showDrawer, setShowDrawer }) => {
                 return (
                     <>
                         <h1 className="text-[#333333] font-semibold text-[30px]">
-                            Feedbacks
+                            Feedback
                         </h1>
                         <p className="font-normal text-lg -mt-3 mb-4">
-                            You can see all of the feedbacks of your site and app from here.
+                            You can see all of the feedback of your site and app from here.
                         </p>
                     </>
                 );

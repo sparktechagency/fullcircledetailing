@@ -176,7 +176,7 @@ const EditUserProfile = () => {
             </div>
 
             <div className="flex justify-center w-full">
-              <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Edit your Profile</h2>
+              <h2 className='text-[20px] md:text-[50px] font-medium font-degular'>Edit Your Profile</h2>
             </div>
           </div>
 
