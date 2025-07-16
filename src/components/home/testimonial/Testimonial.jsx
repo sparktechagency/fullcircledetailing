@@ -18,7 +18,7 @@ const Testimonial = () => {
               <div className="mt-6 md:flex md:items-center md:justify-between">
                 <div>
                   <CommonTitle
-                    text={"See what our client say"}
+                    text={"See what our clients say"}
                     customIcon={<div className="bg-primary h-0.5 w-6"></div>}
                   />
                 </div>

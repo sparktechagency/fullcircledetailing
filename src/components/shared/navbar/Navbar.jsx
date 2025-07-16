@@ -219,7 +219,7 @@ const Navbar = () => {
                                 />
                               </svg>
                               <p className="">
-                                Create Your Account
+                              Create Account/Log In
                               </p>
                             </span>
                         }
@@ -272,7 +272,7 @@ const Navbar = () => {
 
           {/* Sidebar (Mobile Menu) */}
           <div
-            className={`fixed top-0 right-0 h-full w-2/3 p-4 bg-[#f6f6f6] shadow-lg z-[200] transition-transform overflow-y-auto ${menuOpen ? "translate-x-0" : "translate-x-full"
+            className={`fixed top-0 right-0 h-full  p-4 bg-[#f6f6f6] shadow-lg z-[200] transition-transform overflow-y-auto ${menuOpen ? "translate-x-0" : "translate-x-full"
               }`}
           >
             <button
@@ -423,7 +423,7 @@ const Navbar = () => {
                                     />
                                   </svg>
                                   <p className="">
-                                    Create Your Account
+                                   Create Account/Log In
                                   </p>
                                 </span>
                             }
