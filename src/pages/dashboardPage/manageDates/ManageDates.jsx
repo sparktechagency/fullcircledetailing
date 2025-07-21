@@ -25,15 +25,15 @@ const ManageDates = () => {
 
 
   // Get array of already blocked dates
-  const blockedDates = allDateData?.map(item => new Date(item.date)) || [];
+const blockedDates = allDateData?.map(item => {
+    const date = new Date(item.date);
+    date.setDate(date.getDate() + 1);
+    return date;
+}) || [];
+
 
   // ✅ Local date format function (YYYY-MM-DD)
-  const formatDateLocal = (date) => {
-    const year = date.getFullYear();
-    const month = `${date.getMonth() + 1}`.padStart(2, "0");
-    const day = `${date.getDate()}`.padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
+
 
   // 🔹 User date select handler
   const handleDateSelect = (date) => {
