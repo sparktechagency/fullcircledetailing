@@ -36,7 +36,9 @@ const DashboardBookings = () => {
   const { data: filterBookingData, } = useFilterBookingApiQuery() // filter booking
   const [deleteBookingApi] = useDeleteBookingApiMutation()
   const { data: markBooking } = useGetMarkComplateBookingApiQuery()
-  const { data: detailsBookingData } = useGetDetailsBookingApiQuery(detailsId)
+  const { data: detailsBookingData } = useGetDetailsBookingApiQuery(detailsId,{
+    skip : !detailsId
+  })
   const allBookingData = bookingData?.data?.data
   const allFilterBookingData = filterBookingData?.data
   const totalPaginationData = bookingData?.data?.total

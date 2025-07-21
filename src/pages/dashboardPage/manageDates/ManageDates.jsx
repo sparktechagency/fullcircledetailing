@@ -21,10 +21,6 @@ const ManageDates = () => {
   const allDateData = manageDateData?.data?.data;
   console.log(allDateData)
 
-  const today = new Date();
-  const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toLocaleString("en-US", { timeZone: "America/New_York" });
-
-  // console.log("disable date",disabledBefore)
 
 
 
@@ -110,13 +106,13 @@ const ManageDates = () => {
         <div className='flex justify-evenly gap-10 pt-14'>
           <div className='w-[60%]'>
             <h2 className='text-[28px] font-degular font-medium pb-4'>Block certain dates</h2>
-            <div className="bg-gray-100 shadow-md p-4 h-[340px]">
+            <div className="bg-gray-100 shadow-md p-4 ">
               <DayPicker
                 mode="single"
                 selected={selectedDate}
                 onSelect={handleDateSelect}
                 disabled={[
-                  { before: disabledBefore }, // Disable past dates
+                  { before: new Date() }, // Disable past dates
                   ...blockedDates.map(date => ({ from: date, to: date })) // Disable already blocked dates
                 ]}
                 modifiersClassNames={{
