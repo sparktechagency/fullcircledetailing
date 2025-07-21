@@ -22,7 +22,11 @@ const ManageDates = () => {
   console.log(allDateData)
 
   const today = new Date();
-  const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toLocaleString("en-US", { timeZone: "America/New_York" });
+
+  // console.log("disable date",disabledBefore)
+
+
 
   // Get array of already blocked dates
   const blockedDates = allDateData?.map(item => new Date(item.date)) || [];
@@ -96,6 +100,7 @@ const ManageDates = () => {
     document.title = "FULL CIRCLE Detailing~Dashboard Manage Dates";
   }, [location.pathname]);
 
+ 
   return (
     <>
       <Helmet>

@@ -157,7 +157,9 @@ const DashboardService = () => {
         setModalOne(false)
       }
     } catch (error) {
-      console.log(error)
+      if(error){
+        toast.error(error?.data?.message?.icon)
+      }
     } finally {
       setLoading(false)
     }

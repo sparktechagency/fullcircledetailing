@@ -15,7 +15,7 @@ const ManageImages = () => {
   const [formTwo] = Form.useForm();
   const [ImageFileList, setImageFileList] = useState([]);
   const [imageMadel, setImageMadel] = useState(false);
-  const [imageID, setimageID] = useState(null);
+  const [imageID, setimageID] = useState('');
   const [mondalOne, setModalOne] = useState(false);
   const [mondalTwo, setModalTwo] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +30,7 @@ const ManageImages = () => {
   const [deletePhoto] = useDeletePhotoMutation() // delete
   const allPhoto = getPhoto?.data?.data
   const totalPagination = getPhoto?.data?.total
-  const selectedImage = allPhoto?.find(item => item.id === imageID);
+  const selectedImage = allPhoto?.find(item => item?.id === imageID);
 
 
   // defaut image show
@@ -89,6 +89,7 @@ const ManageImages = () => {
         setImageMadel(!imageMadel);
         setModalOne(false);
         setLoading(false)
+        refetch()
       } else {
         toast.error(res?.message);
       }
@@ -149,6 +150,7 @@ const ManageImages = () => {
         setImageMadel(false);
         setModalTwo(false);
         setLoading(false)
+        refetch()
       } else {
         toast.error(res?.message);
       }
@@ -190,6 +192,7 @@ const ManageImages = () => {
           const res = await deletePhoto(imageID).unwrap();
           if (res?.status === true) {
             toast.success(res?.message);
+            refetch()
           } else {
             toast.error(res?.message);
           }
@@ -441,7 +444,7 @@ const ManageImages = () => {
                     marginTop: "20px"
                   }}
                 >
-                Save Image
+                  Save Image
                 </Button>
               </div>
             </Form>
