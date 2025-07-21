@@ -51,6 +51,8 @@ const ServiceAviablity = () => {
   const { data: getBlockService } = useGetServiceAvilityApiQuery()
   const blockServiceDate = getBlockService?.data?.data;
 
+  
+
 
   const { data: timeData, isLoading, isFetching } = useGetTimeApiQuery({ service_id: id, date: moment(selectedDate)?.format("YY-MM-DD") })
 
@@ -60,7 +62,12 @@ const ServiceAviablity = () => {
   const disabledBefore = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   // Get array of already blocked dates
-  const blockedDates = blockServiceDate?.map(item => new Date(item.date)) || [];
+    // Get array of already blocked dates
+const blockedDates = blockServiceDate?.map(item => {
+    const date = new Date(item.date);
+    date.setDate(date.getDate() + 1);
+    return date;
+}) || [];
 
   // ==================== date formate and ui show start ==========================
   const date = new Date('Sun Jun 29 2025 00:00:00 GMT+0600');

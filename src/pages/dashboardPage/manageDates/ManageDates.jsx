@@ -27,8 +27,14 @@ const ManageDates = () => {
 
 
   // Get array of already blocked dates
-  const blockedDates = allDateData?.map(item => new Date(item.date)) || [];
+const blockedDates = allDateData?.map(item => {
+    const date = new Date(item.date);
+    date.setDate(date.getDate() + 1);
+    return date;
+}) || [];
 
+
+  // ✅ Local date format function (YYYY-MM-DD)
 
 
   // 🔹 User date select handler
