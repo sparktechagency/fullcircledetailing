@@ -82,7 +82,7 @@ const DashboardLogin = () => {
                             rules={[{ required: true, message: "Please enter your email" }]}
                         >
                             <Input
-                                placeholder="abidhasan@gmail.com"
+                                placeholder="example@gmail.com"
                                 style={{ height: "50px", width: "481px", backgroundColor: "#fefefe" }}
                                 className="bg-[#fefefe]"
                             />
