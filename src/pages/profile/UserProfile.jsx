@@ -2,16 +2,20 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CustomContainer from "../../components/shared/CustomContainer"
 import { useEffect, useState } from "react";
-import { useGetServiceApiQuery, useLogOutAuthApiMutation } from "../../redux/authontication/authApi";
+import { useDeleteApiMutation, useGetServiceApiQuery, useLogOutAuthApiMutation } from "../../redux/authontication/authApi";
 import toast from "react-hot-toast";
 import { useGetAuthProfileApiQuery } from "../../redux/dashboardFeatures/setting/dashboardSettingApi";
 import CustomLoading from "../../components/shared/CustomLoading";
 import { Helmet } from "react-helmet-async";
+import { Button, Form, Input, Modal } from "antd";
 
 
 const UserProfile = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [formOne] = Form.useForm();
+    const [mondalOne, setModalOne] = useState(false);
+    const [loading, setLoading] = useState(false)
 
 
     const [logOutAuthApi] = useLogOutAuthApiMutation(); // logout 
@@ -25,6 +29,45 @@ const UserProfile = () => {
     const serviceData = profileService?.data?.data
 
 
+    const [deleteApi] = useDeleteApiMutation()
+
+
+
+    // =============  modal one start ===============
+    const showModalOne = () => {
+        setModalOne(true)
+    }
+
+    const onFinishOne = async (values) => {
+
+        const formData = new FormData();
+        formData.append("password", values?.password);
+
+        try {
+            const res = await deleteApi(formData).unwrap();
+            console.log(res)
+
+            if (res?.status === true) {
+                toast.success(res?.message);
+                localStorage.removeItem("token")
+                localStorage.removeItem("role")
+                navigate('/')
+            } else {
+                toast.error(res?.message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleModalOneOk = () => {
+        formOne.submit()
+    }
+
+    const handleCancelModalOne = () => {
+        setModalOne(false)
+    }
+    // =============  modal one end ===============
 
 
     // logout function
@@ -47,6 +90,18 @@ const UserProfile = () => {
 
 
     useEffect(() => {
+        if (mondalOne) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto"; // Cleanup function
+        };
+    }, [mondalOne]);
+
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
@@ -54,9 +109,11 @@ const UserProfile = () => {
         document.title = "FULL CIRCLE Detailing~User Profile";
     }, [location.pathname]);
 
+
     if (isLoading) {
         return <CustomLoading />
     }
+
 
     return (
         <>
@@ -93,7 +150,6 @@ const UserProfile = () => {
                                 <p className="text-[20px] font-medium font-degular text-[#000000]">{userProfile?.email}</p>
                             </div>
 
-
                             {/* small device edit/logout buttont */}
                             <div className="w-full flex flex-col gap-3 pt-8 md:hidden">
                                 <Link to="/edit-user-profile">
@@ -102,6 +158,7 @@ const UserProfile = () => {
                                     </svg>
                                         Edit Profile</button>
                                 </Link>
+
                                 <button onClick={() => handleLogout()} className="flex items-center gap-2 border border-red-500 px-4 py-2 rounded-2xl text-[16px] font-semibold text-red-500 font-degular">
                                     <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.56214 17.129C9.56214 16.898 9.65452 16.6765 9.81896 16.5132C9.98341 16.3498 10.2064 16.2581 10.439 16.2581H17.454C17.5315 16.2581 17.6058 16.2275 17.6607 16.173C17.7155 16.1186 17.7463 16.0447 17.7463 15.9677V2.03226C17.7463 1.95526 17.7155 1.88141 17.6607 1.82697C17.6058 1.77252 17.5315 1.74194 17.454 1.74194H10.439C10.2064 1.74194 9.98341 1.65017 9.81896 1.48684C9.65452 1.3235 9.56214 1.10196 9.56214 0.870968C9.56214 0.639973 9.65452 0.418439 9.81896 0.2551C9.98341 0.0917623 10.2064 0 10.439 0H17.454C18.5834 0 19.5 0.910452 19.5 2.03226V15.9677C19.5 16.5067 19.2844 17.0236 18.9007 17.4048C18.517 17.7859 17.9966 18 17.454 18H10.439C10.2064 18 9.98341 17.9082 9.81896 17.7449C9.65452 17.5816 9.56214 17.36 9.56214 17.129Z" fill="#E33629" />
@@ -109,6 +166,11 @@ const UserProfile = () => {
                                     </svg>
 
                                     Logout</button>
+
+                                <button onClick={showModalOne} className="flex items-center gap-2 border  px-4 py-2 rounded-2xl text-[16px] font-semibold font-degular bg-[#FF1F3D] text-[#fff]"><svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 16C1 17.1 1.9 18 3 18H11C12.1 18 13 17.1 13 16V4H1V16ZM14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1Z" fill="white" />
+                                </svg>
+                                    Delete account</button>
                             </div>
                         </div>
 
@@ -116,29 +178,26 @@ const UserProfile = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         {/* medium & large device for */}
-                        <div className="absolute right-0 top-0 m-3 hidden md:block">
-                            <Link to="/edit-user-profile">
-                                <button className="flex items-center gap-2 border border-primary px-4 py-2 rounded-2xl text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
-                                </svg>
-                                    Edit Profile</button>
-                            </Link>
+                        <div className="absolute right-0 top-0 hidden md:block w-full">
+                            <div className="flex justify-between m-3">
+
+                                <button
+                                    onClick={showModalOne}
+                                    className="flex items-center gap-2 border  px-4 py-2 rounded-2xl text-[16px] font-semibold font-degular bg-[#FF1F3D] text-[#fff]"><svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 16C1 17.1 1.9 18 3 18H11C12.1 18 13 17.1 13 16V4H1V16ZM14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1Z" fill="white" />
+                                    </svg>
+                                    Delete account</button>
+
+                                <Link to="/edit-user-profile">
+                                    <button className="flex items-center gap-2 border border-primary px-4 py-2 rounded-2xl text-[16px] font-semibold text-primary font-degular"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.71 4.04125C18.1 3.65125 18.1 3.00125 17.71 2.63125L15.37 0.291249C15 -0.0987512 14.35 -0.0987512 13.96 0.291249L12.12 2.12125L15.87 5.87125M0 14.2512V18.0012H3.75L14.81 6.93125L11.06 3.18125L0 14.2512Z" fill="#0063E6" />
+                                    </svg>
+                                        Edit Profile</button>
+                                </Link>
+                            </div>
                         </div>
+
                         {/* medium & large device for */}
                         <div className="absolute right-0 bottom-0 m-3 hidden md:block">
                             <button onClick={() => handleLogout()} className="flex items-center gap-2 border border-red-500 px-4 py-2 rounded-2xl text-[16px] font-semibold text-red-500 font-degular">
@@ -149,8 +208,6 @@ const UserProfile = () => {
 
                                 Logout</button>
                         </div>
-
-
                     </div>
 
                     {/* car details & service history */}
@@ -270,6 +327,93 @@ const UserProfile = () => {
                     </div>
                 </CustomContainer>
             </section >
+
+
+
+            {/* modal one */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-[#FF1F3D] text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Delete account
+                    </div>
+                }
+                open={mondalOne}
+                onOk={handleModalOneOk}
+                onCancel={handleCancelModalOne}
+                footer={null}
+                width={600}
+                className='custom-service-modal'
+            >
+
+                <div className="p-8">
+                    <Form form={formOne} onFinish={onFinishOne}>
+                        <div className="space-y-3">
+                            <div className="flex justify-center">
+                                <div>
+                                    <div className="text-center">
+                                        <span className="flex justify-center pt-[50px] pb-4">
+                                            <svg width="38" height="48" viewBox="0 0 38 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M37.4332 2.63334H28.2165L25.5831 0H12.4164L9.7831 2.63334H0.566406V7.90002H37.4332M3.19975 42.1334C3.19975 43.5302 3.75463 44.8698 4.74232 45.8575C5.73001 46.8452 7.06961 47.4001 8.46642 47.4001H29.5331C30.93 47.4001 32.2696 46.8452 33.2572 45.8575C34.2449 44.8698 34.7998 43.5302 34.7998 42.1334V10.5334H3.19975V42.1334Z" fill="#EF4444" />
+                                            </svg>
+                                        </span>
+
+                                        <h3 className="text-[24px] font-bold font-degular  ">You are going to delete <br /> your account</h3>
+                                        <p className="text-[16px] font-degular text-[#888888] pb-[53px]">For deleting please enter your password</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* password */}
+                            <div>
+                                <Form.Item
+                                    name="password"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please enter your password",
+                                        },
+                                    ]}
+                                >
+                                    <Input.Password
+                                        placeholder="Password"
+                                        style={{
+                                            background: "#E7E7E7",
+                                            height: "60px",
+                                            borderRadius: "20px",
+                                            paddingInline: "20px",
+                                            border: "1px solid #ccc",
+                                        }}
+                                    />
+                                </Form.Item>
+                            </div>
+
+
+
+
+                            <Button
+                                htmlType="submit"
+                                block
+                                loading={loading}
+                                style={{
+                                    backgroundColor: "#FF1F3D",
+                                    color: "#ffffff",
+                                    fontSize: "20px",
+                                    fontWeight: "600",
+                                    height: "60px",
+                                    borderRadius: "20px",
+                                    border: "0px solid",
+                                    paddingInline: "20px",
+                                    marginTop: "20px"
+                                }}
+                            >
+                                Delete
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+            </Modal>
         </>
     )
 }

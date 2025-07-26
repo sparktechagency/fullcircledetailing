@@ -95,7 +95,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/user-profile",
-        element: <UserProfile />,
+        element: <PrivatRoutes>
+          <UserProfile />
+        </PrivatRoutes>
       },
       {
         path: "/edit-user-profile",

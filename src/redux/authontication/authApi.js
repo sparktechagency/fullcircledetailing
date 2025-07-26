@@ -51,7 +51,7 @@ const authApi = baseApi.injectEndpoints({
             query: (updateInfo) => ({
                 url: `/auth/change-profile`,
                 method: "POST",
-                body:updateInfo,
+                body: updateInfo,
             }),
             invalidatesTags: ['auth'],
         }),
@@ -59,7 +59,7 @@ const authApi = baseApi.injectEndpoints({
             query: (formData) => ({
                 url: `/auth/change-profile-photo`,
                 method: "POST",
-                body:formData,
+                body: formData,
             }),
             invalidatesTags: ['auth'],
         }),
@@ -67,7 +67,7 @@ const authApi = baseApi.injectEndpoints({
             query: (emailInfo) => ({
                 url: `/auth/forgot-password`,
                 method: "POST",
-                body:emailInfo,
+                body: emailInfo,
             }),
             invalidatesTags: ['auth'],
         }),
@@ -75,7 +75,15 @@ const authApi = baseApi.injectEndpoints({
             query: (resetInfo) => ({
                 url: `/auth/reset-password`,
                 method: "POST",
-                body:resetInfo,
+                body: resetInfo,
+            }),
+            invalidatesTags: ['auth'],
+        }),
+        deleteApi: builder.mutation({
+            query: (deleteInfo) => ({
+                url: `/auth/profile-delete`,
+                method: "POST",
+                body:deleteInfo,
             }),
             invalidatesTags: ['auth'],
         }),
@@ -83,4 +91,4 @@ const authApi = baseApi.injectEndpoints({
 })
 
 
-export const { usePostAuthApiMutation, useOtpSendApiMutation, useRegisterApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useGetServiceApiQuery, useUpdateProfileApiMutation,useUpdateSinglePhotoApiMutation,useForgetPasswordApiMutation,useResetPasswordApiMutation} = authApi;
+export const { usePostAuthApiMutation, useOtpSendApiMutation, useRegisterApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useGetServiceApiQuery, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation, useDeleteApiMutation } = authApi;
