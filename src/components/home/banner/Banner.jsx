@@ -167,7 +167,7 @@ const Banner = () => {
           {/* service section */}
           <div className="absolute left-0 right-0 lg:flex justify-center mt-10 hidden">
             <div className="flex justify-center items-center gap-4 ">
-              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+              <div className="md:h-[359px] md:w-[439px] lg:w-[400px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
                 <img src="/service/serviceLogo1.svg" alt="" />
                 <h3 className="font-degular text-primary text-[30px] font-semibold">
                   Premium Service
@@ -178,7 +178,7 @@ const Banner = () => {
                   expert care for vehicle maintenance.
                 </p>
               </div>
-              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+              <div className="md:h-[359px] md:w-[439px] lg:w-[400px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
                 <img src="/service/serviceLogo2.svg" alt="" />
                 <h3 className="font-degular text-primary text-[30px] font-semibold">
                   Advanced Equipment
@@ -187,7 +187,7 @@ const Banner = () => {
                   High-end car washing equipment includes advanced pressure washers, foam cannons, steam cleaners for superior cleaning and protection.
                 </p>
               </div>
-              <div className="md:h-[359px] md:w-[439px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
+              <div className="md:h-[359px] md:w-[439px] lg:w-[400px] flex flex-col justify-center items-center px-[53px] bg-[#FFFFFF] rounded-[37px]">
                 <img src="/service/serviceLogo3.svg" alt="" />
                 <h3 className="font-degular text-primary text-[30px] font-semibold">
                   Affordable Pricing

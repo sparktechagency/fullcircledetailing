@@ -95,7 +95,7 @@ const Navbar = () => {
                 <img src="/logo1.png" alt="" className="w-[200px] h-[100px] object-contain" />
               </div>
               <div
-                className={`flex transition-colors duration-500 ease-in-out ${shouldHideNavbarButton ? "justify-start items-center " : "justify-end items-center"} rounded-full space-x-20 font-medium text-[20px] pl-6 ${navbar ? "bg-[#ffff] " : "bg-[#ffffff] "
+                className={`flex transition-colors duration-500 ease-in-out ${shouldHideNavbarButton ? "justify-start items-center " : "justify-end items-center"} rounded-full space-x-10  font-medium text-[20px] pl-6 mx-4 ${navbar ? "bg-[#ffff] " : "bg-[#ffffff] "
                   }`}
               >
                 <NavLink
@@ -140,15 +140,15 @@ const Navbar = () => {
                     isPending
                       ? "pending"
                       : isActive
-                        ? "active text-primary font-bold"
-                        : ""
+                        ? "active text-primary font-bold "
+                        : " "
                   }
                 >
                   Photo Gallery
                 </NavLink>
 
                 <div className="p-2">
-                  <button onClick={() => handleServiceBookPage()} className="cursor-pointer text-[#ffffff] text-[20px] font-semibold bg-primary rounded-full py-4 px-[57px]">
+                  <button onClick={() => handleServiceBookPage()} className="cursor-pointer text-[#ffffff] text-[20px] font-semibold bg-primary rounded-full h-[60px] w-[130px] lg:w-[200px]">
                     Book Now
                   </button>
                 </div>
@@ -194,7 +194,7 @@ const Navbar = () => {
                         {
                           userProfileData?.data?.role === 'USER' ? <span
                             onClick={handlNavigateUserProfile}
-                            className="flex items-center bg-primary rounded-full gap-2  py-4 px-8"
+                            className="flex justify-center items-center bg-primary rounded-full gap-1 py-4 px-8 lg:px-4"
                           >
                             <img src={userProfileData?.data?.photo} alt="" className="w-[30px] h-[30px] rounded-full object-cover" />
                             <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
@@ -204,7 +204,7 @@ const Navbar = () => {
                             :
                             <span
                               onClick={() => handleCreateAccount()}
-                              className="flex items-center gap-2 text-[20px] font-semibold tracking-wider  border  py-4 px-8 rounded-full bg-primary text-[#ffffff]"
+                              className="flex justify-center items-center gap-2 px-2 text-[20px] font-semibold tracking-wider  border h-[60px] w-[260px] text-center  rounded-full bg-primary text-[#ffffff]"
                             >
                               <svg
                                 width="17"

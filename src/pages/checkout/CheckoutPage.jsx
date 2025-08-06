@@ -39,19 +39,27 @@ const CheckoutPage = () => {
   const carPhoto = userProfile?.car_photos
 
 
-  useEffect(() => {
-    if (userProfile && (stateAddress, zipCode)) {
-      formOne.setFieldsValue({
-        ...userProfile,
-        phone: userProfile?.phone,
-        name: userProfile?.name,
-        email: userProfile?.email,
-        street_address: stateAddress,
-        zip_code: zipCode,
-      })
-    }
+useEffect(() => {
+  if (userProfile) {
+    // Filter out invalid fields
+    const validProfile = Object.fromEntries(
+      Object.entries(userProfile).filter(([_, value]) =>
+        value !== undefined &&
+        value !== null &&
+        value !== "undefined" &&
+        value !== "null"
+      )
+    );
 
-  }, [userProfile]);
+    // Always include stateAddress and zipCode if they exist
+    if (stateAddress) validProfile.street_address = stateAddress;
+    if (zipCode) validProfile.zip_code = zipCode;
+
+    // Set values in form
+    formOne.setFieldsValue(validProfile);
+  }
+}, [userProfile, stateAddress, zipCode]);
+
 
 
 

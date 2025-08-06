@@ -275,11 +275,16 @@ const DashboardUsers = () => {
                                         <div className="grid grid-cols-2 gap-4 mb-6">
                                             <div>
                                                 <h4 className="text-sm font-medium text-gray-600 mb-1">Car Make</h4>
-                                                <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_brand}</p>
+                                                {/* <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_brand}</p> */}
+                                                {SingleUser?.car_brand && SingleUser?.car_brand !== "undefined" ? <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_brand}</p> : ''}
+
                                             </div>
                                             <div>
                                                 <h4 className="text-sm font-medium text-gray-600 mb-1">Car Model</h4>
-                                                <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_model}</p>
+                                                {/* <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_model}</p> */}
+                                                {SingleUser?.car_model && SingleUser?.car_model !== "undefined" ? <p className="text-2xl font-bold text-gray-800">{SingleUser?.car_model}</p> : ''}
+
+                                                
                                             </div>
                                         </div>
 

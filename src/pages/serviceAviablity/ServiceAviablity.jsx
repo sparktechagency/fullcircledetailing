@@ -328,7 +328,7 @@ const blockedDates = blockServiceDate?.map(item => {
                                     setActiveNextButton(true)
                                     setBookingTime(singleTime)
                                   }}
-                                  className={`w-fit px-[80px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
+                                  className={`w-fit px-[80px] xl:px-[60px] py-2 hover:bg-primary hover:text-[#ffff] text-[20px] cursor-pointer rounded-lg ${bookingTime === singleTime ? "bg-primary text-[#ffff]" : "bg-[#ffff]"
                                     }`}
                                 >
                                   {singleTime}

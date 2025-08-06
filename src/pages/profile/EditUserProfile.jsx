@@ -26,6 +26,7 @@ const EditUserProfile = () => {
   const userProfile = userProfileData?.data
   const carPhoto = userProfile?.car_photos
 
+  console.log(userProfile, 'userProfile')
 
   const [updatePhotoApi] = useUpdatePhotoApiMutation()
   const [updateProfileApi] = useUpdateProfileApiMutation()
@@ -74,18 +75,30 @@ const EditUserProfile = () => {
 
 
   const [imageUrl, setImageUrl] = useState("");
-  useEffect(() => {
-    if (userProfile) {
-      formOne.setFieldsValue({
-        ...userProfile,
-        email: userProfile?.email,
-      })
-    }
 
-    if (userProfile?.photo) {
-      setImageUrl(userProfile?.photo);
-    }
-  }, [userProfile]);
+useEffect(() => {
+  if (userProfile) {
+    // Keep only fields with valid values
+    const validProfile = Object.fromEntries(
+      Object.entries(userProfile).filter(([_, value]) =>
+        value !== undefined &&
+        value !== null &&
+        value !== "undefined" &&
+        value !== "null"
+      )
+    );
+
+    // Set only valid fields
+    formOne.setFieldsValue(validProfile);
+  }
+
+  // Handle image separately
+  if (userProfile?.photo) {
+    setImageUrl(userProfile.photo);
+  }
+}, [userProfile]);
+
+
 
 
   // only image upload function
@@ -127,6 +140,7 @@ const EditUserProfile = () => {
 
     try {
       const res = await updateProfileApi(formData).unwrap()
+
       if (res?.status === true) {
         toast.success(res?.message)
         refetch()

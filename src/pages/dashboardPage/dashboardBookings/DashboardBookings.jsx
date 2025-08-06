@@ -36,8 +36,8 @@ const DashboardBookings = () => {
   const { data: filterBookingData, } = useFilterBookingApiQuery() // filter booking
   const [deleteBookingApi] = useDeleteBookingApiMutation()
   const { data: markBooking } = useGetMarkComplateBookingApiQuery()
-  const { data: detailsBookingData } = useGetDetailsBookingApiQuery(detailsId,{
-    skip : !detailsId
+  const { data: detailsBookingData } = useGetDetailsBookingApiQuery(detailsId, {
+    skip: !detailsId
   })
   const allBookingData = bookingData?.data?.data
   const allFilterBookingData = filterBookingData?.data
@@ -494,14 +494,17 @@ const DashboardBookings = () => {
             </div>
 
             {/* Note */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Note</h3>
-              <div className="w-full bg-[#F6F6F6] p-4 rounded-xl">
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  {detailsBooking?.booking_note}
-                </p>
+            {
+              detailsBooking?.booking_note && <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Note</h3>
+                <div className="w-full bg-[#F6F6F6] p-4 rounded-xl">
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    {detailsBooking?.booking_note}
+                  </p>
+                </div>
               </div>
-            </div>
+            }
+
           </div>
         </Modal>
 
