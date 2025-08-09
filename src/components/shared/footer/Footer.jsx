@@ -2,7 +2,7 @@ import CustomContainer from "../CustomContainer";
 
 const Footer = () => {
   return (
-    <footer className="relative h-auto lg:h-[406px] flex items-center bg-[#000000] text-[#ffffff] font-degular">
+    <footer className="relative h-auto xl:h-[406px] flex items-center bg-[#000000] text-[#ffffff] font-degular">
       <div className="absolute inset-0 bg-[#000000]/50 z-0"></div>
       <CustomContainer>
         <div className="grid gap-8 md:gap-0  md:gap-y-28 lg:gap-y-0 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-[54px] lg:pt-10">

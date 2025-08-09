@@ -92,6 +92,8 @@ const CreateAccount = () => {
       <Helmet>
         <title>FULL CIRCLE Detailing~Create Account</title>
       </Helmet>
+
+      
       <section className=" pt-20 lg:pt-[120px] pb-[52px] bg-[#f6f6f6]">
         {/* <CustomContainer> */}
         <div className="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-20">

@@ -55,25 +55,31 @@ const Navbar = () => {
   }, [menuOpen]);
 
   const handleCreateAccount = () => {
+     setMenuOpen(false);
     navigate("/create-account");
   };
 
   const handleNavigate = () => {
+     setMenuOpen(false);
     navigate("/");
   };
 
   const handleServiceBookPage = () => {
+     setMenuOpen(false);
     navigate("/service-book");
   };
 
   const handleLogin = () => {
+      setMenuOpen(false);
     navigate("/login");
   };
 
   const handleNotification = () => {
+      setMenuOpen(false);
     navigate("/notification");
   };
   const handlNavigateUserProfile = () => {
+      setMenuOpen(false);
     navigate("/user-profile");
   };
 
@@ -90,12 +96,12 @@ const Navbar = () => {
         >
           <CustomContainer>
             {/* large devie */}
-            <div className={`lg:flex items-center transition-all duration-500 ease-in-out ${!shouldHideNavbarButton ? "justify-between" : "justify-start gap-10 "}`}>
+            <div className={`lg:flex items-center transition-all duration-500 ease-in-out  px-4 ${!shouldHideNavbarButton ? "justify-between" : "justify-start gap-10 "}`}>
               <div onClick={handleNavigate} className="cursor-pointer ">
-                <img src="/logo1.png" alt="" className="w-[200px] h-[100px] object-contain" />
+                <img src="/logo1.png" alt="" className="w-[150px] h-[80px] xl:w-[200px] xl:h-[100px] object-contain" />
               </div>
               <div
-                className={`flex transition-colors duration-500 ease-in-out ${shouldHideNavbarButton ? "justify-start items-center " : "justify-end items-center"} rounded-full space-x-10  font-medium text-[20px] pl-6 mx-4 ${navbar ? "bg-[#ffff] " : "bg-[#ffffff] "
+                className={`flex transition-colors duration-500 ease-in-out ${shouldHideNavbarButton ? "justify-start items-center " : "justify-end items-center"} rounded-full space-x-10  font-medium xl:text-[20px] pl-6 mx-4 ${navbar ? "bg-[#ffff] " : "bg-[#ffffff] "
                   }`}
               >
                 <NavLink
@@ -148,17 +154,18 @@ const Navbar = () => {
                 </NavLink>
 
                 <div className="p-2">
-                  <button onClick={() => handleServiceBookPage()} className="cursor-pointer text-[#ffffff] text-[20px] font-semibold bg-primary rounded-full h-[60px] w-[130px] lg:w-[200px]">
+                  <button onClick={() => handleServiceBookPage()} className="cursor-pointer text-[#ffffff] xl:text-[20px] font-semibold bg-primary rounded-full h-[40px] xl:h-[50px] w-[100px] xl:w-[160px]">
                     Book Now
                   </button>
                 </div>
               </div>
 
               {
-                !shouldHideNavbarButton && <div className="flex justify-center items-center gap-8">
+                !shouldHideNavbarButton && <div className="flex justify-center items-center gap-8 xl:gap-8 ">
                   {
-                    userProfileData?.data?.role === 'USER' && <span onClick={handleNotification} className="bg-primary rounded-full p-4 mr-6 cursor-pointer">
+                    userProfileData?.data?.role === 'USER' && <span onClick={handleNotification} className="bg-primary rounded-full p-3 xl:p-4 cursor-pointer">
                       <svg
+                        className="w-[16px] h-[16px] xl:w-[24px] xl:h-[24px]"
                         width="22"
                         height="22"
                         viewBox="0 0 18 22"
@@ -175,7 +182,7 @@ const Navbar = () => {
                   <button
                     className={`${isCreateAccountRoute
                       ? ""
-                      : "flex items-center rounded-full gap-2 p-4 "
+                      : "flex items-center rounded-full gap-2 xl:p-4 "
                       }`}
                   >
                     {isCreateAccountRoute ? (
@@ -184,7 +191,7 @@ const Navbar = () => {
                           handleLogin();
                           setMenuOpen(false);
                         }}
-                        className="text-[20px] font-semibold tracking-wider flex items-center gap-2 border  py-4 px-8 rounded-full ">
+                        className="xl:text-[20px] font-semibold tracking-wider flex items-center gap-2 border h-[40px] xl:h-[50px]  px-8 rounded-full ">
                         Have an Account?
                         Log In
                       </p>
@@ -194,17 +201,17 @@ const Navbar = () => {
                         {
                           userProfileData?.data?.role === 'USER' ? <span
                             onClick={handlNavigateUserProfile}
-                            className="flex justify-center items-center bg-primary rounded-full gap-1 py-4 px-8 lg:px-4"
+                            className="flex justify-center items-center gap-1 bg-primary rounded-full xl:gap-1 h-[40px] xl:h-[50px] px-2 xl:px-4"
                           >
-                            <img src={userProfileData?.data?.photo} alt="" className="w-[30px] h-[30px] rounded-full object-cover" />
-                            <p className="text-[#ffffff] text-[20px] font-semibold tracking-wider">
+                            <img src={userProfileData?.data?.photo} alt="" className="w-[20px] h-[20px] rounded-full object-cover " />
+                            <p className="flex items-center text-[#ffffff] xl:text-[20px] font-semibold tracking-wider">
                               {userProfileData?.data?.name}
                             </p>
                           </span>
                             :
                             <span
                               onClick={() => handleCreateAccount()}
-                              className="flex justify-center items-center gap-2 px-2 text-[20px] font-semibold tracking-wider  border h-[60px] w-[260px] text-center  rounded-full bg-primary text-[#ffffff]"
+                              className="flex justify-center items-center gap-2 px-2 xl:text-[20px] font-semibold tracking-wider  border h-[40px] xl:h-[50px] w-[250px] text-center  rounded-full bg-primary text-[#ffffff]"
                             >
                               <svg
                                 width="17"
@@ -219,7 +226,7 @@ const Navbar = () => {
                                 />
                               </svg>
                               <p className="">
-                              Create Account/Log In
+                                Create Account/Log In
                               </p>
                             </span>
                         }
@@ -266,6 +273,8 @@ const Navbar = () => {
               </button>
             </div>
           </div>
+
+
 
 
 
@@ -380,7 +389,7 @@ const Navbar = () => {
                               handleLogin();
                               setMenuOpen(false);
                             }}
-                            className="md:text-[20px] font-semibold tracking-wider flex items-center gap-2 border py-2 md:py-4 px-[5px] md:px-8 rounded">
+                            className="xl:text-[20px] font-semibold tracking-wider flex items-center gap-2 border py-2  px-[5px] xl:px-8 rounded">
                             Have an Account?
                             Log In
                           </p>
@@ -423,7 +432,7 @@ const Navbar = () => {
                                     />
                                   </svg>
                                   <p className="">
-                                   Create Account/Log In
+                                    Create Account/Log In
                                   </p>
                                 </span>
                             }
